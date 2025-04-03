@@ -1,4 +1,4 @@
-import Enumerations.FlatType;
+import enums.FlatType;
 
 import java.util.Date;
 

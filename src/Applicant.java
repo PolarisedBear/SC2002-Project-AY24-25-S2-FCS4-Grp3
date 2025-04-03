@@ -1,6 +1,6 @@
 import java.util.List;
 
-import Enumerations.ApplicationStatus;
+import enums.ApplicationStatus;
 
 public class Applicant extends User{
     private Application application;
@@ -20,7 +20,7 @@ public class Applicant extends User{
             System.out.println(project.getName());
         }
     }
-    public void applyForEligibleProject(Project project, FlatType flatType){
+    public void applyForEligibleProject(Project project, enums.FlatType flatType){
         List<Project> eligibleProjects = ProjectRegistry.findEligibleProjects(this);
         if(eligibleProjects.contains(project)){ //if eligible for project
             this.application = new Application(project, flatType, this);

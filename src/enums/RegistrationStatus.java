@@ -1,4 +1,4 @@
-package Enumerations;
+package enums;
 
 public enum RegistrationStatus {
     Pending,

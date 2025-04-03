@@ -1,5 +1,5 @@
-import Enumerations.ApplicationStatus;
-import Enumerations.FlatType;
+import enums.ApplicationStatus;
+import enums.FlatType;
 
 public class Application {
     private Applicant applicant;
@@ -10,6 +10,14 @@ public class Application {
 
     public Application(Applicant applicant) {
         this.applicant = applicant;
+        this.status = ApplicationStatus.Pending;
+    }
+
+    public Application(Project project, FlatType flatType, Applicant applicant) {
+        this.applicant = applicant;
+        this.appliedFlatType = flatType;
+        this.status = ApplicationStatus.Pending;
+        project.addApplication(this);
     }
 
     public boolean isEligibleForFlat(Applicant applicant, FlatType flatType) {
@@ -20,5 +28,9 @@ public class Application {
         Booking newBooking = new Booking();
 
 
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
     }
 }

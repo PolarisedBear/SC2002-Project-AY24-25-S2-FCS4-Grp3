@@ -16,7 +16,7 @@ public class ProjectRegistry{
         return allProjects;
     }
     public static List<Project> findEligibleProjects(Applicant applicant){
-        //
+
     }
 
 }
