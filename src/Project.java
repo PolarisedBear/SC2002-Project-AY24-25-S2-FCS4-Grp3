@@ -18,6 +18,7 @@ public class Project {
     private List<HDBOfficer> hdbOfficers;
 
     public Project() {
+        ProjectRegistry.addProject(this);
     }
 
     // Getters and Setters
@@ -91,5 +92,22 @@ public class Project {
     // Add application to list
     public void addApplication(Application application) {
         this.applications.add(application);
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "name='" + name + '\'' +
+                ", neighbourhood='" + neighbourhood + '\'' +
+                ", openDate=" + openDate +
+                ", closeDate=" + closeDate +
+                ", isVisible=" + isVisible +
+                ", maxOfficers=" + maxOfficers +
+                ", createdBy='" + createdBy + '\'' +
+                ", unitsAvailable=" + unitsAvailable +
+                ", applications=" + applications +
+                ", enquiries=" + enquiries +
+                ", hdbOfficers=" + hdbOfficers +
+                '}';
     }
 }

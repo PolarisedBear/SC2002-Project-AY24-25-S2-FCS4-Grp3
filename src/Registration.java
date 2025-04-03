@@ -11,7 +11,15 @@ public class Registration {
         this.project = project;
         this.requestDate = new Date();
         this.status = RegistrationStatus.Pending;
+        RegistrationRegistry.addRegistration(this);
     }
 
+    public void approve() {
+        this.status = RegistrationStatus.Approved;
+    }
+
+    public void reject() {
+        this.status = RegistrationStatus.Rejection;
+    }
 
 }

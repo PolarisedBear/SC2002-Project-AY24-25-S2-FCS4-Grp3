@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ProjectRegistry{
     private static List<Project> allProjects = new ArrayList<>();
-    private static void addProject(Project project){
+    public static void addProject(Project project){
         allProjects.add(project);
     }
     public static List<Project> removeProject(Project project){
