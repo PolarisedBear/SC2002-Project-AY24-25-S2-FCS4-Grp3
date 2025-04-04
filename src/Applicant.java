@@ -68,4 +68,18 @@ public class Applicant extends User{
     public void deleteEnquiry(){
 
     }
+    public Application getApplication(){
+        return this.application;
+    }
+    public String getMaritalStatus(){
+        return maritalStatus;
+    }
+
+    public int getAge(){
+        return age;
+    }
+    //
+    public String getName(){
+        return name;
+    }
 }

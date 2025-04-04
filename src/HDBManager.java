@@ -68,8 +68,11 @@ public class HDBManager extends User{
 
     }
 
-    public void generateReport(int number) {
+    public void generateReport(Project project, int number) {
+        List <Applicant> applicants = project.getApplicants();
         Report report = new Report();
+        report.generateApplicantBookingReport(number, applicants);
+        
     }
 
     public void viewEnquiries() {

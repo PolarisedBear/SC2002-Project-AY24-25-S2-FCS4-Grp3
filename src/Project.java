@@ -16,6 +16,7 @@ public class Project {
     private List<Application> applications;
     private List<Enquiry> enquiries;
     private List<HDBOfficer> hdbOfficers;
+    private List<Applicant> applicants; //added
 
     public Project() {
         ProjectRegistry.addProject(this);
@@ -92,6 +93,11 @@ public class Project {
     // Add application to list
     public void addApplication(Application application) {
         this.applications.add(application);
+    }
+
+    //
+    public List<Applicant> getApplicants(){
+        return applicants;
     }
 
     @Override

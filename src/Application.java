@@ -33,4 +33,14 @@ public class Application {
     public void setStatus(ApplicationStatus status) {
         this.status = status;
     }
+    public FlatType getFlatType(){
+        return appliedFlatType;
+    }
+    public String getProject(){
+        return projectName;
+    }
+    public ApplicationStatus getStatus(){
+        return status;
+    }
+
 }

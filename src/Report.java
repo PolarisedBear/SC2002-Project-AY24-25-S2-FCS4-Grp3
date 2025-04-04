@@ -1,12 +1,32 @@
 import java.util.List;
 
+import enums.ApplicationStatus;
+
 public class Report {
 
     public Report() {
     }
 
-    public void generateApplicantBookingReport(int number) {
+    public void generateApplicantBookingReport(int number, List<Applicant> applicants) {
+        int counter = 0;
+        for (Applicant applicant : applicants){
+            if(counter >= number){
+                break;
+            }
+            System.out.println("Applicant Name: " + applicant.getName());
+            System.out.println("Age: " + applicant.getAge());
+            System.out.println("Marital Status: " + applicant.getMaritalStatus());
+            
+// If application for applicant exists and it is successful in status
+            if (applicant.getApplication() != null && applicant.getApplication().getStatus() == ApplicationStatus.Successful) {
+                System.out.println("Flat Type: " + applicant.getApplication().getFlatType());
+                System.out.println("Project Name: " + applicant.getApplication().getProject().getName());
+            } else {
+                System.out.println("No application yet!");
+            }
+            counter++;
 
+        }
     }
 
     public List<Applicant> filterByMaritalStatus(int number) {
