@@ -13,11 +13,12 @@ public class HDBOfficer extends User{
     }
 
     public void viewProjectDetails() {
-
+        System.out.println(assignedProject.toString());
     }
 
     public void registerForProject(Project project) {
-
+        Registration newRegistration = new Registration(project);
+        registrations.add(newRegistration);
     }
 
     public Application findApplicationByNRIC(String nric) {
