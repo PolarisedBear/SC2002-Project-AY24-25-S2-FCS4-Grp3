@@ -1,5 +1,11 @@
+import enums.FlatType;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static java.util.Locale.filter;
 
 public class ProjectRegistry{
     private static List<Project> allProjects = new ArrayList<>();
@@ -12,11 +18,32 @@ public class ProjectRegistry{
         }
         return allProjects;
     }
+
     public static List<Project> getAllProjects(){
         return allProjects;
     }
-    public static List<Project> findEligibleProjects(Applicant applicant){
 
+    public static List<Project> findEligibleProjects(Applicant applicant){
+        // Conditions for specific flat types
+        List<Project> eligibleProjects;
+        // Check if applicant is single, 35 yrs and above
+        if (applicant.getAge() >= 35 && applicant.getMaritalStatus().equals("Single")) {
+            eligibleProjects = getAllProjects().stream()
+                    .filter(project -> {
+                        Map<FlatType, Integer> eligibleUnits = project.getUnitsAvailable();
+                        return eligibleUnits.containsKey(FlatType.TWO_ROOM) && eligibleUnits.get(FlatType.TWO_ROOM) > 0;
+                    }).toList();
+        } else if (applicant.getAge() >= 21 && applicant.getMaritalStatus().equals("Married")) {
+            eligibleProjects = getAllProjects().stream()
+                    .filter(project -> {
+                        Map<FlatType, Integer> eligibleUnits = project.getUnitsAvailable();
+                        return (eligibleUnits.getOrDefault(FlatType.TWO_ROOM, 0) > 0) || (eligibleUnits.getOrDefault(FlatType.THREE_ROOM, 0) > 0);
+                    }).toList();
+        } else {
+            // if applicant fits neither criteria return empty list.
+            eligibleProjects = new ArrayList<>();
+        }
+        return eligibleProjects;
     }
 
 }

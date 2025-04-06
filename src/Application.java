@@ -21,7 +21,13 @@ public class Application {
     }
 
     public boolean isEligibleForFlat(Applicant applicant, FlatType flatType) {
-
+        boolean eligibleFor2R = applicant.getAge()>=35 && applicant.getMaritalStatus().equals("Single");
+        boolean eligibleFor2R3R = applicant.getAge()>=21 && applicant.getMaritalStatus().equals("Married");
+        return switch (flatType) {
+            case TWO_ROOM -> eligibleFor2R || eligibleFor2R3R;
+            case THREE_ROOM -> eligibleFor2R3R;
+            default -> false;
+        };
     }
 
     public Booking bookFlat(FlatType flatType) {

@@ -24,7 +24,7 @@ public class HDBManager extends User{
     }
 
     public void toggleProjectVisibility(Project project, boolean isVisible) {
-
+        project.setVisible(isVisible);
     }
 
     public void viewAllProjects() {
