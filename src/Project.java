@@ -1,16 +1,17 @@
-import enums.FlatType;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class Project {
     private String name;
+    private String projectId;
+    private List<FlatType> flatTypes;
     private String neighbourhood;
-    private Date openDate;
+    private Date openingDate;
     private Date closeDate;
     private boolean isVisible;
     private int maxOfficers;
+    private int officerSlots;
     private String createdBy;
     private Map<FlatType, Integer> unitsAvailable;
     private List<Application> applications;
@@ -29,11 +30,11 @@ public class Project {
     public void setName(String name) {
         this.name = name;
     }
-    public Date getOpenDate() {
-        return openDate;
+    public Date getOpeningDate() {
+        return openingDate;
     }
-    public void setOpenDate(Date openDate) {
-        this.openDate = openDate;
+    public void setOpeningDate(Date openingDate) {
+        this.openingDate = openingDate;
     }
     public boolean isVisible() {
         return isVisible;
@@ -105,7 +106,7 @@ public class Project {
         return "Project{" +
                 "name='" + name + '\'' +
                 ", neighbourhood='" + neighbourhood + '\'' +
-                ", openDate=" + openDate +
+                ", openingDate=" + openingDate +
                 ", closeDate=" + closeDate +
                 ", isVisible=" + isVisible +
                 ", maxOfficers=" + maxOfficers +

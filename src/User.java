@@ -60,14 +60,16 @@ public class User {
         this.maritalStatus = status;
     }
 
-    public void login() {
-        Scanner scan = new Scanner(System.in);
-        // Needs user database to check name and password!
+    public void notifyStatusChange(Application application) {
+
     }
 
-    public void changePassword() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the new password:");
-        this.password = scan.next();
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if (oldPassword.equals(this.password)) {
+            this.password = newPassword;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

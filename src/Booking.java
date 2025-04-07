@@ -1,5 +1,3 @@
-import enums.FlatType;
-
 import java.util.Date;
 
 public class Booking {

@@ -1,5 +1,4 @@
 import enums.ApplicationStatus;
-import enums.FlatType;
 
 public class Application {
     private Applicant applicant;
