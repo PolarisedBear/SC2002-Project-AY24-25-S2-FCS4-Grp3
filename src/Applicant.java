@@ -2,7 +2,7 @@ import java.util.List;
 
 import enums.ApplicationStatus;
 
-public class Applicant extends User{
+public class Applicant extends User {
     private Application application;
     private List<Enquiry> enquiries;
     private String maritalStatus;
@@ -38,7 +38,7 @@ public class Applicant extends User{
             System.out.println("Not applied for any projects.");
         }
     }
-    public void requestFlatBooking(){
+    /* public void requestFlatBooking(){
         if(this.application!=null && this.application.getstatus()==ApplicationStatus.Successful){
             bookFlat(application.getflatType());
             System.out.println("Flat booking requested, please wait for a HDB officer to book a flat for you.");
@@ -46,7 +46,7 @@ public class Applicant extends User{
         else{
             System.out.println("Since your application is unsuccessful, you cannot request to book a flat.");
         }
-    }
+    } */
     public void RequestWithdrawal(){
         if(this.application!=null && this.application.getstatus()==ApplicationStatus.Withdrawn){
             this.application = null;

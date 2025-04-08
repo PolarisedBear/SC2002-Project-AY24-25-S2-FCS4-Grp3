@@ -1,10 +1,9 @@
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class User {
     private String name;
+    private String id;
     private String nric = null;
     private String password;
     private int age = 0;
@@ -18,25 +17,24 @@ public class User {
         this.password = scan.next();
     }
 
-    public void setAge() {
+   /* public void setAge() {
         Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Set your age:");
             this.age = scan.nextInt();
         } while (this.age<=0);
+    } */
+
+
+    public String getPassword() {
+        return password;
     }
 
-    public static boolean isValidNric(String nric) {
-        // Define the nric string
-        String regex = "^[STFG]\\d{7}[A-Z]$";
-
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(nric);
-
-        return matcher.matches(); // Returns true if nric uses the correct format
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setNric() {
+    /*public void setNric() {
         Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Set NRIC:");
@@ -46,7 +44,7 @@ public class User {
             }
         } while (!User.isValidNric(this.nric));
 
-    }
+    } */
 
     public void setMaritalStatus() {
         Scanner scan = new Scanner(System.in);
@@ -64,12 +62,4 @@ public class User {
 
     }
 
-    public boolean changePassword(String oldPassword, String newPassword) {
-        if (oldPassword.equals(this.password)) {
-            this.password = newPassword;
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

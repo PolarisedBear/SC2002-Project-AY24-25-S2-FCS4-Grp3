@@ -3,7 +3,7 @@ import enums.ApplicationStatus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HDBManager extends User{
+public class HDBManager extends User {
     private List<Project> createdProjects = new ArrayList<>();
     private Project currentProject;
 
