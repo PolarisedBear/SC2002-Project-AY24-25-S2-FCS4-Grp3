@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class FlatType {
     private String type;
     private int totalUnits;
