@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.Scanner;
 
-public class User {
+public class User implements IUserService{
     private String name;
     private String id;
     private String nric = null;
@@ -62,4 +62,18 @@ public class User {
 
     }
 
+    @Override
+    public boolean login(String nric, String password) {
+        return nric.equalsIgnoreCase(this.nric) && password.equals(this.password);
+    }
+
+    @Override
+    public boolean register(User user) {
+        return false;
+    }
+
+    @Override
+    public void updateProfile(User user) {
+
+    }
 }
