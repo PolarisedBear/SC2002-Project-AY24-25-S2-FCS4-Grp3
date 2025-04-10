@@ -36,4 +36,13 @@ public class FlatType {
         }
         return allTrue;
     }
+
+    public void addEligibilityRule(EligibilityRule rule) {
+        this.eligibilityRules.add(rule);
+    }
+
+    public boolean checkEligibility(Applicant applicant) {
+        // dk what this method is for tbh
+        return false;
+    }
 }

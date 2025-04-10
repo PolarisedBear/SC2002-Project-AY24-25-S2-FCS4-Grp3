@@ -117,4 +117,30 @@ public class Project {
                 ", hdbOfficers=" + hdbOfficers +
                 '}';
     }
+
+    public boolean isEligibleForApplication(Applicant applicant) {
+        boolean isEligible = false;
+        for (FlatType flatType : this.flatTypes) {
+            if (flatType.isEligibleForApplicant(applicant)) {isEligible = true; break;}
+        }
+        return isEligible;
+    }
+
+    public boolean hasAvailableUnitsForApplicant(Applicant applicant) {
+        for (FlatType flatType : this.flatTypes) {
+            if (flatType.isEligibleForApplicant(applicant)) {
+                return this.unitsAvailable.get(flatType) != 0;
+            }
+        }
+        return false;
+    }
+
+    public boolean isWithinApplicationPeriod(Date date) {
+        return !date.before(this.openingDate) && !date.after(this.closeDate);
+    }
+
+    public boolean checkForConflictOfInterest(User user) {
+        // don't quite understand what this means
+        return false;
+    }
 }

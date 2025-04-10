@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
-public class Session {
+public class Session extends UserController{
     private User currentUser;
 
     // When we start a new session, we start by logging in.
-    public Session() {
+    public Session(IUserService userService) {
+        super(userService);
         this.currentUser = null;
     }
 
