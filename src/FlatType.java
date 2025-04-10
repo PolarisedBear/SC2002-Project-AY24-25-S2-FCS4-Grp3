@@ -17,11 +17,23 @@ public class FlatType {
         return this.remainingUnits;
     }
 
-    public void updateRemainingUnits() {
-
+    public void updateRemainingUnits(int change, char operator) {
+        if (operator == '+') {
+            this.remainingUnits += change;
+        }
+        if (operator == '-') {
+            this.remainingUnits -= change;
+        }
     }
 
     public boolean isEligibleForApplicant(Applicant applicant) {
-
+        boolean allTrue = true;
+        for (EligibilityRule eligibilityRule : this.eligibilityRules) {
+            if (!eligibilityRule.isSatisfiedBy(applicant)) {
+                allTrue = false;
+                break;
+            }
+        }
+        return allTrue;
     }
 }

@@ -7,6 +7,10 @@ public class MaritalStatusEligibilityRule implements EligibilityRule{
 
     @Override
     public boolean isSatisfiedBy(Applicant applicant) {
-        return false;
+        if (!this.requiresMarried) {
+            return true;
+        } else {
+            return applicant.getMaritalStatus().equalsIgnoreCase("Married");
+        }
     }
 }
