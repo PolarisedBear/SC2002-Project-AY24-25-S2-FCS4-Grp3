@@ -68,4 +68,10 @@ public class UserController implements UserView, IAuthenticationService, IUserSe
     public void processPasswordChange(String oldPassword, String newPassword) {
 
     }
+
+    public User findUser(String nric) {
+        return userList.stream()
+                .filter(user -> user.getNric().equalsIgnoreCase(nric))
+                .findFirst().orElse(null);
+    }
 }
