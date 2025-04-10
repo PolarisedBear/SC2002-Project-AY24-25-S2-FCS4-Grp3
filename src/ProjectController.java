@@ -1,14 +1,19 @@
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class ProjectController implements ProjectView{
+public class ProjectController implements ProjectView, IProjectService{
     private IProjectService projectService;
+    private static List<Project> projectList;
 
     public ProjectController(IProjectService projectService) {
         this.projectService = projectService;
+        projectList = new ArrayList<>();
     }
 
     public void createProject() {
-
+        Project newProject = new Project();
+        projectList.add(newProject);
     }
 
     public void editProject() {
@@ -49,5 +54,15 @@ public class ProjectController implements ProjectView{
     @Override
     public void showCreateProjectForm() {
 
+    }
+
+    @Override
+    public List<Project> findProjectsByManager(HDBManager manager) {
+        return List.of();
+    }
+
+    @Override
+    public boolean hasActiveProject(HDBManager manager, Date date) {
+        return false;
     }
 }
