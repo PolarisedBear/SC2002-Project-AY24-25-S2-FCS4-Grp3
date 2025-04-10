@@ -1,27 +1,34 @@
-public class UserController implements UserView, IAuthenticationService {
+import java.util.ArrayList;
+import java.util.List;
+
+public class UserController implements UserView, IAuthenticationService, IUserService {
 
     private IUserService userService;
+    private static List<User> userList;
 
     public UserController(IUserService userService) {
         this.userService = userService;
+        userList = new ArrayList<>();
     }
 
-    public void login(String nric, String password) {
-        boolean login = userService.login(nric, password);
-        if (login) {
-            System.out.println("Login Successful!");
-        } else {
-            System.out.println("Login Failed!");
+    public boolean login(String nric, String password) {
+        // Search the userlist for a user with matching nric and password
+        User checkUser = userList.stream()
+                .filter(user -> {
+                    return user.getNric().equalsIgnoreCase(nric);
+                })
+                .findFirst().orElse(null);
+        if (checkUser == null) {
+            return false;
+        } else if (checkUser.getPassword().equals(password)){
+            return true;
         }
+        return false;
     }
 
-    public void register(User user) {
-        boolean register = userService.register(user);
-        if (register) {
-            System.out.println("Registration Successful!");
-        } else {
-            System.out.println("Registration Failed!");
-        }
+    public boolean register(User user) {
+        // Search for existing user
+
     }
 
     public void updateProfile(User user) {

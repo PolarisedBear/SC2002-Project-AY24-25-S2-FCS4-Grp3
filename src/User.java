@@ -46,6 +46,10 @@ public class User implements IUserService{
 
     } */
 
+    public String getNric() {
+        return nric;
+    }
+
     public void setMaritalStatus() {
         Scanner scan = new Scanner(System.in);
         List<String> validStatuses = List.of("Married", "Single");
