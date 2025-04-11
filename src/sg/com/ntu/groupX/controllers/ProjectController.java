@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import IProjectService;
-import ProjectView;
+import sg.com.ntu.groupX.controllers.services.IProjectService;
+import sg.com.ntu.groupX.views.ProjectView;
 
 public class ProjectController implements ProjectView, IProjectService{
     private IProjectService projectService;

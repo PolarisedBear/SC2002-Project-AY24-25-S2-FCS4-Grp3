@@ -1,14 +1,14 @@
 package sg.com.ntu.groupX.controllers;
 import java.util.Map;
 
-import Enquiry;
+import sg.com.ntu.groupX.models.Enquiry;
 import IEnquiryService;
-import Project;
+import sg.com.ntu.groupX.models.Project;
 import sg.com.ntu.groupX.views.EnquiryView;
 
 public class EnquiryController implements EnquiryView, IEnquiryService{
     private IEnquiryService enquiryService;
-    private static Map<Project, Enquiry> enquiryMap;
+    private static Map<Project, sg.com.ntu.groupX.models.Enquiry> enquiryMap;
 
     public EnquiryController(IEnquiryService enquiryService) {
         this.enquiryService = enquiryService;

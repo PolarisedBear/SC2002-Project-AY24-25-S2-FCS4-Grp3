@@ -1,3 +1,7 @@
+import sg.com.ntu.groupX.models.FlatType;
+import sg.com.ntu.groupX.models.Project;
+import sg.com.ntu.groupX.roles.Applicant;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

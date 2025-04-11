@@ -3,8 +3,8 @@ import java.util.List;
 import java.util.Map;
 
 import IApplicationFilterService;
-import IReportService;
-import ReportView;
+import sg.com.ntu.groupX.controllers.services.IReportService;
+import sg.com.ntu.groupX.views.ReportView;
 
 public class ReportController implements ReportView, IApplicationFilterService{
     private IReportService reportService;

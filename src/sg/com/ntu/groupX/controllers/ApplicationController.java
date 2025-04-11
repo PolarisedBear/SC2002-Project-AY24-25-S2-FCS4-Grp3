@@ -1,7 +1,7 @@
 package sg.com.ntu.groupX.controllers;
-import HDBOfficer;
+import sg.com.ntu.groupX.roles.HDBOfficer;
 import IApplicationService;
-import Project;
+import sg.com.ntu.groupX.models.Project;
 public class ApplicationController {
     private IApplicationService applicationService;
 

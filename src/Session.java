@@ -1,4 +1,5 @@
 import sg.com.ntu.groupX.controllers.UserController;
+import sg.com.ntu.groupX.roles.User;
 
 public class Session{
     private User currentUser;
@@ -9,13 +10,13 @@ public class Session{
     }
 
 //    if (gonna check the user type in csv)
-//    currentUser = new Applicant()
-//    currentUser = new HDBOfficer()
+//    currentUser = new sg.com.ntu.groupX.roles.Applicant()
+//    currentUser = new sg.com.ntu.groupX.roles.HDBOfficer()
 
     public void login(UserController controller, String nric, String password) {
         if (controller.login(nric, password)) {
             this.currentUser = controller.findUser(nric);
-            System.out.println("User logged in: " + currentUser.getName());
+            System.out.println("sg.com.ntu.groupX.roles.User logged in: " + currentUser.getName());
         }
     }
     public User getCurrentUser(){
