@@ -1,3 +1,7 @@
+package sg.com.ntu.groupX.controllers;
+
+import sg.com.ntu.groupX.views.UserView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +17,7 @@ public class UserController implements UserView, IAuthenticationService, IUserSe
         this.userService = userService;
         this.scanner = new Scanner(System.in);
         userList = new ArrayList<>();
-        this.loginSession = new Session(userService);
+        this.loginSession = new Session();
     }
 
     public boolean login(String nric, String password) {
