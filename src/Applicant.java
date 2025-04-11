@@ -57,7 +57,7 @@ public class Applicant extends User {
         }
     }
     public void SubmitEnquiry(String content, Project project){
-        Enquiry newEnquiry = new Enquiry(content);
+        Enquiry newEnquiry = new Enquiry(project, content, this);
         enquiries.add(newEnquiry);
         System.out.println("Enquiry has been sent, please wait for a reply.");
     }
