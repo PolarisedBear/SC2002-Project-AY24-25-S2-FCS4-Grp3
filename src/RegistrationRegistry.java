@@ -1,6 +1,6 @@
-import sg.com.ntu.groupX.models.Project;
-import sg.com.ntu.groupX.models.Registration;
-import sg.com.ntu.groupX.roles.HDBOfficer;
+import sg.com.ntu.group3.models.Project;
+import sg.com.ntu.group3.models.Registration;
+import sg.com.ntu.group3.roles.HDBOfficer;
 
 import java.util.ArrayList;
 import java.util.List;

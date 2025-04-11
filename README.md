@@ -1,1 +1,1 @@
-# SC2002-sg.com.ntu.groupX.models.Project
+# SC2002-sg.com.ntu.group3.models.Project
