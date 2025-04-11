@@ -1,5 +1,10 @@
 package sg.com.ntu.group3.roles;
 
+import sg.com.ntu.group3.models.Application;
+import sg.com.ntu.group3.models.Enquiry;
+import sg.com.ntu.group3.models.Project;
+import sg.com.ntu.group3.models.Registration;
+
 import java.util.List;
 
 public class HDBOfficer extends User {

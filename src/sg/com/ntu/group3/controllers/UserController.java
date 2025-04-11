@@ -1,35 +1,34 @@
 package sg.com.ntu.group3.controllers;
 
+import sg.com.ntu.group3.controllers.services.AuthenticationService;
 import sg.com.ntu.group3.controllers.services.IAuthenticationService;
 import sg.com.ntu.group3.controllers.services.IUserService;
-import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.UserView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
 public class UserController {
 
-    private IAuthenticationService iauthService;
+    private AuthenticationService authenticationService;
     private IUserService iuserService;
     private Scanner scanner;
     private Session loginSession;
 
-    public UserController(IUserService iuserService, IAuthenticationService iauthService) {
+    public UserController(IUserService iuserService, AuthenticationService authenticationService) {
         this.iuserService = iuserService;
-        this.iauthService = iauthService;
+        this.authenticationService = authenticationService;
         this.scanner = new Scanner(System.in);
         this.loginSession = new Session();
 
     }
 
-    public boolean login(String nric, String password) {
+    public boolean login(String nric, String password) throws IOException {
         // Search the userlist for a user with matching nric and password
-        if (iauthService.validateCredentials(nric, password)) {
-            User user = this.iauthService.findUserByNric(nric);
+        if (authenticationService.validateCredentials(nric, password)) {
+            User user = this.authenticationService.findUserByNric(nric);
             loginSession.login(user);
             System.out.println("Login successful.");
             return true;
@@ -121,7 +120,7 @@ public class UserController {
             Map.Entry<String, String> oldpw_Newpw = UserView.showPasswordChangeForm();
             String oldpw = oldpw_Newpw.getKey();
             String newpw = oldpw_Newpw.getValue();
-            successful = this.iauthService.changePassword(user, oldpw, newpw);
+            successful = this.authenticationService.changePassword(user, oldpw, newpw);
         } else {
             System.out.println("Not logged in");
             return false;

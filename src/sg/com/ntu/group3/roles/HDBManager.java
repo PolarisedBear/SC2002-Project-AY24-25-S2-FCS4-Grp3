@@ -1,7 +1,7 @@
 package sg.com.ntu.group3.roles;
 
 import enums.ApplicationStatus;
-import sg.com.ntu.group3.models.Project;
+import sg.com.ntu.group3.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +31,7 @@ public class HDBManager extends User {
     }
 
     public void viewAllProjects() {
-        List<Project> projectList = ProjectRegistry.getAllProjects();
-        for (Project project : projectList) {
-            System.out.println(project.toString());
-        }
+
     }
 
     public void viewAllSelfProjects() {
