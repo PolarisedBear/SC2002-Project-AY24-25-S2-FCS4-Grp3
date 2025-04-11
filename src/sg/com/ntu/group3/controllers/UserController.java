@@ -11,32 +11,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class UserController implements IUserService {
+public class UserController {
 
+    private IAuthenticationService iauthService;
+    private IUserService iuserService;
     private Scanner scanner;
     private static List<User> userList;
     private Session loginSession;
 
-    public UserController(Session session) {
+    public UserController(IUserService iuserService, IAuthenticationService iauthService) {
+        this.iuserService = iuserService;
+        this.iauthService = iauthService;
         this.scanner = new Scanner(System.in);
         userList = new ArrayList<>();
-        this.loginSession = session;
+        this.loginSession = new Session();
+
     }
 
     public boolean login(String nric, String password) {
         // Search the userlist for a user with matching nric and password
-        User checkUser = userList.stream()
-                .filter(user -> {
-                    return user.getNric().equalsIgnoreCase(nric);
-                })
-                .findFirst().orElse(null);
-        if (checkUser == null) {
-            return false;
-        } else if (checkUser.getPassword().equals(password)){
-            loginSession.login(this, nric, password); //pass details of user who is logging in to initialized session
+        if (iauthService.validateCredentials(nric, password)) {
+            User user = iauthService.findUserByNric(nric);
+            loginSession.login(user);
+            System.out.println("Login successful.");
             return true;
+        } else {
+            System.out.println("Invalid NRIC or password.");
+            return false;
         }
-        return false;
     }
 
     public boolean register(User user) {

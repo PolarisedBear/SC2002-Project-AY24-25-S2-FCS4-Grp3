@@ -14,11 +14,8 @@ public class Session{
 //    currentUser = new sg.com.ntu.groupX.roles.Applicant()
 //    currentUser = new sg.com.ntu.groupX.roles.HDBOfficer()
 
-    public void login(UserController controller, String nric, String password) {
-        if (controller.login(nric, password)) {
-            this.currentUser = controller.findUser(nric);
-            System.out.println("sg.com.ntu.groupX.roles.User logged in: " + currentUser.getName());
-        }
+    public void login(User user) {
+        this.currentUser = user;
     }
     public User getCurrentUser(){
         return currentUser;
