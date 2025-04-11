@@ -1,6 +1,7 @@
 package sg.com.ntu.groupX.roles;
 
 import sg.com.ntu.groupX.controllers.services.IUserService;
+import sg.com.ntu.groupX.models.Application;
 
 import java.util.List;
 import java.util.Scanner;

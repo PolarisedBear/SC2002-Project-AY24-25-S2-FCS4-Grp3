@@ -1,4 +1,5 @@
-import sg.com.ntu.groupX.controllers.UserController;
+package sg.com.ntu.groupX.controllers;
+
 import sg.com.ntu.groupX.roles.User;
 
 public class Session{

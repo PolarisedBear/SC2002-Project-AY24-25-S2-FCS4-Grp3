@@ -1,5 +1,10 @@
 package sg.com.ntu.groupX.controllers;
 
+import sg.com.ntu.groupX.controllers.services.IWithdrawalService;
+import sg.com.ntu.groupX.models.Application;
+import sg.com.ntu.groupX.models.WithdrawalRequest;
+import sg.com.ntu.groupX.views.WithdrawalRequestView;
+
 import java.util.List;
 
 public class WithdrawalController implements WithdrawalRequestView {
@@ -14,10 +19,6 @@ public class WithdrawalController implements WithdrawalRequestView {
     }
 
     public void processWithdrawalRequest(WithdrawalRequest request, boolean approved) {
-
-    }
-
-    public void displayPendingRequests() {
 
     }
 

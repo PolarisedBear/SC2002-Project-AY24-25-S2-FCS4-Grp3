@@ -1,5 +1,9 @@
 package sg.com.ntu.groupX.controllers;
 
+import sg.com.ntu.groupX.controllers.services.IAuthenticationService;
+import sg.com.ntu.groupX.controllers.services.IUserService;
+import sg.com.ntu.groupX.roles.Applicant;
+import sg.com.ntu.groupX.roles.User;
 import sg.com.ntu.groupX.views.UserView;
 
 import java.util.ArrayList;
