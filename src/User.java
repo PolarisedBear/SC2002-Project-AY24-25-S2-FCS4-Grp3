@@ -25,7 +25,12 @@ public class User implements IUserService{
         } while (this.age<=0);
     } */
 
-
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return name;
+    }
     public String getPassword() {
         return password;
     }
