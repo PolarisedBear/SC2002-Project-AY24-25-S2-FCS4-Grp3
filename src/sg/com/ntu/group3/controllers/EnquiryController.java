@@ -2,7 +2,7 @@ package sg.com.ntu.group3.controllers;
 import java.util.Map;
 
 import sg.com.ntu.group3.models.Enquiry;
-import IEnquiryService;
+import sg.com.ntu.group3.controllers.services.IEnquiryService;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.views.EnquiryView;
 
