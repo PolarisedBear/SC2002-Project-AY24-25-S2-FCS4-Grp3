@@ -16,14 +16,12 @@ public class UserController {
     private IAuthenticationService iauthService;
     private IUserService iuserService;
     private Scanner scanner;
-    private static List<User> userList;
     private Session loginSession;
 
     public UserController(IUserService iuserService, IAuthenticationService iauthService) {
         this.iuserService = iuserService;
         this.iauthService = iauthService;
         this.scanner = new Scanner(System.in);
-        userList = new ArrayList<>();
         this.loginSession = new Session();
 
     }
@@ -31,7 +29,7 @@ public class UserController {
     public boolean login(String nric, String password) {
         // Search the userlist for a user with matching nric and password
         if (iauthService.validateCredentials(nric, password)) {
-            User user = iauthService.findUserByNric(nric);
+            User user = this.iauthService.findUserByNric(nric);
             loginSession.login(user);
             System.out.println("Login successful.");
             return true;
@@ -47,7 +45,6 @@ public class UserController {
         if(userExists!=null){
             return false;
         }
-        userList.add(user);
         return true;
     }
 
@@ -119,11 +116,18 @@ public class UserController {
 
 
     public boolean changePassword(User user, String oldPassword, String newPassword) {
-        if (user.getPassword().equals(oldPassword)) {
-            user.setPassword(newPassword);
-            return true;
+        boolean successful;
+        if (loginSession.curLoggedIn()) {
+            Map.Entry<String, String> oldpw_Newpw = UserView.showPasswordChangeForm();
+            String oldpw = oldpw_Newpw.getKey();
+            String newpw = oldpw_Newpw.getValue();
+            successful = this.iauthService.changePassword(user, oldpw, newpw);
+        } else {
+            System.out.println("Not logged in");
+            return false;
         }
-        return false;
+        UserView.passwordChangeResult(successful);
+        return successful;
     }
 
     public void processPasswordChange(String oldPassword, String newPassword) {
@@ -144,7 +148,7 @@ public class UserController {
 
 
     public User findUser(String nric) {
-        return userList.stream()
+        return User.getUserList().stream()
                 .filter(user -> user.getNric().equalsIgnoreCase(nric))
                 .findFirst().orElse(null);
     }

@@ -2,19 +2,23 @@ package sg.com.ntu.group3.models;
 
 import sg.com.ntu.group3.roles.Applicant;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class FlatType {
     private String type;
     private int totalUnits;
     private int remainingUnits;
     private List<EligibilityRule> eligibilityRules;
+    private static Map<String, FlatType> typeList = Map.of();
 
     public FlatType(List<EligibilityRule> eligibilityRules, int totalUnits, String type) {
         this.eligibilityRules = eligibilityRules;
         this.totalUnits = totalUnits;
         this.remainingUnits = totalUnits;
         this.type = type;
+        typeList.put(type, this);
     }
 
     public int getRemainingUnits() {
@@ -48,5 +52,13 @@ public class FlatType {
     public boolean checkEligibility(Applicant applicant) {
         // dk what this method is for tbh
         return false;
+    }
+
+    public static Map<String, FlatType> getTypeList() {
+        return typeList;
+    }
+
+    public String getType() {
+        return type;
     }
 }

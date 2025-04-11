@@ -1,7 +1,9 @@
 package sg.com.ntu.group3.controllers;
-import IManagerService;
-import IOfficerService;
-public class HDBOfficerController implements IManagerService{
+
+import sg.com.ntu.group3.controllers.services.IManagerService;
+import sg.com.ntu.group3.controllers.services.IOfficerService;
+
+public class HDBOfficerController implements IManagerService {
     private IOfficerService officerService;
 
     public HDBOfficerController(IOfficerService officerService) {

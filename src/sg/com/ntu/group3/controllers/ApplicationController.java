@@ -1,12 +1,16 @@
 package sg.com.ntu.group3.controllers;
+import enums.ApplicationStatus;
+import sg.com.ntu.group3.controllers.services.IApplicationService;
+import sg.com.ntu.group3.models.Application;
+import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.roles.HDBOfficer;
-import IApplicationService;
 import sg.com.ntu.group3.models.Project;
-public class ApplicationController {
-    private IApplicationService applicationService;
+import sg.com.ntu.group3.roles.User;
 
-    public ApplicationController(IApplicationService applicationService) {
-        this.applicationService = applicationService;
+public class ApplicationController implements IApplicationService {
+
+    public ApplicationController() {
+
     }
 
     private boolean validateOfficerEligibility(HDBOfficer officer, Project project) {
@@ -31,5 +35,25 @@ public class ApplicationController {
 
     public void getApplicationStatus() {
 
+    }
+
+    @Override
+    public void updateProfile(User user) {
+
+    }
+
+    @Override
+    public void withdrawApplication(Application application) {
+
+    }
+
+    @Override
+    public ApplicationStatus getApplicationStatus(Application application) {
+        return null;
+    }
+
+    @Override
+    public boolean bookFlat(Application application, FlatType flatType) {
+        return false;
     }
 }

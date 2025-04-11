@@ -3,6 +3,7 @@ package sg.com.ntu.group3.roles;
 import sg.com.ntu.group3.controllers.services.IUserService;
 import sg.com.ntu.group3.models.Application;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ public class User implements IUserService {
     private String password;
     private int age = 0;
     private String maritalStatus = "Single";
+    private static List<User> userList = new ArrayList<>();
 
     public User() {
         Scanner scan = new Scanner(System.in);
@@ -20,6 +22,7 @@ public class User implements IUserService {
         this.name = scan.next();
         System.out.println("Enter your password:");
         this.password = scan.next();
+        userList.add(this);
     }
 
    public void setAge(int age) {
@@ -78,6 +81,10 @@ public class User implements IUserService {
     @Override
     public void updateProfile(User user) {
 
+    }
+
+    public static List<User> getUserList() {
+        return userList;
     }
 
     public String getInfo() {

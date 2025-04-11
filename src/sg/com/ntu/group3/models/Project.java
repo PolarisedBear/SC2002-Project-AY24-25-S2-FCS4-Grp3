@@ -4,6 +4,7 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.roles.User;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,78 +25,59 @@ public class Project {
     private List<Enquiry> enquiries;
     private List<HDBOfficer> hdbOfficers;
     private List<Applicant> applicants; //added
+    private static List<Project> projectList = new ArrayList<>();
 
     public Project() {
-        ProjectRegistry.addProject(this);
+        this.officerSlots = 0;
+        this.openingDate = new Date();
+        projectList.add(this);
+    }
+
+    public Project(String name,
+                   String projectId,
+                   List<FlatType> flatTypes,
+                   String neighbourhood,
+                   Date closeDate,
+                   boolean isVisible,
+                   int maxOfficers,
+                   Map<FlatType, Integer> unitsAvailable) {
+        this.name = name;
+        this.projectId = projectId;
+        this.flatTypes = flatTypes;
+        this.neighbourhood = neighbourhood;
+        this.openingDate = new Date();
+        this.closeDate = closeDate;
+        this.isVisible = isVisible;
+        this.maxOfficers = maxOfficers;
+        this.officerSlots = 0;
+        this.unitsAvailable = unitsAvailable;
+        projectList.add(this);
     }
 
     // Getters and Setters
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public Date getOpeningDate() {
-        return openingDate;
-    }
-    public void setOpeningDate(Date openingDate) {
-        this.openingDate = openingDate;
-    }
-    public boolean isVisible() {
-        return isVisible;
-    }
-    public void setVisible(boolean visible) {
-        isVisible = visible;
-    }
-    public String getNeighbourhood() {
-        return neighbourhood;
-    }
-    public void setNeighbourhood(String neighbourhood) {
-        this.neighbourhood = neighbourhood;
-    }
-    public Date getCloseDate() {
-        return closeDate;
-    }
-    public void setCloseDate(Date closeDate) {
-        this.closeDate = closeDate;
-    }
-    public int getMaxOfficers() {
-        return maxOfficers;
-    }
-    public void setMaxOfficers(int maxOfficers) {
-        this.maxOfficers = maxOfficers;
-    }
-    public String getCreatedBy() {
-        return createdBy;
-    }
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-    public Map<FlatType, Integer> getUnitsAvailable() {
-        return unitsAvailable;
-    }
-    public void setUnitsAvailable(Map<FlatType, Integer> unitsAvailable) {
-        this.unitsAvailable = unitsAvailable;
-    }
-    public List<Application> getApplications() {
-        return applications;
-    }
-    public void setApplications(List<Application> applications) {
-        this.applications = applications;
-    }
-    public List<Enquiry> getEnquiries() {
-        return enquiries;
-    }
-    public void setEnquiries(List<Enquiry> enquiries) {
-        this.enquiries = enquiries;
-    }
-    public List<HDBOfficer> getHdbOfficers() {
-        return hdbOfficers;
-    }
-    public void setHdbOfficers(List<HDBOfficer> hdbOfficers) {
-        this.hdbOfficers = hdbOfficers;
-    }
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
+    public Date getOpeningDate() {return openingDate;}
+    public void setOpeningDate(Date openingDate) {this.openingDate = openingDate;}
+    public boolean isVisible() {return isVisible;}
+    public void setVisible(boolean visible) {isVisible = visible;}
+    public String getNeighbourhood() {return neighbourhood;}
+    public void setNeighbourhood(String neighbourhood) {this.neighbourhood = neighbourhood;}
+    public Date getCloseDate() {return closeDate;}
+    public void setCloseDate(Date closeDate) {this.closeDate = closeDate;}
+    public int getMaxOfficers() {return maxOfficers;}
+    public void setMaxOfficers(int maxOfficers) {this.maxOfficers = maxOfficers;}
+    public String getCreatedBy() {return createdBy;}
+    public void setCreatedBy(String createdBy) {this.createdBy = createdBy;}
+    public Map<FlatType, Integer> getUnitsAvailable() {return unitsAvailable;}
+    public void setUnitsAvailable(Map<FlatType, Integer> unitsAvailable) {this.unitsAvailable = unitsAvailable;}
+    public List<Application> getApplications() {return applications;}
+    public void setApplications(List<Application> applications) {this.applications = applications;}
+    public List<Enquiry> getEnquiries() {return enquiries;}
+    public void setEnquiries(List<Enquiry> enquiries) {this.enquiries = enquiries;}
+    public List<HDBOfficer> getHdbOfficers() {return hdbOfficers;}
+    public void setHdbOfficers(List<HDBOfficer> hdbOfficers) {this.hdbOfficers = hdbOfficers;}
+    public static List<Project> getProjectList() {return projectList;}
 
     // Add application to list
     public void addApplication(Application application) {

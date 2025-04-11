@@ -32,6 +32,11 @@ public class UserView {
         return Map.entry(oldpw, newpw);
     };
 
+    public static void passwordChangeResult(boolean successful) {
+        if (successful) {System.out.println("Password successfully changed");}
+        else {System.out.println("Password not changed");}
+    }
+
     protected static Map.Entry<String, String> showNameChangeForm() {
         System.out.println("Enter new Name:");
         String newName = input.nextLine();

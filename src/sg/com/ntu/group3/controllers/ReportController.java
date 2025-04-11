@@ -2,11 +2,13 @@ package sg.com.ntu.group3.controllers;
 import java.util.List;
 import java.util.Map;
 
-import IApplicationFilterService;
+
+import sg.com.ntu.group3.controllers.services.IApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.IReportService;
+import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.views.ReportView;
 
-public class ReportController implements ReportView, IApplicationFilterService{
+public class ReportController implements ReportView, IApplicationFilterService {
     private IReportService reportService;
 
     public ReportController(IReportService reportService) {

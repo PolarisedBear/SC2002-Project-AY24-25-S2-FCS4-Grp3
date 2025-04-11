@@ -1,5 +1,7 @@
 package sg.com.ntu.group3.controllers.services;
 
+import sg.com.ntu.group3.models.WithdrawalRequest;
+
 import java.util.List;
 
 public interface IWithdrawalService {

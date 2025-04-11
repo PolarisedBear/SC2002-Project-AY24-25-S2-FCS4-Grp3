@@ -61,9 +61,5 @@ public class AuthenticationService implements IAuthenticationService {
         return null;
     }
 
-    @Override
-    public boolean changePassword(User user, String oldPassword, String newPassword) {
-        return;
-    }
 
 }
