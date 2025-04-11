@@ -1,5 +1,10 @@
+package sg.com.ntu.groupX.controllers;
 import java.util.List;
 import java.util.Map;
+
+import IApplicationFilterService;
+import IReportService;
+import ReportView;
 
 public class ReportController implements ReportView, IApplicationFilterService{
     private IReportService reportService;

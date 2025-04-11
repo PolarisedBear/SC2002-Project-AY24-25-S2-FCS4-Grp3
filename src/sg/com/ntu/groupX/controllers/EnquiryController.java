@@ -1,4 +1,10 @@
+package sg.com.ntu.groupX.controllers;
 import java.util.Map;
+
+import Enquiry;
+import IEnquiryService;
+import Project;
+import sg.com.ntu.groupX.views.EnquiryView;
 
 public class EnquiryController implements EnquiryView, IEnquiryService{
     private IEnquiryService enquiryService;

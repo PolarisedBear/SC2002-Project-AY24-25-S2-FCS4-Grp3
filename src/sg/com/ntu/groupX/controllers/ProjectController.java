@@ -1,6 +1,10 @@
+package sg.com.ntu.groupX.controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import IProjectService;
+import ProjectView;
 
 public class ProjectController implements ProjectView, IProjectService{
     private IProjectService projectService;
