@@ -78,6 +78,7 @@ public class Project {
     public List<HDBOfficer> getHdbOfficers() {return hdbOfficers;}
     public void setHdbOfficers(List<HDBOfficer> hdbOfficers) {this.hdbOfficers = hdbOfficers;}
     public static List<Project> getProjectList() {return projectList;}
+    public List<FlatType> getFlatTypes() {return flatTypes;}
 
     // Add application to list
     public void addApplication(Application application) {
@@ -91,20 +92,26 @@ public class Project {
 
     @Override
     public String toString() {
-        return "sg.com.ntu.groupX.models.Project{" +
+        return "Project{" +
                 "name='" + name + '\'' +
-                ", neighbourhood='" + neighbourhood + '\'' +
-                ", openingDate=" + openingDate +
-                ", closeDate=" + closeDate +
-                ", isVisible=" + isVisible +
+                //", projectId='" + projectId + '\'' +
+                ", FlatTypes=" + flatTypes +
+                ", Neighbourhood='" + neighbourhood + '\'' +
+                ", Opening Date=" + openingDate +
+                ", CloseDate=" + closeDate +
+                ", Visibility=" + isVisible +
                 ", maxOfficers=" + maxOfficers +
-                ", createdBy='" + createdBy + '\'' +
-                ", unitsAvailable=" + unitsAvailable +
-                ", applications=" + applications +
-                ", enquiries=" + enquiries +
-                ", hdbOfficers=" + hdbOfficers +
+                ", Officer Slots=" + officerSlots +
+                ", Creator='" + createdBy + '\'' +
+                ", AvailableUnits=" + unitsAvailable +
+                ", Applications=" + applications +
+                ", Enquiries=" + enquiries +
+                ", HDBOfficers=" + hdbOfficers +
+                ", Applicants=" + applicants +
                 '}';
     }
+
+
 
     public boolean isEligibleForApplication(Applicant applicant) {
         boolean isEligible = false;
@@ -130,5 +137,24 @@ public class Project {
     public boolean checkForConflictOfInterest(User user) {
         // don't quite understand what this means
         return false;
+    }
+
+    public boolean removeFlatType(String name) {
+        boolean exists = this.flatTypes.stream()
+                .anyMatch(type -> type.getType().equals(name));
+        if (exists) {
+            this.flatTypes.remove(this.flatTypes.stream()
+                    .filter(type -> type.getType().equalsIgnoreCase(name))
+                    .findFirst().orElse(null));
+        }
+        return exists;
+    }
+
+    public boolean addFlatType(String name) {
+        boolean exists = FlatType.getTypeList().containsKey(name);
+        if (exists) {
+            this.addFlatType(name);
+        }
+        return exists;
     }
 }

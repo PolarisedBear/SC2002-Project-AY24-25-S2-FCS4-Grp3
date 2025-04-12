@@ -14,7 +14,7 @@ public class ApplicationController implements IApplicationService {
     }
 
     private boolean validateOfficerEligibility(HDBOfficer officer, Project project) {
-
+        return false;
     }
 
     public void applyForProject() {

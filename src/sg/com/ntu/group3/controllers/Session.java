@@ -29,6 +29,9 @@ public class Session{
         }
     }
 
+    public Role getRole() {
+        return this.role;
+    }
 
 
     public void login(User user) {

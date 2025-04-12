@@ -14,12 +14,26 @@ public class Main {
         AuthenticationService authenticationService = new AuthenticationService(session);
         UserController userController = new UserController(session, authenticationService);
 
+
         //register users
         authenticationService.registerFromExcel();
 
         //Login, and gain user permissions
         boolean login = userController.login();
         session.gainAccess();
+
+        // Start app functions
+        while(session.curLoggedIn()) {
+
+
+
+
+
+
+
+
+
+        }
 
 
 

@@ -61,4 +61,11 @@ public class FlatType {
     public String getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "FlatType{" +
+                "type='" + type + '\'' +
+                '}';
+    }
 }

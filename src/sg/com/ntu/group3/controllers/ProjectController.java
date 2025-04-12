@@ -1,8 +1,6 @@
 package sg.com.ntu.group3.controllers;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import sg.com.ntu.group3.controllers.services.IProjectService;
 import sg.com.ntu.group3.models.Project;
@@ -27,7 +25,46 @@ public class ProjectController implements IProjectService{
         newProject.setName("Blank Project");
     }
 
-    public void editProject() {
+    public void editProject(Project project) throws ParseException {
+        String attributeToEdit = ProjectView.showEditProjectForm().toLowerCase(Locale.ROOT);
+        if (isValidAttribute(attributeToEdit)) {
+            switch (attributeToEdit) {
+                case "name":
+                    String newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
+                    project.setName(newAttribute); break;
+                case "flattypes":
+                    int addOrRemove = ProjectView.showEditProjectFlatTypes(project);
+                    switch (addOrRemove) {
+                        case 0:
+                            String name = ProjectView.showRemoveProjectFlatTypes(project);
+                            boolean successful = project.removeFlatType(name);
+                            ProjectView.showOperationOutcome(successful); break;
+                        case 1:
+                            name = ProjectView.showAddProjectFlatTypes(project);
+                            successful = project.addFlatType(name);
+                            ProjectView.showOperationOutcome(successful); break;
+                        default:
+                            System.out.println("Operation cancelled");
+                    }
+                case "neighbourhood":
+                    newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
+                    project.setNeighbourhood(newAttribute); break;
+                case "closedate":
+                    Date newCloseDate = ProjectView.showEditProjectCloseDate(project);
+                    project.setCloseDate(newCloseDate); break;
+                case "visibility":
+                    project.setVisible(!project.isVisible());
+                    ProjectView.showOperationOutcome(true); break;
+                case "maxofficers":
+                    newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
+                    project.setMaxOfficers(Integer.parseInt(newAttribute)); break;
+                default:
+                    ProjectView.showOperationOutcome(false); break;
+            }
+
+        } else {
+            ProjectView.showOperationOutcome(false);
+        }
 
     }
 
@@ -40,6 +77,14 @@ public class ProjectController implements IProjectService{
     }
 
     public void getProjectList() {
+
+    }
+
+    private boolean isValidAttribute(String input) {
+        List<String> projectAttributes = Arrays
+                .asList("name","flatTypes","neighbourhood",
+                        "closeDate","visibility","maxOfficers");
+        return projectAttributes.stream().anyMatch(item -> item.equalsIgnoreCase(input));
 
     }
 

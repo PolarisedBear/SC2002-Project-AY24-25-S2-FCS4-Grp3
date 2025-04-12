@@ -73,6 +73,14 @@ public class User implements IUserService {
         this.maritalStatus = status;
     }
 
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     public void notifyStatusChange(Application application) {
 
     }
