@@ -11,7 +11,7 @@ public class UserView {
         System.out.println(user.getInfo());
     };
 
-    public static Map.Entry<String, String> updateUserInfo() {
+    public static Map.Entry<String, String> updateUserInfoForm() {
         int choice = toUpdateInfoForm();
         switch (choice) {
             case 0: break;

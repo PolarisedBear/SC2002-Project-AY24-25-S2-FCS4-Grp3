@@ -1,8 +1,6 @@
 package sg.com.ntu.group3.controllers;
 
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
-import sg.com.ntu.group3.controllers.services.IAuthenticationService;
-import sg.com.ntu.group3.controllers.services.IUserService;
 import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.UserView;
@@ -11,7 +9,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
-public class UserController {
+public class UserController extends UserView{
 
     private AuthenticationService authenticationService;
     private Scanner scanner;
@@ -65,7 +63,7 @@ public class UserController {
     public void updateUserInfo() {
         if (loginSession.curLoggedIn()) {
             User user = loginSession.getCurrentUser();
-            Map.Entry<String, String> updateParameters = UserView.updateUserInfo();
+            Map.Entry<String, String> updateParameters = UserView.updateUserInfoForm();
             String parameter = updateParameters.getKey();
             switch (parameter) {
                 case "Name": user.setName(updateParameters.getValue()); break;

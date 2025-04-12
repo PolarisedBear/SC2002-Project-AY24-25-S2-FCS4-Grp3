@@ -157,4 +157,19 @@ public class Project {
         }
         return exists;
     }
+
+    public static Project findProject(String name) {
+        return projectList.stream()
+                .filter(proj -> proj.getName().equalsIgnoreCase(name))
+                .findFirst().orElse(null);
+    }
+
+    public static boolean projectExists(String name) {
+        return projectList.stream()
+                .anyMatch(proj -> proj.getName().equalsIgnoreCase(name));
+    }
+
+    public static void removeProject(Project project) {
+        projectList.remove(project);
+    }
 }

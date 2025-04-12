@@ -8,13 +8,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ProjectView {
+public class ProjectView{
     private static Scanner input = new Scanner(System.in);
 
-    public void displayProjectInfo(Project project) {
+    public static void displayProjectInfo(Project project) {
         System.out.println(project.toString());
     };
-    public void displayProjectList() {};
+    public static void displayProjectList() {
+        System.out.println(Project.getProjectList());
+    };
     public static String showEditProjectForm() {
         System.out.println("Enter the attribute you'd like to edit");
         return input.nextLine();
@@ -107,4 +109,22 @@ public class ProjectView {
         return new Project(name, projectId, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
 
     };
+
+    public static Object showRemoveProjectForm() {
+        displayProjectList();
+        System.out.println("Enter the name of the project you'd like to remove, or press enter to cancel:");
+        String choice = input.nextLine();
+        if (choice.isEmpty()) {
+            System.out.println("Operation Cancelled");
+            return null;
+        } else if (!Project.projectExists(choice)) {
+            showOperationOutcome(false);
+            System.out.println("Project does not exist");
+            return null;
+        } else {
+            return Project.findProject(choice);
+        }
+
+    }
+
 }

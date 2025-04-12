@@ -7,7 +7,7 @@ import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.views.ProjectView;
 
-public class ProjectController implements IProjectService{
+public class ProjectController extends ProjectView implements IProjectService{
 
 
     public ProjectController() {}
@@ -69,6 +69,12 @@ public class ProjectController implements IProjectService{
     }
 
     public void deleteProject() {
+        Project deletedProject = (Project) ProjectView.showRemoveProjectForm();
+        if (deletedProject != null) {
+            deletedProject.setName(null);
+            deletedProject.setVisible(false);
+            Project.removeProject(deletedProject);
+        }
 
     }
 
@@ -77,7 +83,7 @@ public class ProjectController implements IProjectService{
     }
 
     public void getProjectList() {
-
+        ProjectView.displayProjectList();
     }
 
     private boolean isValidAttribute(String input) {
