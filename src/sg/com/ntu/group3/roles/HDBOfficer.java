@@ -13,6 +13,11 @@ public class HDBOfficer extends User {
     private List<Registration> registrations;
 
     public HDBOfficer() {
+        super();
+    }
+
+    public HDBOfficer(String name, String nric, int age, String maritalStatus, String password) {
+        super(name, nric, age, maritalStatus, password);
     }
 
     public void viewRegistrationStatus() {

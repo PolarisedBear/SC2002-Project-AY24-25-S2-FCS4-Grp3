@@ -4,6 +4,7 @@ import sg.com.ntu.group3.controllers.services.AuthenticationService;
 import sg.com.ntu.group3.controllers.services.IAuthenticationService;
 import sg.com.ntu.group3.controllers.services.IUserService;
 import sg.com.ntu.group3.roles.User;
+import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.UserView;
 
 import java.io.IOException;
@@ -13,19 +14,19 @@ import java.util.Scanner;
 public class UserController {
 
     private AuthenticationService authenticationService;
-    private IUserService iuserService;
     private Scanner scanner;
     private Session loginSession;
 
-    public UserController(IUserService iuserService, AuthenticationService authenticationService) {
-        this.iuserService = iuserService;
+    public UserController(Session session, AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
         this.scanner = new Scanner(System.in);
-        this.loginSession = new Session();
+        this.loginSession = session;
 
     }
 
-    public boolean login(String nric, String password) throws IOException {
+    public boolean login() throws IOException {
+        String nric = AuthView.showLoginScreenNRIC();
+        String password = AuthView.showLoginScreenPassword();
         // Search the userlist for a user with matching nric and password
         if (authenticationService.validateCredentials(nric, password)) {
             User user = this.authenticationService.findUserByNric(nric);
@@ -38,7 +39,7 @@ public class UserController {
         }
     }
 
-    public boolean register(User user) {
+    public boolean doesUserExist(User user) {
         // Search for existing user
         User userExists = findUser(user.getNric());
         if(userExists!=null){

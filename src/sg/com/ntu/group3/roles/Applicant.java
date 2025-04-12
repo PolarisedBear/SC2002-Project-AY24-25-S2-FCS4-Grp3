@@ -3,16 +3,23 @@ package sg.com.ntu.group3.roles;
 import java.util.List;
 
 import enums.ApplicationStatus;
+import sg.com.ntu.group3.models.Application;
+import sg.com.ntu.group3.models.Enquiry;
+import sg.com.ntu.group3.models.FlatType;
+import sg.com.ntu.group3.models.Project;
 
 public class Applicant extends User {
     private Application application;
     private List<Enquiry> enquiries;
-    private String maritalStatus;
-    private int age;
+    /*private String maritalStatus;
+    private int age;*/
 
-    public Applicant(String martialStatus, int age){
-        this.maritalStatus = maritalStatus;
-        this.age = age;
+    public Applicant(){
+        super();
+    }
+
+    public Applicant(String name, String nric, int age, String maritalStatus, String password) {
+        super(name, nric, age, maritalStatus, password);
     }
 
     public void viewEligibleProjects(){
@@ -73,15 +80,7 @@ public class Applicant extends User {
     public Application getApplication(){
         return this.application;
     }
-    public String getMaritalStatus(){
-        return maritalStatus;
-    }
 
-    public int getAge(){
-        return age;
-    }
-    //
-    public String getName(){
-        return name;
-    }
+
+
 }

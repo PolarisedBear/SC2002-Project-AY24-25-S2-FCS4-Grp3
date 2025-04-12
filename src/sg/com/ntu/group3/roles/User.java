@@ -25,6 +25,15 @@ public class User implements IUserService {
         userList.add(this);
     }
 
+    public User(String name, String nric, int age, String maritalStatus, String password) {
+        this.name = name;
+        this.nric = nric;
+        this.age = age;
+        this.maritalStatus = maritalStatus;
+        this.password = password;
+        userList.add(this);
+    }
+
    public void setAge(int age) {
         this.age = age;
     }
