@@ -110,10 +110,6 @@ public class UserController {
     }
 
 
-    public boolean validateNRIC(String nric) {
-        return false;
-    }
-
 
     public boolean changePassword(User user, String oldPassword, String newPassword) {
         boolean successful;
