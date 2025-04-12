@@ -7,6 +7,7 @@ public class Booking {
     private Date bookingDate = null;
 
     public Booking() {
+
     }
 
     public void setFlatType(FlatType flatType) {

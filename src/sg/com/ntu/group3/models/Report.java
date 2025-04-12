@@ -22,7 +22,7 @@ public class Report {
             
 // If application for applicant exists and it is successful in status
             if (applicant.getApplication() != null && applicant.getApplication().getStatus() == ApplicationStatus.Successful) {
-                System.out.println("Flat Type: " + applicant.getApplication().getFlatType());
+                System.out.println("Flat Type: " + applicant.getApplication().getProject().getFlatTypes());
                 System.out.println("sg.com.ntu.groupX.models.Project Name: " + applicant.getApplication().getProject().getName());
             } else {
                 System.out.println("No application yet!");

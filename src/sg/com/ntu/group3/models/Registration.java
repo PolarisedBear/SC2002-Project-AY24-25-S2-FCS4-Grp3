@@ -19,6 +19,14 @@ public class Registration {
         registrationList.add(this);
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     public void approve() {
         this.status = RegistrationStatus.Approved;
     }
