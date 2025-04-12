@@ -169,6 +169,11 @@ public class Project {
                 .anyMatch(proj -> proj.getName().equalsIgnoreCase(name));
     }
 
+    public static boolean projectExists(String name, List<Project> projectList) {
+        return projectList.stream()
+                .anyMatch(proj -> proj.getName().equalsIgnoreCase(name));
+    }
+
     public static void removeProject(Project project) {
         projectList.remove(project);
     }

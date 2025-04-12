@@ -59,7 +59,7 @@ public class Applicant extends User {
         }
     } */
     public void RequestWithdrawal(){
-        if(this.application!=null && this.application.getstatus()==ApplicationStatus.Withdrawn){
+        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Withdrawn){
             this.application = null;
             System.out.println("sg.com.ntu.groupX.models.Application withdrawn.");
         }

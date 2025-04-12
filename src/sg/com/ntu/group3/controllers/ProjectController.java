@@ -4,6 +4,7 @@ import java.util.*;
 
 import sg.com.ntu.group3.controllers.services.IProjectService;
 import sg.com.ntu.group3.models.Project;
+import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.views.ProjectView;
 
@@ -93,6 +94,7 @@ public class ProjectController extends ProjectView implements IProjectService{
         return projectAttributes.stream().anyMatch(item -> item.equalsIgnoreCase(input));
 
     }
+
 
 
     @Override
