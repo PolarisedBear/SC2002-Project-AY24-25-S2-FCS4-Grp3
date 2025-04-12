@@ -3,11 +3,13 @@ package sg.com.ntu.group3.roles;
 import enums.ApplicationStatus;
 import sg.com.ntu.group3.models.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HDBManager extends User {
+public class HDBManager extends User{
     private List<Project> createdProjects = new ArrayList<>();
+    private List<HDBOfficer> Officers = new ArrayList<>();
     private Project currentProject;
 
     public HDBManager() {
@@ -24,6 +26,11 @@ public class HDBManager extends User {
     }
 
     public void editProject(Project project) {
+        if (project == null){
+            System.out.println("Proj not found");
+            return;
+        }
+        project.setName(getName());
 
     }
 
@@ -36,7 +43,9 @@ public class HDBManager extends User {
     }
 
     public void viewAllProjects() {
-
+        for (Project project : createdProjects) {
+            System.out.println(project.toString());
+        }
     }
 
     public void viewAllSelfProjects() {
@@ -45,13 +54,16 @@ public class HDBManager extends User {
         }
     }
 
-    public void viewAllOfficerRegistration() {
-
+    public void viewAllOfficerRegistration() throws IOException {
+        Officers = UserRepository.getAllOfficers();
+        for (HDBOfficer officer : Officers) {
+            System.out.println(officer.getRegistrations());
+        }
     }
 
-    public void approveOfficerRegistration(Registration registration) {
+    /*public void approveOfficerRegistration(Registration registration) {
         registration.approve();
-    }
+    }*/
 
     public void rejectOfficerRegistration(Registration registration) {
         registration.reject();
@@ -66,11 +78,15 @@ public class HDBManager extends User {
     }
 
     public void approveWithdrawal(Application application) {
-
+        application.setStatus(ApplicationStatus.Withdrawn);
+        application.getApplicant().setApplication(null);
+        application.getProject().getApplicants().remove(application.getApplicant());
+        System.out.println("Withdrawal of application success");
     }
 
     public void rejectWithdrawal(Application application) {
-
+        application.setStatus(ApplicationStatus.WithdrawnUnsuccessful);
+        System.out.println("Withdrawal of application rejected");
     }
 
     public void generateReport(Project project, int number) {
@@ -81,6 +97,11 @@ public class HDBManager extends User {
     }
 
     public void viewEnquiries() {
+        for (Project project : createdProjects) {
+            for (Enquiry enquiry : project.getEnquiries()) {
+                System.out.println(enquiry.toString());
+            }
+        }
 
     }
 

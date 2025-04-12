@@ -11,6 +11,8 @@ import sg.com.ntu.group3.models.Project;
 public class Applicant extends User {
     private Application application;
     private List<Enquiry> enquiries;
+    private FlatType FlatTypeBooked;
+    private Project ProjectBooked;
     /*private String maritalStatus;
     private int age;*/
 
@@ -79,6 +81,26 @@ public class Applicant extends User {
     }
     public Application getApplication(){
         return this.application;
+    }
+    public void setFlatTypeBooked(FlatType flatTypeBooked) {
+        FlatTypeBooked = flatTypeBooked;
+    }
+    public void setProjectBooked(Project projectBooked) {
+        ProjectBooked = projectBooked;
+    }
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public FlatType getFlatTypeBooked() {
+        return FlatTypeBooked;
+    }
+    public Project getProjectBooked() {
+        return ProjectBooked;
+    }
+
+    public List<Enquiry> getEnquiries() {
+        return enquiries;
     }
 
 

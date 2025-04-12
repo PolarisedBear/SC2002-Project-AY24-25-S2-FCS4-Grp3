@@ -9,6 +9,7 @@ public class Application {
     private FlatType appliedFlatType;
     private Booking booking;
     private String projectName;
+    private Project project;
 
     public Application(Applicant applicant) {
         this.applicant = applicant;
@@ -19,6 +20,7 @@ public class Application {
         this.applicant = applicant;
         this.appliedFlatType = flatType;
         this.status = ApplicationStatus.Pending;
+        this.project = project;
         project.addApplication(this);
     }
 
@@ -34,21 +36,29 @@ public class Application {
 
     public Booking bookFlat(FlatType flatType) {
         Booking newBooking = new Booking();
+        
+    
 
 
     }
 
+    public Applicant getApplicant() {
+        return applicant;
+    }
     public void setStatus(ApplicationStatus status) {
         this.status = status;
     }
     public FlatType getFlatType(){
         return appliedFlatType;
     }
-    public String getProject(){
-        return projectName;
+    public Project getProject(){
+        return project;
     }
     public ApplicationStatus getStatus(){
         return status;
+    }
+    public Application getApplication(){
+        return this;
     }
 
 }
