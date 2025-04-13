@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ProjectView{
+public class ProjectView implements View{
     private static Scanner input = new Scanner(System.in);
 
     public static void displayProjectInfo(Project project) {

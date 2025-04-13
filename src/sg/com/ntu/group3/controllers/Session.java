@@ -20,12 +20,12 @@ public class Session{
 //    currentUser = new sg.com.ntu.groupX.roles.Applicant()
 //    currentUser = new sg.com.ntu.groupX.roles.HDBOfficer()
     public void gainAccess() {
-        if (this.currentUser instanceof Applicant) {
-            this.role = Role.APPLICANT;
+        if (this.currentUser instanceof HDBOfficer) {
+            this.role = Role.OFFICER;
         } else if (this.currentUser instanceof HDBManager) {
             this.role = Role.MANAGER;
-        } else if (this.currentUser instanceof HDBOfficer) {
-            this.role = Role.OFFICER;
+        } else if (this.currentUser instanceof Applicant) {
+        this.role = Role.APPLICANT;
         }
     }
 
@@ -47,4 +47,5 @@ public class Session{
         this.currentUser = null;
         System.out.println("Logged out of current session");
     }
+
 }

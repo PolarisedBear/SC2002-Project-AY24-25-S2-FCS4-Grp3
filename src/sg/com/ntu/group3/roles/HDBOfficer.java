@@ -11,7 +11,7 @@ import java.util.Map;
 
 import enums.ApplicationStatus;
 
-public class HDBOfficer extends User {
+public class HDBOfficer extends Applicant {
     private Applicant applicantProfile = null;
     private Project assignedProject;
     private List<Registration> registrations;

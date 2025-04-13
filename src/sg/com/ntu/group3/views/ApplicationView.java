@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ApplicationView {
+public class ApplicationView implements View {
     private static Scanner input = new Scanner(System.in);
 
     public static void showOperationOutcome(String action, boolean successful) {

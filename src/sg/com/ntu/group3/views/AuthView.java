@@ -14,4 +14,19 @@ public class AuthView {
         System.out.println("Enter your password:");
         return input.nextLine();
     }
+
+    public static int welcomeScreen() {
+        int choice = 2;
+        while (choice!=1 || choice!=0) {
+            System.out.println("Welcome to BTOManager!");
+            System.out.println("Enter your choice:");
+            System.out.println("1. Login");
+            System.out.println("0. Quit");
+            choice = input.nextInt();
+            input.nextLine();
+        }
+        return choice;
+    }
+
+
 }
