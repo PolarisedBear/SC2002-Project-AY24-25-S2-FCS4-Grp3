@@ -2,9 +2,10 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 
 import enums.Role;
-import sg.com.ntu.group3.controllers.Session;
-import sg.com.ntu.group3.controllers.UserController;
+import sg.com.ntu.group3.controllers.*;
+import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
+import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.SessionView;
 
@@ -12,10 +13,19 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        // initialise app
+        // initialise app and services
         Session session = new Session();
         AuthenticationService authenticationService = new AuthenticationService(session);
         UserController userController = new UserController(session, authenticationService);
+        ApplicationController applicationController = new ApplicationController(session);
+        ApplicationFilterService applicationFilterService = new ApplicationFilterService(session);
+        ProjectController projectController = new ProjectController();
+        EnquiryController enquiryController = new EnquiryController();
+        HDBOfficerController hdbOfficerController = new HDBOfficerController(session);
+        ReportController reportController = new ReportController();
+        WithdrawalController withdrawalController = new WithdrawalController();
+
+
         //register users
         authenticationService.registerFromExcel();
         //Start app
@@ -32,7 +42,8 @@ public class Main {
                         int choice = SessionView.showMainMenuApplicant(session);
                         switch (choice) {
                             case 1: session.logout(); break; //logout
-                            case 2://change password
+                            case 2: //change password
+
                             case 3://update user info
                             case 4://view user profile
                             case 5://

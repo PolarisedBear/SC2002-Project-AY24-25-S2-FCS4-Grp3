@@ -7,11 +7,10 @@ import sg.com.ntu.group3.views.WithdrawalRequestView;
 
 import java.util.List;
 
-public class WithdrawalController implements WithdrawalRequestView {
-    private IWithdrawalService withdrawalService;
+public class WithdrawalController implements IWithdrawalService {
 
-    public WithdrawalController(IWithdrawalService withdrawalService) {
-        this.withdrawalService = withdrawalService;
+    public WithdrawalController() {
+
     }
 
     public void submitWithdrawalRequest(Application application){
@@ -22,18 +21,24 @@ public class WithdrawalController implements WithdrawalRequestView {
 
     }
 
+
     @Override
-    public void displayWithdrawalRequest(Application application) {
+    public WithdrawalRequest createRequest(Application application) {
+        return null;
+    }
+
+    @Override
+    public List<WithdrawalRequest> getPendingRequests() {
+        return List.of();
+    }
+
+    @Override
+    public void approveRequest(WithdrawalRequest request) {
 
     }
 
     @Override
-    public void displayPendingRequests(List<WithdrawalRequest> requestList) {
-
-    }
-
-    @Override
-    public void showRequestStatus(WithdrawalRequest request) {
+    public void rejectRequest(WithdrawalRequest request) {
 
     }
 }

@@ -8,12 +8,8 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements EnquiryView, IEnquiryService{
-    private IEnquiryService enquiryService;
     private static Map<Project, sg.com.ntu.group3.models.Enquiry> enquiryMap;
 
-    public EnquiryController(IEnquiryService enquiryService) {
-        this.enquiryService = enquiryService;
-    }
     public EnquiryController() {}
 
     public void submitEnquiry() {

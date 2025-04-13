@@ -7,10 +7,10 @@ import sg.com.ntu.group3.models.Registration;
 import sg.com.ntu.group3.roles.HDBOfficer;
 
 public class HDBOfficerController implements IManagerService {
-    private IOfficerService officerService;
+    private Session session;
 
-    public HDBOfficerController(IOfficerService officerService) {
-        this.officerService = officerService;
+    public HDBOfficerController(Session session) {
+        this.session = session;
     }
 
     public void registerForProject(HDBOfficer officer, Project project) {
@@ -40,4 +40,8 @@ public class HDBOfficerController implements IManagerService {
     }
 
 
+    @Override
+    public void approveOfficer(Registration registration) {
+
+    }
 }

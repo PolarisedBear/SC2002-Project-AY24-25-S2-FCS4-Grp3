@@ -8,11 +8,10 @@ import sg.com.ntu.group3.controllers.services.IReportService;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.views.ReportView;
 
-public class ReportController implements ReportView, IApplicationFilterService {
-    private IReportService reportService;
+public class ReportController implements ReportView, IApplicationFilterService, IReportService {
 
-    public ReportController(IReportService reportService) {
-        this.reportService = reportService;
+
+    public ReportController() {
     }
 
     @Override
@@ -55,5 +54,15 @@ public class ReportController implements ReportView, IApplicationFilterService {
     @Override
     public List<Application> filterByCompositeCriteria(Map criteria) {
         return List.of();
+    }
+
+    @Override
+    public List<Application> generateReport(Map criteria) {
+        return List.of();
+    }
+
+    @Override
+    public String generateReceipt(Application application) {
+        return "";
     }
 }
