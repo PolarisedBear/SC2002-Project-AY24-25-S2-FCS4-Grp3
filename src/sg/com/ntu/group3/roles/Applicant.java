@@ -71,21 +71,27 @@ public class Applicant extends User {
         }
 
     }
-    public void requestFlatBooking(){
-        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Successful){
-            applicationController.requestFlatBooking(this.application);
-            System.out.println("requested to book a flat based on application");
-        }
-        else{
-            System.out.println("your application was unsuccessful, you cannot book a flat");
-        }
-    }
+//    public void requestFlatBooking(){
+//        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Successful){
+//            applicationController.requestFlatBooking(this.application);
+//            System.out.println("requested to book a flat based on application");
+//        }
+//        else{
+//            System.out.println("your application was unsuccessful, you cannot book a flat");
+//        }
+//    }
     public void RequestWithdrawal(){
-        withdrawalController.submitWithdrawalRequest(this.application);
+        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Withdrawn){
+            this.application = null;
+            System.out.println("Application withdrawn.");
+        }else{
+            System.out.println("Application does not exist.");
+        }
     }
     public void SubmitEnquiry(String content, Project project){
-        enquiryController.submitEnquiry(this, content, project);
-        enquiryView.displayEnquirySubmission();
+        Enquiry newEnquiry = new Enquiry(project, content, this);
+        enquiries.add(newEnquiry);
+        System.out.println("Enquiry has been sent, please wait for a reply.");
     }
     public void editEnquiry(Enquiry enquiry){
         enquiryController.editEnquiry(enquiry);

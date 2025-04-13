@@ -1,6 +1,5 @@
 package sg.com.ntu.group3.controllers;
 import enums.ApplicationStatus;
-import sg.com.ntu.group3.controllers.services.IApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.IApplicationService;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.FlatType;
@@ -112,23 +111,15 @@ public class ApplicationController extends ApplicationView implements IApplicati
     }
 
     @Override
-    public Application bookFlat(Applicant applicant) {
+    public Boolean requestFlatBooking(Applicant applicant) {
         if (applicant.canBookFlat()) {
-            Application application = applicant.getApplication();
-            Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant(); // get all the available flats and the number available
-            String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
-            if (application.getProject().checkForFlatType(booking)) {
-                application.setStatus(ApplicationStatus.Booking); //update to being booked (booking)
-                ApplicationView.showOperationOutcome("Booking", true);
-                return application; //successful
-            } else {
-                ApplicationView.showOperationOutcome("Booking", false);
-                System.out.println("Invalid Input!"); //unsuccessful: invalid flat type entered from view class
-            }
+            applicant.getApplication().setStatus(ApplicationStatus.Booking);
+            ApplicationView.showOperationOutcome("Request for Booking", true);
+            return true;
         } else {
-            ApplicationView.showOperationOutcome("Booking", false);
+            ApplicationView.showOperationOutcome("Request for Booking", false);
         }
-        return null;
+        return false;
     }
 
 //    public Application bookFlat(Applicant applicant) { //to route to HDBOfficer.java for approval

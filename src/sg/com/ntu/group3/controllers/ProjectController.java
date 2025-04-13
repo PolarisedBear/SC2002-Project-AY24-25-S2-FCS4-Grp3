@@ -11,10 +11,9 @@ import sg.com.ntu.group3.views.ProjectView;
 public class ProjectController extends ProjectView implements IProjectService{
 
 
-    private IProjectService projectService;
 
-    public ProjectController(IProjectService projectService) {
-        this.projectService = projectService;
+    public ProjectController() {
+
     }
 
     public void createProject(HDBManager manager) throws ParseException {

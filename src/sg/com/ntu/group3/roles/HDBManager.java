@@ -67,10 +67,9 @@ public class HDBManager extends User{
     }
 
 
-    public void createProject(HDBManager manager) throws ParseException {
-        projectController.createProject(manager);
-        /*project.setCreatedBy(this.getName());
-        this.createdProjects.add(project);*/
+    public void createProject(Project project) throws ParseException {
+        project.setCreatedBy(this.getName());
+        this.createdProjects.add(project);
     }
 
     public void editProject(Project project) throws ParseException {

@@ -5,13 +5,11 @@ import enums.Role;
 import sg.com.ntu.group3.controllers.*;
 import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
-import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.SessionView;
-import sg.com.ntu.group3.views.UserView;
 
 import java.io.IOException;
 
@@ -25,7 +23,7 @@ public class Main {
         ApplicationFilterService applicationFilterService = new ApplicationFilterService(session);
         ProjectController projectController = new ProjectController();
         EnquiryController enquiryController = new EnquiryController();
-        HDBOfficerController hdbOfficerController = new HDBOfficerController(session);
+        HDBOfficerController hdbOfficerController = new HDBOfficerController(session, authenticationService, applicationFilterService);
         ReportController reportController = new ReportController();
         WithdrawalController withdrawalController = new WithdrawalController();
 
@@ -63,7 +61,7 @@ public class Main {
                                 applicationController.viewApplication(currentUser);
                                 break;
                             case 7://book flat and send to attached officer
-                                Application booking = applicationController.bookFlat(currentUser);
+                                Boolean booking = applicationController.requestFlatBooking(currentUser);
 
                                 break;
                             case 8://request withdrawal

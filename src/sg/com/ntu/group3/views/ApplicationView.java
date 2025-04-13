@@ -4,6 +4,7 @@ import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.roles.HDBOfficer;
 
 import java.util.List;
 import java.util.Map;
@@ -43,4 +44,11 @@ public class ApplicationView implements View {
         System.out.println("Available Flats:");
 
     };
+    public static String showBookingForm(List<Application> applications) {
+        System.out.println("Select an application from your assigned project to update booking");
+        System.out.println(applications);
+        System.out.println("Enter the NRIC of the applicant to begin booking");
+        return input.nextLine();
+    }
+
 }

@@ -1,5 +1,6 @@
 package sg.com.ntu.group3.models;
 
+import enums.ApplicationStatus;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.roles.User;
@@ -142,6 +143,10 @@ public class Project {
             this.unitsAvailable.compute(flatType, (k, current) -> current - change);
         }
         flatType.updateRemainingUnits(change, operator);
+    }
+
+    public List<Application> searchApplicationByStatus(ApplicationStatus applicationStatus) {
+        return applications.stream().filter(application -> application.getStatus()==applicationStatus).toList();
     }
 
     public boolean isWithinApplicationPeriod(Date date) {

@@ -50,6 +50,14 @@ public class ApplicationFilterService implements IApplicationFilterService{
         return filteredList;
     }
 
+    public Application filterByNRIC(List<Application> applications, String nric) {
+        Application application = applications.stream()
+                .filter(appl -> appl.getApplicant()
+                        .getNric().equalsIgnoreCase(nric))
+                .findFirst().orElse(null);
+        return application;
+    }
+
     @Override
     public List<Application> filterByCompositeCriteria(Map criteria) {
         return List.of();

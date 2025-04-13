@@ -82,10 +82,10 @@ public class HDBOfficer extends Applicant{
     }
 
     public void updateApplication(Application application) {
-        /*if (application == null) {
+        if (application == null) {
             System.out.println("Application is null.");
             return;
-        } */
+        }
         if (assignedProject == null) {
             System.out.println("No project assigned to this officer.");
             return;
@@ -104,15 +104,16 @@ public class HDBOfficer extends Applicant{
 
             //if(availUnits.containsKey(flatType) && availUnits.get(flatType)> 0){
             application.setStatus(ApplicationStatus.Booked);
-            assignedProject.getUnitsAvailable().put(flatType, availUnits.get(flatType) - 1);
+           // assignedProject.getUnitsAvailable().put(flatType, availUnits.get(flatType) - 1);
 
             applicantProfile.setFlatTypeBooked(flatType);
             applicantProfile.setProjectBooked(assignedProject);
             System.out.println("Flat booked for" + application.getApplicant().getName());
+        } else {
+            System.out.println("no application found");
         }
-    } else {
-        System.out.println("no application found");
     }
+
 
 
 
