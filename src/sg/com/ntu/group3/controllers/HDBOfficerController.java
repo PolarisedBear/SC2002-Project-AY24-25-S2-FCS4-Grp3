@@ -1,61 +1,52 @@
 package sg.com.ntu.group3.controllers;
 
-import enums.ApplicationStatus;
-import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
-import sg.com.ntu.group3.controllers.services.AuthenticationService;
+import java.util.List;
+
+import enums.RegistrationStatus;
 import sg.com.ntu.group3.controllers.services.IManagerService;
 import sg.com.ntu.group3.controllers.services.IOfficerService;
 import sg.com.ntu.group3.models.Application;
-import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.models.Registration;
-import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.models.UserRepository;
 import sg.com.ntu.group3.roles.HDBOfficer;
-import sg.com.ntu.group3.views.ApplicationView;
 
-import java.util.List;
-import java.util.Map;
-
-public class HDBOfficerController implements IOfficerService, IManagerService {
+public class HDBOfficerController implements IManagerService, IOfficerService {
     private Session session;
-    private AuthenticationService authenticationService;
-    private ApplicationFilterService applicationFilterService;
 
-    public HDBOfficerController(Session session, AuthenticationService authenticationService, ApplicationFilterService applicationFilterService) {
+    public HDBOfficerController(Session session) {
         this.session = session;
-        this.authenticationService = authenticationService;
-        this.applicationFilterService = applicationFilterService;
     }
 
-    public void registerForProject(HDBOfficer officer, Project project) {
-        
-        for(Registration registration : officer.getRegistrations()){
-            if(registration.getProject() == project){
-                System.out.println("Already registered for the project");
-                return;
-            }
+    public boolean registerForProject(HDBOfficer officer, Project project) {
+        if(officer.canApplyforproject(project) && project.isWithinApplicationPeriod(project.getCloseDate())){
+            Registration newRegistration = new Registration(project);
+            officer.getRegistrations().add(newRegistration);
+            return true;
+
         }
-        officer.getRegistrations().add(new Registration(project));
-    }
-
-    @Override
-    public String getRegistrationStatus(HDBOfficer officer, Project project) {
-        return "";
+        return false;
     }
 
     public void approveOfficer(HDBOfficer officer, Registration registration) {
+        if (!registration.getStatus().toString().equals("Pending")) {
+            System.out.println("registration was rejected or not pending");
+            return;
+        }
         Project project = registration.getProject();
         if (project.assignOfficer(officer)){
             officer.assignProject(registration.getProject());
             project.assignOfficer(officer);
             registration.approve();
-            System.out.println("Officer approved for " + project.getName());
+            System.out.println("officer approved for " + project.getName());
         }
         else{
             System.out.println("approval for officer failed");
         }
-
-
+    }
+    public void rejectOfficer(Registration registration) {
+        registration.reject();
+        System.out.println("officer rejected for " + registration.getProject().getName());
     }
 
 
@@ -79,24 +70,33 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         }
     }
 
-    public void bookFlat(HDBOfficer officer) {
-        List<Application> applications = officer.getAssignedProject().searchApplicationByStatus(ApplicationStatus.Booking);
-        String nric = ApplicationView.showBookingForm(applications);
-        if (authenticationService.validateNRIC(nric)) {
-            Application application = applicationFilterService.filterByNRIC(applications,nric);
-            Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant();
-            String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
-            if (application.getProject().checkForFlatType(booking)) {
-                application.setStatus(ApplicationStatus.Booked); //update to being booked
-                ApplicationView.showOperationOutcome("Booking", true);
-            } else {
-                ApplicationView.showOperationOutcome("Booking", false);
-                System.out.println("Invalid Input!"); //unsuccessful: invalid flat type entered from view class
+    public void viewAllOfficerRegistration(List<HDBOfficer> officers) {
+        for (HDBOfficer officer : officers) {
+            for (Registration registration : officer.getRegistrations()) {
+                String status= getRegistrationStatus(officer, registration.getProject());
+                if (status != null) {
+                    System.out.println("Officer: " + officer.getName() + ", Project: " + registration.getProject().getName() + ", Registration Status: " + status);
+                }
             }
-        } else {
-            ApplicationView.showOperationOutcome("Booking", false);
-            System.out.println("Invalid Input!");
         }
+        /*for (HDBOfficer officer : officers) {
+            for (Registration registration : officer.getRegistrations()) {
+                if (registration.getStatus().equals("Pending") 
+                || registration.getStatus().equals("Approved")) {
+                    System.out.println("Officer: " + officer.getName() + ", Registration Status: " + registration.getStatus());
+                }
+            }
+        }*/
     }
-
+        public String getRegistrationStatus(HDBOfficer officer, Project project) {
+        for (Registration registration : officer.getRegistrations()) {
+            if (project == null || registration.getProject().equals(project)) {
+                if (registration.getStatus().toString().equals("Pending") 
+                || registration.getStatus().toString().equals("Approved")) {
+                    return registration.getStatus().toString();
+                }
+            }
+        }
+        return null;
+    }
 }

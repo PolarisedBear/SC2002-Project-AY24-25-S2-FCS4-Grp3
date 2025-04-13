@@ -6,6 +6,7 @@ import sg.com.ntu.group3.controllers.HDBOfficerController;
 import sg.com.ntu.group3.controllers.ProjectController;
 import sg.com.ntu.group3.controllers.ReportController;
 import sg.com.ntu.group3.controllers.WithdrawalController;
+import sg.com.ntu.group3.controllers.services.IOfficerService;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.models.FlatType;
@@ -16,8 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 import enums.ApplicationStatus;
+import enums.RegistrationStatus;
 
-public class HDBOfficer extends Applicant{
+public class HDBOfficer extends Applicant implements IOfficerService{
     private Applicant applicantProfile = null;
     private Project assignedProject;
     private List<Registration> registrations;
@@ -66,10 +68,12 @@ public class HDBOfficer extends Applicant{
         officerController.viewProjectDetails(this);
     }
 
-    /*public void registerForProject(HDBOfficer officer, Project project) {
-        Registration newRegistration = new Registration(project);
-        registrations.add(newRegistration);
-    }*/
+    public boolean registerForProject(HDBOfficer officer, Project project) {
+        if(!officerController.registerForProject(officer, project)){
+            return false;
+        }
+        return true;
+    }
 
     public Application findApplicationByNRIC(String nric) {
         for (Application application : applications) {
@@ -115,10 +119,6 @@ public class HDBOfficer extends Applicant{
     }
 
 
-
-
-
-
     public void generateReceipt(Application application) {
         System.out.println("Name: " + application.getApplicant().getName() +"\nNRIC: " + application.getApplicant().getNric() +
                 "\nProj name: " + application.getProject().getName() +"\nFlat Type: " + application.getFlatType() +
@@ -148,7 +148,19 @@ public class HDBOfficer extends Applicant{
     public Project getAssignedProject() {
         return assignedProject;
     }
-
-
+    public boolean canApplyforproject(Project project) {
+        for (Application application : applications) {
+            if (application.getApplicant().getNric().equals(this.getNric())) {
+                System.out.println("Officer is as an applicant, unable to apply for project.");
+                return false;
+            }
+        }
+        if (assignedProject != null && assignedProject.isWithinApplicationPeriod(project.getCloseDate())) {
+            System.out.println("officer already assigned to another project within application period.");
+            return false;
+        }
+    
+        return true;
+    }
 
 }

@@ -20,6 +20,7 @@ public class Applicant extends User {
     private ApplicationController applicationController;
     private EnquiryController enquiryController;
     private WithdrawalController withdrawalController;
+    private ProjectController projectController;
     private ApplicationView applicationView;
     private EnquiryView enquiryView;
     private List<Enquiry> enquiries;
@@ -47,11 +48,12 @@ public class Applicant extends User {
     public void setWithdrawalController(WithdrawalController withdrawalController) {
         this.withdrawalController = withdrawalController;
     }
+    public void setProjectController(ProjectController projectController) {
+        this.projectController = projectController;
+    }
 
-
-    public void viewEligibleProjects(ProjectController projectController){
-        List<Project> eligibleProjects = projectController.displayEligibleProjects(this);
-        ProjectView.displayProjectList(eligibleProjects);
+    public void viewEligibleProjects(){
+        projectController.displayEligibleProjects(this);
     }
     public void applyForEligibleProject(Project project, FlatType flatType){
         if(applicationController.hasExistingBooking(this)){
@@ -67,39 +69,32 @@ public class Applicant extends User {
     }
     public void viewApplicationStatus(){
         if(this.application!=null){
-            applicationView.displayApplicationStatus(this.application);
+            String appStatus = applicationController.getApplicationStatus(application).toString();
+            applicationView.displayApplicationStatus(application, appStatus);
         }
 
     }
-//    public void requestFlatBooking(){
-//        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Successful){
-//            applicationController.requestFlatBooking(this.application);
-//            System.out.println("requested to book a flat based on application");
-//        }
-//        else{
-//            System.out.println("your application was unsuccessful, you cannot book a flat");
-//        }
-//    }
-    public void RequestWithdrawal(){
-        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Withdrawn){
-            this.application = null;
-            System.out.println("Application withdrawn.");
-        }else{
-            System.out.println("Application does not exist.");
+    public void requestFlatBooking(){
+        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Successful){
+            applicationController.requestFlatBooking(this.application);
+            System.out.println("requested to book a flat based on application");
+        }
+        else{
+            System.out.println("your application was unsuccessful, you cannot book a flat");
         }
     }
+    public void RequestWithdrawal(){
+        withdrawalController.submitWithdrawalRequest(this.application);
+    }
     public void SubmitEnquiry(String content, Project project){
-        Enquiry newEnquiry = new Enquiry(project, content, this);
-        enquiries.add(newEnquiry);
-        System.out.println("Enquiry has been sent, please wait for a reply.");
+        enquiryController.submitEnquiry(this, content, project);
+        enquiryView.displayEnquirySubmission();
     }
     public void editEnquiry(Enquiry enquiry){
         enquiryController.editEnquiry(enquiry);
     }
     public void deleteEnquiry(Enquiry enquiry){
-
         enquiryController.deleteEnquiry(enquiry);
-
     }
     public Application getApplication(){
         return this.application;
@@ -125,15 +120,6 @@ public class Applicant extends User {
         return enquiries;
     }
 
-    public boolean canBookFlat() {
-        boolean canBook = true;
-        canBook = !(application==null) //list fail conditions
-                && !(FlatTypeBooked==null)
-                && application.getProject().hasAvailableUnitsForApplicant(this)
-                && !(application.getStatus()==ApplicationStatus.Booked || application.getStatus()==ApplicationStatus.Booking)
-                && application.getStatus()==ApplicationStatus.Successful;
-        return canBook;
-    }
 
 
 }

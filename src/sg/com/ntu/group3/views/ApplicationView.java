@@ -52,5 +52,9 @@ public class ApplicationView implements View {
         System.out.println("Enter the NRIC of the applicant to begin booking");
         return input.nextLine();
     }
+    public void displayApplicationStatus(Application application, String appStatus) {
+        System.out.println("Application Status: " + appStatus);
+        System.out.println("Project Name: " + application.getProject().getName());
+    }
 
 }
