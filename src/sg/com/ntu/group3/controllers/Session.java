@@ -40,6 +40,9 @@ public class Session{
     public User getCurrentUser(){
         return currentUser;
     }
+    public Applicant getCurrentApplicant() {return (Applicant) currentUser;}
+    public HDBOfficer getCurrentHDBOfficer() {return (HDBOfficer) currentUser;}
+    public HDBManager getCurrentHDBManager() {return (HDBManager) currentUser;}
     public boolean curLoggedIn(){
         return currentUser!=null;
     }

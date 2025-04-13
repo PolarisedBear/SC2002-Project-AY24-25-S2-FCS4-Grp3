@@ -58,9 +58,12 @@ public class ApplicationController extends ApplicationView implements IApplicati
         application.setStatus(ApplicationStatus.Unsuccessful);
     }
 
-    public void getApplication(Application application) {
-        if (application !=null) {
-
+    public void viewApplication(Applicant applicant) {
+        if (applicant.getApplication()!=null) {
+            ApplicationView.displayApplication(applicant.getApplication());
+        } else {
+            ApplicationView.showOperationOutcome("Display", false);
+            System.out.println("No application found!");
         }
     }
 
@@ -110,7 +113,13 @@ public class ApplicationController extends ApplicationView implements IApplicati
     }
 
     @Override
-    public boolean bookFlat(Application application, FlatType flatType) {
+    public boolean bookFlat(Applicant applicant) {
+        if (applicant.getApplication()==null) {
+            ApplicationView.showOperationOutcome("Booking", false);
+            System.out.println("No application found!");
+            return false;}
+
+        Application application = applicant.getApplication();
         boolean success = false;
         if (application.getStatus() == ApplicationStatus.Successful) {
             Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant();

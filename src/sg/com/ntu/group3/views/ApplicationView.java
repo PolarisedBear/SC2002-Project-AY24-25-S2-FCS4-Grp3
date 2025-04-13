@@ -33,6 +33,7 @@ public class ApplicationView implements View {
     }
 
     public static void displayApplication(Application application) {
+        System.out.println("Your currently applied project is:");
         System.out.println(application);
     }
     public void displayApplicationStatus() {};

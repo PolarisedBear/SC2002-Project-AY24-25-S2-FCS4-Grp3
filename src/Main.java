@@ -5,9 +5,12 @@ import enums.Role;
 import sg.com.ntu.group3.controllers.*;
 import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
+import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.SessionView;
+import sg.com.ntu.group3.views.UserView;
 
 import java.io.IOException;
 
@@ -38,25 +41,38 @@ public class Main {
                 session.gainAccess();
                 // Start app functions
                 while(session.curLoggedIn()) { // Check roles, print menus accordingly
-                    if (session.getRole()== Role.APPLICANT) {
+                    if (session.getRole()==Role.APPLICANT) {
+                        Applicant currentUser = session.getCurrentApplicant();
                         int choice = SessionView.showMainMenuApplicant(session);
                         switch (choice) {
                             case 1: session.logout(); break; //logout
                             case 2: //change password
-
+                                boolean passwordChange = userController.changePassword();
+                                break;
                             case 3://update user info
+                                userController.updateUserInfo();
+                                break;
                             case 4://view user profile
-                            case 5://
-                            case 6://
-                            case 7://
-                            case 8://
-                            case 9://
-                            case 10://
+                                userController.displayUserInfo();
+                                break;
+                            case 5://apply for project
+                                applicationController.applyForProject();
+                                break;
+                            case 6://view applied project
+                                applicationController.viewApplication(currentUser);
+                                break;
+                            case 7://book flat
+                                boolean bookingSuccess = applicationController.bookFlat(currentUser);
+                                break;
+                            case 8://request withdrawal
+                            case 9://submit enquiry
+                            case 10://view, edit, delete enquiry
 
                         }
                     }
 
                     if (session.getRole()==Role.OFFICER) {
+                        HDBOfficer currentUser = session.getCurrentHDBOfficer();
                         int choice = SessionView.showMainMenuHDBOfficer(session);
                         switch (choice) {
                             case 1: session.logout(); break; //logout
@@ -80,6 +96,7 @@ public class Main {
                     }
 
                     if (session.getRole()==Role.MANAGER) {
+                        HDBManager currentUser = session.getCurrentHDBManager();
                         int choice = SessionView.showMainMenuHDBManager(session);
                         switch (choice) {
                             case 1: session.logout(); break; //logout

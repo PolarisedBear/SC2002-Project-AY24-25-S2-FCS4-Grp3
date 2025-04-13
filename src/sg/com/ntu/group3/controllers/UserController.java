@@ -109,8 +109,9 @@ public class UserController extends UserView{
 
 
 
-    public boolean changePassword(User user, String oldPassword, String newPassword) {
+    public boolean changePassword() {
         boolean successful;
+        User user = this.loginSession.getCurrentUser();
         if (loginSession.curLoggedIn()) {
             Map.Entry<String, String> oldpw_Newpw = UserView.showPasswordChangeForm();
             String oldpw = oldpw_Newpw.getKey();
@@ -127,7 +128,7 @@ public class UserController extends UserView{
     public void processPasswordChange(String oldPassword, String newPassword) {
         if (loginSession.curLoggedIn()) {
             User currentUser = loginSession.getCurrentUser();
-            if (changePassword(currentUser, oldPassword, newPassword)) {
+            if (changePassword()) {
                 System.out.println("Password changed!");
             } 
             else {
