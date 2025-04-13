@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ApplicationController extends ApplicationView implements IApplicationService, IApplicationFilterService {
+public class ApplicationController extends ApplicationView implements IApplicationService {
     private Session session;
 
     public ApplicationController(Session session) {
@@ -57,7 +57,7 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
 
     public void getApplication(Application application) {
-        if (application.getApplication()!=null) {
+        if (application !=null) {
 
         }
     }
@@ -146,23 +146,5 @@ public class ApplicationController extends ApplicationView implements IApplicati
             project.addApplication(newApplication);
     }
 
-    @Override
-    public List<Application> filterByMaritalStatus(boolean married) {
-        return List.of();
-    }
 
-    @Override
-    public List<Application> filterByAge(int minAge, int maxAge) {
-        return List.of();
-    }
-
-    @Override
-    public List<Application> filterByFlatType(String flatType) {
-        return List.of();
-    }
-
-    @Override
-    public List<Application> filterByCompositeCriteria(Map criteria) {
-        return List.of();
-    }
 }

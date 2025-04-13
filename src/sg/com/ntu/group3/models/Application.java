@@ -3,7 +3,9 @@ package sg.com.ntu.group3.models;
 import enums.ApplicationStatus;
 import sg.com.ntu.group3.roles.Applicant;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Application {
@@ -27,22 +29,12 @@ public class Application {
     }
 
 
-    public Applicant getApplicant() {
-        return applicant;
-    }
-    public void setStatus(ApplicationStatus status) {
-        this.status = status;
-    }
-
-    public Project getProject(){
-        return project;
-    }
-    public ApplicationStatus getStatus(){
-        return status;
-    }
-    public Application getApplication(){
-        return this;
-    }
+    public Applicant getApplicant() {return applicant;}
+    public void setStatus(ApplicationStatus status) {this.status = status;}
+    public Project getProject(){return project;}
+    public ApplicationStatus getStatus(){return status;}
+    public Application getApplication(){return this;}
+    public static Map<Applicant, Application> getAllApplications() {return applicationMap;}
 
     public Map<FlatType, Integer> getAvailableUnitsForApplicant() {
         Map<FlatType, Integer> availableUnitsByFlatType = new HashMap<>();
