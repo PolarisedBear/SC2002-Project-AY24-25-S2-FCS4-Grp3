@@ -26,7 +26,9 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
     public void applyForProject() {
         Applicant applicant = (Applicant) this.session.getCurrentUser();
-        if (applicant.getApplication()!=null) {
+        if (applicant.getApplication()!=null
+                || applicant.getApplication().getStatus()==ApplicationStatus.Unsuccessful
+                || applicant.getApplication().getStatus()==ApplicationStatus.Withdrawn) {
             List<Project> projectList = findAvailableProjects(
                     findVisibleProjects(findEligibleProjects(applicant))
                     , applicant);

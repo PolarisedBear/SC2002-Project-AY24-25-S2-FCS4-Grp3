@@ -123,6 +123,7 @@ public class Applicant extends User {
         boolean canBook = true;
         canBook = !(application==null) //list fail conditions
                 && !(FlatTypeBooked==null)
+                && application.getProject().hasAvailableUnitsForApplicant(this)
                 && !(application.getStatus()==ApplicationStatus.Booked || application.getStatus()==ApplicationStatus.Booking)
                 && application.getStatus()==ApplicationStatus.Successful;
         return canBook;

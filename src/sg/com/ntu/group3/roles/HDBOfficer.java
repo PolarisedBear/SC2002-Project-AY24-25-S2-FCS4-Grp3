@@ -17,7 +17,7 @@ import java.util.Map;
 
 import enums.ApplicationStatus;
 
-public class HDBOfficer extends Applicant {
+public class HDBOfficer extends Applicant{
     private Applicant applicantProfile = null;
     private Project assignedProject;
     private List<Registration> registrations;
@@ -94,35 +94,32 @@ public class HDBOfficer extends Applicant {
             System.out.println("the officer is not assigned to this project");
             return;
         }
-        
+
         if (application.getStatus() == ApplicationStatus.Booking
-        && application.getApplicant().getFlatTypeBooked() == null 
-        && application.getApplicant().getProjectBooked() == null) {
+                && application.getApplicant().getFlatTypeBooked() == null
+                && application.getApplicant().getProjectBooked() == null) {
             applicantProfile = application.getApplicant();
             FlatType flatType = application.getBookedFlat();
             //Map<FlatType, Integer> availUnits = assignedProject.getUnitsAvailable();
 
             //if(availUnits.containsKey(flatType) && availUnits.get(flatType)> 0){
-                application.setStatus(ApplicationStatus.Booked);
-                assignedProject.getUnitsAvailable().put(flatType, availUnits.get(flatType) - 1);
+            application.setStatus(ApplicationStatus.Booked);
+            assignedProject.getUnitsAvailable().put(flatType, availUnits.get(flatType) - 1);
 
-                applicantProfile.setFlatTypeBooked(flatType);
-                applicantProfile.setProjectBooked(assignedProject);
-                System.out.println("Flat booked for" + application.getApplicant().getName());
-            }
-        } else {
-            System.out.println("no application found");
+            applicantProfile.setFlatTypeBooked(flatType);
+            applicantProfile.setProjectBooked(assignedProject);
+            System.out.println("Flat booked for" + application.getApplicant().getName());
         }
-
+    } else {
+        System.out.println("no application found");
     }
 
-    public void updateProject(Application application) {
-        //not sure if this is needed
 
-    }
+
+
 
     public void generateReceipt(Application application) {
-       System.out.println("Name: " + application.getApplicant().getName() +"\nNRIC: " + application.getApplicant().getNric() +
+        System.out.println("Name: " + application.getApplicant().getName() +"\nNRIC: " + application.getApplicant().getNric() +
                 "\nProj name: " + application.getProject().getName() +"\nFlat Type: " + application.getFlatType() +
                 "\nStatus: " + application.getStatus() +"\nUnits Avail: " + application.getProject().getUnitsAvailable());
 
@@ -131,8 +128,8 @@ public class HDBOfficer extends Applicant {
 
     public void viewEnquiries() {
         for (Enquiry enquiry : applicantProfile.getEnquiries()) {
-            System.out.println("Enquiry: " + enquiry.getContent() 
-            + "\nStatus: " + enquiry.getStatus());
+            System.out.println("Enquiry: " + enquiry.getContent()
+                    + "\nStatus: " + enquiry.getStatus());
         }
 
     }
@@ -140,7 +137,7 @@ public class HDBOfficer extends Applicant {
     public void replyEnquiries(Enquiry enquiry, String reply) {
         enquiry.reply(reply);
     }
-    
+
     public void assignProject(Project project){
         this.assignedProject = project;
     }
@@ -151,6 +148,6 @@ public class HDBOfficer extends Applicant {
         return assignedProject;
     }
 
-    
+
 
 }

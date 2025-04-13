@@ -17,6 +17,9 @@ public class ProjectView implements View{
     public static void displayProjectList() {
         System.out.println(Project.getProjectList());
     };
+    public static void displayProjectList(List<Project> eligibleProjects) {
+        System.out.println(eligibleProjects);
+    }
     public static String showEditProjectForm() {
         System.out.println("Enter the attribute you'd like to edit");
         return input.nextLine();
@@ -131,5 +134,6 @@ public class ProjectView implements View{
         }
 
     }
+
 
 }
