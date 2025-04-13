@@ -177,4 +177,14 @@ public class Project {
     public static void removeProject(Project project) {
         projectList.remove(project);
     }
+    public boolean assignOfficer(HDBOfficer officer) {
+        if (officerSlots < maxOfficers) {
+            this.hdbOfficers.add(officer);
+            officerSlots++;
+            return true;
+        } else {
+            System.out.println("no more slots for officers");
+            return false;
+        }
+    }
 }

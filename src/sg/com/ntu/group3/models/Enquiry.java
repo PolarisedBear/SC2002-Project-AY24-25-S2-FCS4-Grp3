@@ -20,7 +20,7 @@ public class Enquiry {
     }
 
     public void submitEnquiry() {
-
+        
     }
 
     public Project getProj() {

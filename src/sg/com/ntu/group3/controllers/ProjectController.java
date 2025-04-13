@@ -106,4 +106,14 @@ public class ProjectController extends ProjectView implements IProjectService{
     public boolean hasActiveProject(HDBManager manager, Date date) {
         return false;
     }
+    public List<Project> displayEligibleProjects(Applicant applicant) {
+        List<Project> Projects = Project.getProjectList();
+        List<Project> eligibleProjects = new ArrayList<>();
+        for (Project project : Projects) {
+            if (project.isVisible() && project.isEligibleForApplication(applicant)) {
+                eligibleProjects.add(project);
+            }
+        }
+        return eligibleProjects;
+    }
 }

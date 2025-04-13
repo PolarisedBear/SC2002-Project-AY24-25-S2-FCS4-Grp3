@@ -68,4 +68,8 @@ public class FlatType {
                 "type='" + type + '\'' +
                 '}';
     }
+    public boolean isFullyBooked(){ 
+        return remainingUnits<=0;
+    }
+
 }

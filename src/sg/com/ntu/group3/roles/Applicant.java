@@ -3,10 +3,15 @@ package sg.com.ntu.group3.roles;
 import java.util.List;
 
 import enums.ApplicationStatus;
+import sg.com.ntu.group3.controllers.EnquiryController;
+import sg.com.ntu.group3.controllers.ProjectController;
+import sg.com.ntu.group3.controllers.WithdrawalController;
+import sg.com.ntu.group3.controllers.ApplicationController;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
+import sg.com.ntu.group3.views.EnquiryView;
 
 public class Applicant extends User {
     private Application application;
@@ -24,21 +29,20 @@ public class Applicant extends User {
         super(name, nric, age, maritalStatus, password);
     }
 
-    public void viewEligibleProjects(){
-        List<Project> eligibleProjects = ProjectRegistry.findEligibleProjects(this);
-        System.out.println("Elligible projects:\n");
-        for(Project project : eligibleProjects){
-            System.out.println(project.getName());
-        }
+    public void viewEligibleProjects(ProjectController projectController){
+        List<Project> eligibleProjects = projectController.displayEligibleProjects(this);
+        System.out.println(eligibleProjects);
     }
     public void applyForEligibleProject(Project project, FlatType flatType){
-        List<Project> eligibleProjects = ProjectRegistry.findEligibleProjects(this);
-        if(eligibleProjects.contains(project)){ //if eligible for project
-            this.application = new Application(project, flatType, this);
-            this.application.setStatus(ApplicationStatus.Pending);
+        if(ApplicationController.hasExistingBooking(this)){
+            System.out.println("you have an existing booking");
+            return;
+        }
+        if (project.isEligibleForApplication(this)) {
+            ApplicationController.applyForProject(this, project, flatType);
         }
         else{
-            System.out.println("Uneligible sg.com.ntu.groupX.models.Project, Please apply for an eligible project");
+            System.out.println("Uneligible, please apply for an eligible project");
         }
     }
     public void viewApplicationStatus(){
@@ -49,34 +53,20 @@ public class Applicant extends User {
             System.out.println("Not applied for any projects.");
         }
     }
-    /* public void requestFlatBooking(){
-        if(this.application!=null && this.application.getstatus()==ApplicationStatus.Successful){
-            bookFlat(application.getflatType());
-            System.out.println("Flat booking requested, please wait for a HDB officer to book a flat for you.");
-        }
-        else{
-            System.out.println("Since your application is unsuccessful, you cannot request to book a flat.");
-        }
-    } */
     public void RequestWithdrawal(){
-        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Withdrawn){
-            this.application = null;
-            System.out.println("sg.com.ntu.groupX.models.Application withdrawn.");
-        }
-        else{
-            System.out.println("sg.com.ntu.groupX.models.Application does not exist.");
-        }
+        WithdrawalController.submitWithdrawalRequest();
     }
     public void SubmitEnquiry(String content, Project project){
-        Enquiry newEnquiry = new Enquiry(project, content, this);
-        enquiries.add(newEnquiry);
-        System.out.println("sg.com.ntu.groupX.models.Enquiry has been sent, please wait for a reply.");
+        EnquiryController.submitEnquiry(this, content, project);
+        System.out.println("Enquiry has been sent, please wait for a reply.");
     }
     public void editEnquiry(){
-        
+        EnquiryController.editEnquiry();
 
     }
     public void deleteEnquiry(){
+
+        EnquiryController.deleteEnquiry(this);
 
     }
     public Application getApplication(){

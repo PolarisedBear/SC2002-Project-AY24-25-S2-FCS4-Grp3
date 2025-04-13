@@ -107,4 +107,18 @@ public class ApplicationController extends ApplicationView implements IApplicati
     public boolean bookFlat(Application application, FlatType flatType) {
         return false;
     }
+
+    public static boolean hasExistingBooking(Applicant applicant) {
+        if (applicant.getApplication() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void applyForProject(Applicant applicant, Project project, FlatType flatType) {
+            Application newApplication = new Application(applicant, project);
+            applicant.setApplication(newApplication);
+            project.addApplication(newApplication);
+    }
 }

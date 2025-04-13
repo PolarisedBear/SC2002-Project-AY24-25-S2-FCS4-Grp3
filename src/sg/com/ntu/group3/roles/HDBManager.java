@@ -1,6 +1,7 @@
 package sg.com.ntu.group3.roles;
 
 import enums.ApplicationStatus;
+import sg.com.ntu.group3.controllers.HDBOfficerController;
 import sg.com.ntu.group3.models.*;
 
 import java.io.IOException;
@@ -61,9 +62,9 @@ public class HDBManager extends User{
         }
     }
 
-    /*public void approveOfficerRegistration(Registration registration) {
-        registration.approve();
-    }*/
+    public void approveOfficerRegistration(HDBOfficerController officerController, HDBOfficer officer, Registration registration) {
+        officerController.approveOfficer(officer,registration);
+    }
 
     public void rejectOfficerRegistration(Registration registration) {
         registration.reject();
