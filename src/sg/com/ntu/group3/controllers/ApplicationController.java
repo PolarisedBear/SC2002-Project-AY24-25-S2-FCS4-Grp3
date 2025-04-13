@@ -51,10 +51,12 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
     }
 
-    public void approveApplication() {
-
+    public void approveApplication(Application application) {
+        application.setStatus(ApplicationStatus.Successful);
     }
-
+    public void rejectApplication(Application application) {
+        application.setStatus(ApplicationStatus.Unsuccessful);
+    }
 
     public void getApplication(Application application) {
         if (application !=null) {
@@ -132,7 +134,7 @@ public class ApplicationController extends ApplicationView implements IApplicati
         return success;
     }
 
-    public static boolean hasExistingBooking(Applicant applicant) {
+    public boolean hasExistingBooking(Applicant applicant) {
         if (applicant.getApplication().getStatus() == ApplicationStatus.Booking) {
             return true;
         } else {
@@ -140,7 +142,7 @@ public class ApplicationController extends ApplicationView implements IApplicati
         }
     }
 
-    public static void applyForProject(Applicant applicant, Project project, FlatType flatType) {
+    public void applyForProject(Applicant applicant, Project project, FlatType flatType) {
             Application newApplication = new Application(applicant, project);
             applicant.setApplication(newApplication);
             project.addApplication(newApplication);

@@ -1,10 +1,16 @@
 package sg.com.ntu.group3.roles;
 
 import enums.ApplicationStatus;
+import sg.com.ntu.group3.controllers.ApplicationController;
+import sg.com.ntu.group3.controllers.EnquiryController;
 import sg.com.ntu.group3.controllers.HDBOfficerController;
+import sg.com.ntu.group3.controllers.ProjectController;
+import sg.com.ntu.group3.controllers.ReportController;
+import sg.com.ntu.group3.controllers.WithdrawalController;
 import sg.com.ntu.group3.models.*;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,45 +18,69 @@ public class HDBManager extends User{
     private List<Project> createdProjects = new ArrayList<>();
     private List<HDBOfficer> Officers = new ArrayList<>();
     private Project currentProject;
+    private ProjectController projectController;
+    private HDBOfficerController officerController;
+    private ApplicationController applicationController;
+    private ReportController reportController;
+    private EnquiryController enquiryController;
+    private WithdrawalController withdrawalController;
+
 
     public HDBManager() {
         super();
     }
 
+    public void setProjectController(ProjectController projectController) {
+        this.projectController = projectController;
+    }
+    public void setOfficerController(HDBOfficerController officerController) {
+        this.officerController = officerController;
+    }
+    public void setApplicationController(ApplicationController applicationController) {
+        this.applicationController = applicationController;
+    }
+    public void setReportController(ReportController reportController) {
+        this.reportController = reportController;
+    }
+    public void setEnquiryController(EnquiryController enquiryController) {
+        this.enquiryController = enquiryController;
+    }
+    public void setWithdrawalController(WithdrawalController withdrawalController) {
+        this.withdrawalController = withdrawalController;
+    }
     public HDBManager(String name, String nric, int age, String maritalStatus, String password) {
         super(name, nric, age, maritalStatus, password);
     }
 
-    public void createProject(Project project) {
-        project.setCreatedBy(this.getName());
-        this.createdProjects.add(project);
+    public void createProject(HDBManager manager) throws ParseException {
+        projectController.createProject(manager);
+        /*project.setCreatedBy(this.getName());
+        this.createdProjects.add(project);*/
     }
 
-    public void editProject(Project project) {
-        if (project == null){
-            System.out.println("Proj not found");
-            return;
-        }
-        project.setName(getName());
+    public void editProject(Project project) throws ParseException {
+        projectController.editProject(project);
 
     }
 
-    public boolean deleteProject(Project project) {
-        return this.createdProjects.remove(project);
+    public void deleteProject() {
+        projectController.deleteProject();
     }
 
     public void toggleProjectVisibility(Project project, boolean isVisible) {
-        project.setVisible(isVisible);
+        projectController.toggleVisibility(project, isVisible);
     }
 
     public void viewAllProjects() {
-        for (Project project : createdProjects) {
+        List<Project> AllProjects = projectController.getAllProjects();
+        for (Project project : AllProjects) {
             System.out.println(project.toString());
         }
     }
 
     public void viewAllSelfProjects() {
-        for (Project project : this.createdProjects) {
+        List<Project> createdProjects = projectController.findProjectsByManager(this);
+        for (Project project : createdProjects) {
             System.out.println(project.toString());
         }
     }
@@ -62,7 +92,7 @@ public class HDBManager extends User{
         }
     }
 
-    public void approveOfficerRegistration(HDBOfficerController officerController, HDBOfficer officer, Registration registration) {
+    public void approveOfficerRegistration(HDBOfficer officer, Registration registration) {
         officerController.approveOfficer(officer,registration);
     }
 
@@ -71,43 +101,35 @@ public class HDBManager extends User{
     }
 
     public void approveApplication(Application application) {
-        application.setStatus(ApplicationStatus.Successful);
+        applicationController.approveApplication(application);
     }
 
     public void rejectApplication(Application application) {
-        application.setStatus(ApplicationStatus.Unsuccessful);
+        applicationController.rejectApplication(application);
     }
 
     public void approveWithdrawal(Application application) {
-        application.setStatus(ApplicationStatus.Withdrawn);
-        application.getApplicant().setApplication(null);
-        application.getProject().getApplicants().remove(application.getApplicant());
-        System.out.println("Withdrawal of application success");
+        withdrawalController.approveWithdrawal(application);
     }
 
     public void rejectWithdrawal(Application application) {
-        application.setStatus(ApplicationStatus.WithdrawnUnsuccessful);
-        System.out.println("Withdrawal of application rejected");
+        withdrawalController.rejectWithdrawal(application);
     }
 
     public void generateReport(Project project, int number) {
-        List <Applicant> applicants = project.getApplicants();
+        reportController.generateReport(project, number);
+        /*List <Applicant> applicants = project.getApplicants();
         Report report = new Report();
-        report.generateApplicantBookingReport(number, applicants);
+        report.generateApplicantBookingReport(number, applicants);*/
         
     }
 
     public void viewEnquiries() {
-        for (Project project : createdProjects) {
-            for (Enquiry enquiry : project.getEnquiries()) {
-                System.out.println(enquiry.toString());
-            }
-        }
-
+        enquiryController.displayEnquiryList();
     }
 
     public void replyEnquiries(Enquiry enquiry, String reply) {
-        enquiry.reply(reply);
+        enquiryController.replyToEnquiry(enquiry, reply);
     }
 
 

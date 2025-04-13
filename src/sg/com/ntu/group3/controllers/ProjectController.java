@@ -11,7 +11,11 @@ import sg.com.ntu.group3.views.ProjectView;
 public class ProjectController extends ProjectView implements IProjectService{
 
 
-    public ProjectController() {}
+    private IProjectService projectService;
+
+    public ProjectController(IProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     public void createProject(HDBManager manager) throws ParseException {
         Project newProject = ProjectView.showCreateProjectForm();
@@ -116,5 +120,8 @@ public class ProjectController extends ProjectView implements IProjectService{
             }
         }
         return eligibleProjects;
+    }
+    public List<Project> getAllProjects() {
+        return projectService.getProjectList();
     }
 }

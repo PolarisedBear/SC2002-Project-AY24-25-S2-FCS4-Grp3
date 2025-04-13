@@ -44,4 +44,24 @@ public class HDBOfficerController implements IManagerService {
     public void approveOfficer(Registration registration) {
 
     }
+
+    public void viewProjectDetails(HDBOfficer officer) {
+        Project project = officer.getAssignedProject();
+        if (project != null) {
+            System.out.println("Project Name: " + project.getName() +
+            "units avail: " + project.getUnitsAvailable() + 
+            "Project Opening Date: " + project.getOpeningDate() +
+            "Project Closing Date: " + project.getCloseDate() +
+            "Flat Types: " + project.getFlatTypes());
+
+        } else {
+            System.out.println("No project assigned to the officer.");
+        }
+    }
+    public void viewRegistrationStatus(HDBOfficer officer) {
+        for (Registration registration : officer.getRegistrations()) {
+            System.out.println("Project: " + registration.getProject().getName() 
+            + ", Status: " + registration.getStatus());
+        }
+    }
 }

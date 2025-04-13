@@ -8,8 +8,12 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements EnquiryView, IEnquiryService{
+    private IEnquiryService enquiryService;
     private static Map<Project, sg.com.ntu.group3.models.Enquiry> enquiryMap;
 
+    public EnquiryController(IEnquiryService enquiryService) {
+        this.enquiryService = enquiryService;
+    }
     public EnquiryController() {}
 
     public void submitEnquiry() {
@@ -21,8 +25,6 @@ public class EnquiryController implements EnquiryView, IEnquiryService{
     public void deleteEnquiry() {
     }
 
-    public void replyToEnquiry() {
-    }
 
     @Override
     public void displayEnquiryForm() {
@@ -31,7 +33,11 @@ public class EnquiryController implements EnquiryView, IEnquiryService{
 
     @Override
     public void displayEnquiryList() {
-
+        for (Map.Entry<Project, Enquiry> entry : enquiryMap.entrySet()) {
+            Project project = entry.getKey();
+            Enquiry enquiry = entry.getValue();
+            System.out.println("Project: " + project.getName() + ", Enquiry: " + enquiry.getContent());
+        }
     }
 
     @Override
@@ -63,11 +69,11 @@ public class EnquiryController implements EnquiryView, IEnquiryService{
         System.out.println("deleted enquiry.");
     }
 
-    @Override
-    public void replyToEnquiry(Enquiry enquiry, String response) {
-
+    public void replyToEnquiry(Enquiry enquiry,String reply) {
+        enquiry.reply(reply);
     }
-    public static void submitEnquiry(Applicant applicant, String content, Project project) {
+
+    public void submitEnquiry(Applicant applicant, String content, Project project) {
         Enquiry enquiry = new Enquiry(project, content, applicant);
         enquiryMap.put(project, enquiry);
         System.out.println("submitted enquiry.");

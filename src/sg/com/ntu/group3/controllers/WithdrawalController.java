@@ -7,6 +7,8 @@ import sg.com.ntu.group3.views.WithdrawalRequestView;
 
 import java.util.List;
 
+import enums.ApplicationStatus;
+
 public class WithdrawalController implements IWithdrawalService {
 
     public WithdrawalController() {
@@ -14,11 +16,15 @@ public class WithdrawalController implements IWithdrawalService {
     }
 
     public void submitWithdrawalRequest(Application application){
+        if(application.getStatus()==ApplicationStatus.Withdrawn) {
+            System.out.println("a withdrawal request has already been submitted");
+            return;
+        }
 
     }
 
     public void processWithdrawalRequest(WithdrawalRequest request, boolean approved) {
-
+        
     }
 
 
@@ -40,5 +46,17 @@ public class WithdrawalController implements IWithdrawalService {
     @Override
     public void rejectRequest(WithdrawalRequest request) {
 
+    }
+
+
+    public void approveWithdrawal(Application application) {
+        application.setStatus(ApplicationStatus.Withdrawn);
+        application.getApplicant().setApplication(null);
+        application.getProject().getApplicants().remove(application.getApplicant());
+        System.out.println("application withdrawal approved");
+    }
+    public void rejectWithdrawal(Application application) {
+        application.setStatus(ApplicationStatus.WithdrawnUnsuccessful);
+        System.out.println("application withdrawal");
     }
 }
