@@ -51,6 +51,11 @@ public class ProjectView{
         return input.nextLine();
     }
 
+    public static Integer AddFlatNumberForm() {
+        System.out.println("Enter the number of available flats of this type:");
+        return input.nextInt();
+    }
+
     public static Date showEditProjectCloseDate(Project project) throws ParseException {
         System.out.println("Enter the new close date for this project (dd/mm/yyyy)");
         String dateInput = input.nextLine();

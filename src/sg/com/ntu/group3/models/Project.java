@@ -20,12 +20,12 @@ public class Project {
     private int maxOfficers;
     private int officerSlots;
     private String createdBy;
-    private Map<FlatType, Integer> unitsAvailable;
+    private Map<FlatType, Integer> unitsAvailable; //units Available for that particular flat type in this project
     private List<Application> applications;
     private List<Enquiry> enquiries;
     private List<HDBOfficer> hdbOfficers;
     private List<Applicant> applicants; //added
-    private static List<Project> projectList = new ArrayList<>();
+    private static List<Project> projectList = new ArrayList<>(); //master list of all created projects
 
     public Project() {
         this.officerSlots = 0;
@@ -130,6 +130,16 @@ public class Project {
         return false;
     }
 
+    public void updateAvailableUnits(FlatType flatType, int change, char operator) {
+        if (operator == '+') {
+            this.unitsAvailable.compute(flatType, (k, current) -> current + change);
+        }
+        else if (operator == '-') {
+            this.unitsAvailable.compute(flatType, (k, current) -> current - change);
+        }
+        flatType.updateRemainingUnits(change, operator);
+    }
+
     public boolean isWithinApplicationPeriod(Date date) {
         return !date.before(this.openingDate) && !date.after(this.closeDate);
     }
@@ -146,16 +156,22 @@ public class Project {
             this.flatTypes.remove(this.flatTypes.stream()
                     .filter(type -> type.getType().equalsIgnoreCase(name))
                     .findFirst().orElse(null));
+            this.unitsAvailable.remove(FlatType.getTypeList().get(name));
         }
         return exists;
     }
 
-    public boolean addFlatType(String name) {
+    public boolean addFlatType(String name, Integer number) {
         boolean exists = FlatType.getTypeList().containsKey(name);
         if (exists) {
-            this.addFlatType(name);
+            this.flatTypes.add(FlatType.getTypeList().get(name));
+            this.unitsAvailable.put(FlatType.getTypeList().get(name), number);
         }
         return exists;
+    }
+
+    public boolean checkForFlatType(String name) {
+        return this.flatTypes.stream().anyMatch(flatType -> flatType.getType().equalsIgnoreCase(name));
     }
 
     public static Project findProject(String name) {

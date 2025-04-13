@@ -42,7 +42,8 @@ public class ProjectController extends ProjectView implements IProjectService{
                             ProjectView.showOperationOutcome(successful); break;
                         case 1:
                             name = ProjectView.showAddProjectFlatTypes(project);
-                            successful = project.addFlatType(name);
+                            Integer number = ProjectView.AddFlatNumberForm();
+                            successful = project.addFlatType(name, number);
                             ProjectView.showOperationOutcome(successful); break;
                         default:
                             System.out.println("Operation cancelled");

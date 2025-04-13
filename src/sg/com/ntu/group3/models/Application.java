@@ -3,18 +3,19 @@ package sg.com.ntu.group3.models;
 import enums.ApplicationStatus;
 import sg.com.ntu.group3.roles.Applicant;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Application {
     private Applicant applicant;
     private ApplicationStatus status;
     private Project project;
-    private static Map<ApplicationStatus, Application> applicationMap;
+    private static Map<Applicant, Application> applicationMap;
 
     public Application(Applicant applicant) {
         this.applicant = applicant;
         this.status = ApplicationStatus.Pending;
-        applicationMap.put(this.status, this);
+        applicationMap.put(this.applicant, this);
     }
 
     public Application(Applicant applicant, Project project) {
@@ -22,7 +23,7 @@ public class Application {
         this.status = ApplicationStatus.Pending;
         this.project = project;
         project.addApplication(this);
-        applicationMap.put(this.status, this);
+        applicationMap.put(this.applicant, this);
     }
 
 
@@ -43,4 +44,23 @@ public class Application {
         return this;
     }
 
+    public Map<FlatType, Integer> getAvailableUnitsForApplicant() {
+        Map<FlatType, Integer> availableUnitsByFlatType = new HashMap<>();
+        for (FlatType flatType : this.project.getFlatTypes()) {
+            if (flatType.isEligibleForApplicant(this.applicant)) {
+                Integer availableUnits = this.project.getUnitsAvailable().get(flatType);
+                availableUnitsByFlatType.put(flatType, availableUnits);
+            }
+        }
+        return availableUnitsByFlatType;
+    }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "applicant=" + applicant +
+                ", status=" + status +
+                ", project=" + project +
+                '}';
+    }
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 public class FlatType {
     private String type;
     private int totalUnits;
-    private int remainingUnits;
+    private int remainingUnits; //Remaining units of this flatType across all projects
     private List<EligibilityRule> eligibilityRules;
     private static Map<String, FlatType> typeList = Map.of();
 

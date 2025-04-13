@@ -1,18 +1,19 @@
 package sg.com.ntu.group3.controllers;
 import enums.ApplicationStatus;
+import sg.com.ntu.group3.controllers.services.IApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.IApplicationService;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.models.Project;
-import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.ApplicationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class ApplicationController extends ApplicationView implements IApplicationService {
+public class ApplicationController extends ApplicationView implements IApplicationService, IApplicationFilterService {
     private Session session;
 
     public ApplicationController(Session session) {
@@ -54,8 +55,11 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
     }
 
-    public void bookFlat() {
 
+    public void getApplication(Application application) {
+        if (application.getApplication()!=null) {
+
+        }
     }
 
     public void getApplicationStatus() {
@@ -100,16 +104,36 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
     @Override
     public ApplicationStatus getApplicationStatus(Application application) {
-        return null;
+        return application.getStatus();
     }
 
     @Override
     public boolean bookFlat(Application application, FlatType flatType) {
-        return false;
+        boolean success = false;
+        if (application.getStatus() == ApplicationStatus.Successful) {
+            Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant();
+            String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
+            if (application.getProject().checkForFlatType(booking)) {
+                application.setStatus(ApplicationStatus.Booking);
+                success = true;
+                ApplicationView.showOperationOutcome("Booking", success);
+
+            } else {
+                ApplicationView.showOperationOutcome("Booking", false);
+                System.out.println("Invalid Input!");
+            }
+        } else if (application.getStatus() == ApplicationStatus.Booking) {
+            ApplicationView.showOperationOutcome("Booking",false);
+            System.out.println("Application already has previous booking");
+        } else {
+            ApplicationView.showOperationOutcome("Booking",false);
+            System.out.println("Application not yet approved");
+        }
+        return success;
     }
 
     public static boolean hasExistingBooking(Applicant applicant) {
-        if (applicant.getApplication() != null) {
+        if (applicant.getApplication().getStatus() == ApplicationStatus.Booking) {
             return true;
         } else {
             return false;
@@ -120,5 +144,25 @@ public class ApplicationController extends ApplicationView implements IApplicati
             Application newApplication = new Application(applicant, project);
             applicant.setApplication(newApplication);
             project.addApplication(newApplication);
+    }
+
+    @Override
+    public List<Application> filterByMaritalStatus(boolean married) {
+        return List.of();
+    }
+
+    @Override
+    public List<Application> filterByAge(int minAge, int maxAge) {
+        return List.of();
+    }
+
+    @Override
+    public List<Application> filterByFlatType(String flatType) {
+        return List.of();
+    }
+
+    @Override
+    public List<Application> filterByCompositeCriteria(Map criteria) {
+        return List.of();
     }
 }

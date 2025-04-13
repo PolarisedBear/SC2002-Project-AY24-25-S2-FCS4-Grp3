@@ -23,6 +23,10 @@ public class Enquiry {
         
     }
 
+    public String getContent() {
+        return content;
+    }
+
     public Project getProj() {
         return proj;
     }

@@ -5,6 +5,7 @@ public enum ApplicationStatus {
     Successful,
     Unsuccessful,
     Booked,
+    Booking,
     RequestWithdrawal,
     Withdrawn,
     WithdrawnUnsuccessful;

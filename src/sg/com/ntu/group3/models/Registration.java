@@ -27,6 +27,10 @@ public class Registration {
         this.project = project;
     }
 
+    public RegistrationStatus getStatus() {
+        return status;
+    }
+
     public void approve() {
         this.status = RegistrationStatus.Approved;
     }
