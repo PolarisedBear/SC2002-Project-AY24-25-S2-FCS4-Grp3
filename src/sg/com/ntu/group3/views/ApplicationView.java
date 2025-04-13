@@ -37,7 +37,9 @@ public class ApplicationView implements View {
         System.out.println("Your currently applied project is:");
         System.out.println(application);
     }
-    public void displayApplicationStatus() {};
+    public void displayApplicationStatus(Application application) {
+        System.out.println(application.getStatus());
+    };
     public void showWithdrawalForm() {};
     public static void showBookingForm(Application application, Applicant applicant) {
         System.out.println("Application Successful. Proceed to Flat Booking");

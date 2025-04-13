@@ -87,8 +87,9 @@ public class ProjectController extends ProjectView implements IProjectService{
         project.setVisible(isVisible);
     }
 
-    public void getProjectList() {
+    public List<Project> getProjectList() {
         ProjectView.displayProjectList();
+        return null;
     }
 
     private boolean isValidAttribute(String input) {
@@ -109,7 +110,7 @@ public class ProjectController extends ProjectView implements IProjectService{
 
     @Override
     public boolean hasActiveProject(HDBManager manager, Date date) {
-        return manager.get
+        return false;
     }
     public List<Project> displayEligibleProjects(Applicant applicant) {
         List<Project> Projects = Project.getProjectList();
@@ -122,6 +123,6 @@ public class ProjectController extends ProjectView implements IProjectService{
         return eligibleProjects;
     }
     public List<Project> getAllProjects() {
-        return projectService.getProjectList();
+        return Project.getProjectList();
     }
 }

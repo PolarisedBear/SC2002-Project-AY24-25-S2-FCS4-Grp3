@@ -67,7 +67,7 @@ public class Applicant extends User {
     }
     public void viewApplicationStatus(){
         if(this.application!=null){
-            applicationView.displayApplicationStatus(this.application.getStatus());
+            applicationView.displayApplicationStatus(this.application);
         }
 
     }
