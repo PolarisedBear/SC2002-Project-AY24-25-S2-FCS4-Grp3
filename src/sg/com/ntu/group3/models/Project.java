@@ -121,6 +121,10 @@ public class Project {
         return isEligible;
     }
 
+    public boolean isEligibleFlatAvailable(Applicant applicant, FlatType eligibleFlat) {
+        return unitsAvailable.get(eligibleFlat)!=0;
+    }
+
     public boolean hasAvailableUnitsForApplicant(Applicant applicant) {
         for (FlatType flatType : this.flatTypes) {
             if (flatType.isEligibleForApplicant(applicant)) {

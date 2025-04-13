@@ -9,5 +9,5 @@ import sg.com.ntu.group3.roles.User;
 public interface IApplicationService {
     public void withdrawApplication(Application application);
     public ApplicationStatus getApplicationStatus(Application application);
-    public boolean bookFlat(Applicant applicant);
+    public Application bookFlat(Applicant applicant);
 }

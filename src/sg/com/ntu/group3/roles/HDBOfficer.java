@@ -82,10 +82,10 @@ public class HDBOfficer extends Applicant {
     }
 
     public void updateApplication(Application application) {
-        if (application == null) {
+        /*if (application == null) {
             System.out.println("Application is null.");
             return;
-        }
+        } */
         if (assignedProject == null) {
             System.out.println("No project assigned to this officer.");
             return;
@@ -95,14 +95,14 @@ public class HDBOfficer extends Applicant {
             return;
         }
         
-        if (application != null && application.getStatus() == ApplicationStatus.Successful
+        if (application.getStatus() == ApplicationStatus.Booking
         && application.getApplicant().getFlatTypeBooked() == null 
         && application.getApplicant().getProjectBooked() == null) {
             applicantProfile = application.getApplicant();
-            FlatType flatType = application.getFlatType();
-            Map<FlatType, Integer> availUnits = assignedProject.getUnitsAvailable();
+            FlatType flatType = application.getBookedFlat();
+            //Map<FlatType, Integer> availUnits = assignedProject.getUnitsAvailable();
 
-            if(availUnits.containsKey(flatType) && availUnits.get(flatType)> 0){
+            //if(availUnits.containsKey(flatType) && availUnits.get(flatType)> 0){
                 application.setStatus(ApplicationStatus.Booked);
                 assignedProject.getUnitsAvailable().put(flatType, availUnits.get(flatType) - 1);
 
@@ -150,5 +150,7 @@ public class HDBOfficer extends Applicant {
     public Project getAssignedProject() {
         return assignedProject;
     }
+
+    
 
 }

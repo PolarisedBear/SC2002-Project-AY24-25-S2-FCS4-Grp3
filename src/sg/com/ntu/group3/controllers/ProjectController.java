@@ -101,15 +101,16 @@ public class ProjectController extends ProjectView implements IProjectService{
     }
 
 
-
     @Override
     public List<Project> findProjectsByManager(HDBManager manager) {
-        return List.of();
+        List<Project> filteredList = Project.getProjectList().stream()
+                .filter(proj -> proj.getCreatedBy().equalsIgnoreCase(manager.getName())).toList();
+        return filteredList;
     }
 
     @Override
     public boolean hasActiveProject(HDBManager manager, Date date) {
-        return false;
+        return manager.get
     }
     public List<Project> displayEligibleProjects(Applicant applicant) {
         List<Project> Projects = Project.getProjectList();

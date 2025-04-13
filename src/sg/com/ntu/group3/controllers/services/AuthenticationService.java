@@ -54,7 +54,7 @@ public class AuthenticationService implements IAuthenticationService {
 
     public User findUserByNric(String nric) throws IOException {
         /* List<Applicant> applicants = UserRepository.getAllApplicants();
-        List<HDBOfficer> officers = UserRepository.getAllOfficers();
+        List<HDBOfficer.java> officers = UserRepository.getAllOfficers();
         List<HDBManager> managers = UserRepository.getAllManagers(); */
 
         for (User user : Stream.of(User.getUserList()).flatMap(List::stream).toList()) {

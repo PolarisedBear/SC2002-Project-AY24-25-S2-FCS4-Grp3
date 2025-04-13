@@ -67,9 +67,6 @@ public class ApplicationController extends ApplicationView implements IApplicati
         }
     }
 
-    public void getApplicationStatus() {
-
-    }
 
     public List<Project> findEligibleProjects(Applicant applicant) {
         List<Project> eligibleProjects = new ArrayList<>();
@@ -113,35 +110,53 @@ public class ApplicationController extends ApplicationView implements IApplicati
     }
 
     @Override
-    public boolean bookFlat(Applicant applicant) {
-        if (applicant.getApplication()==null) {
-            ApplicationView.showOperationOutcome("Booking", false);
-            System.out.println("No application found!");
-            return false;}
-
-        Application application = applicant.getApplication();
-        boolean success = false;
-        if (application.getStatus() == ApplicationStatus.Successful) {
-            Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant();
+    public Application bookFlat(Applicant applicant) {
+        if (applicant.canBookFlat()) {
+            Application application = applicant.getApplication();
+            Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant(); // get all the available flats and the number available
             String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
             if (application.getProject().checkForFlatType(booking)) {
-                application.setStatus(ApplicationStatus.Booking);
-                success = true;
-                ApplicationView.showOperationOutcome("Booking", success);
-
+                application.setStatus(ApplicationStatus.Booking); //update to being booked (booking)
+                ApplicationView.showOperationOutcome("Booking", true);
+                return application; //successful
             } else {
                 ApplicationView.showOperationOutcome("Booking", false);
-                System.out.println("Invalid Input!");
+                System.out.println("Invalid Input!"); //unsuccessful: invalid flat type entered from view class
             }
-        } else if (application.getStatus() == ApplicationStatus.Booking) {
-            ApplicationView.showOperationOutcome("Booking",false);
-            System.out.println("Application already has previous booking");
         } else {
-            ApplicationView.showOperationOutcome("Booking",false);
-            System.out.println("Application not yet approved");
+            ApplicationView.showOperationOutcome("Booking", false);
         }
-        return success;
+        return null;
     }
+
+//    public Application bookFlat(Applicant applicant) { //to route to HDBOfficer.java for approval
+//        if (applicant.getApplication()==null) {
+//            ApplicationView.showOperationOutcome("Booking", false);
+//            System.out.println("No application found!");
+//            return null;}
+//
+//        Application application = applicant.getApplication(); //application to be modified
+//
+//        if (application.getStatus() == ApplicationStatus.Successful) {
+//            Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant(); // get all the available flats and the number available
+//            String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
+//            if (application.getProject().checkForFlatType(booking)) {
+//                application.setStatus(ApplicationStatus.Booking); //update to being booked (booking)
+//                ApplicationView.showOperationOutcome("Booking", true);
+//                return application; //successful
+//            } else {
+//                ApplicationView.showOperationOutcome("Booking", false);
+//                System.out.println("Invalid Input!"); //unsuccessful: invalid flat type entered from view class
+//            }
+//        } else if (application.getStatus() == ApplicationStatus.Booking) {
+//            ApplicationView.showOperationOutcome("Booking",false);
+//            System.out.println("Application already has previous booking"); //unsuccessful: application has previously been booked
+//        } else {
+//            ApplicationView.showOperationOutcome("Booking",false);
+//            System.out.println("Application not yet approved"); //unsuccessful: application not approved
+//        }
+//        return null;
+//    }
 
     public boolean hasExistingBooking(Applicant applicant) {
         if (applicant.getApplication().getStatus() == ApplicationStatus.Booking) {

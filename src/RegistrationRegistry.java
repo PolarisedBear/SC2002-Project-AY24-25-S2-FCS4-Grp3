@@ -1,6 +1,6 @@
 //import sg.com.ntu.group3.models.Project;
 //import sg.com.ntu.group3.models.Registration;
-//import sg.com.ntu.group3.roles.HDBOfficer;
+//import sg.com.ntu.group3.roles.HDBOfficer.java;
 //
 //import java.util.ArrayList;
 //import java.util.List;
@@ -16,7 +16,7 @@
 //        return allRegistrations;
 //    }
 //
-//    public static List<Registration> getRegistrationsByOfficer(HDBOfficer officer) {
+//    public static List<Registration> getRegistrationsByOfficer(HDBOfficer.java officer) {
 //
 //    }
 //

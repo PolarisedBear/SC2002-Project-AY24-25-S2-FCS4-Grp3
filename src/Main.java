@@ -5,6 +5,7 @@ import enums.Role;
 import sg.com.ntu.group3.controllers.*;
 import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
+import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
@@ -61,8 +62,9 @@ public class Main {
                             case 6://view applied project
                                 applicationController.viewApplication(currentUser);
                                 break;
-                            case 7://book flat
-                                boolean bookingSuccess = applicationController.bookFlat(currentUser);
+                            case 7://book flat and send to attached officer
+                                Application booking = applicationController.bookFlat(currentUser);
+
                                 break;
                             case 8://request withdrawal
                             case 9://submit enquiry

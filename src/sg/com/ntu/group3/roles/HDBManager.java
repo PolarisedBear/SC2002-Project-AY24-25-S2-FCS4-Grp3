@@ -25,10 +25,27 @@ public class HDBManager extends User{
     private EnquiryController enquiryController;
     private WithdrawalController withdrawalController;
 
-
+    //constructors
     public HDBManager() {
         super();
     }
+    public HDBManager(String name, String nric, int age, String maritalStatus, String password) {
+        super(name, nric, age, maritalStatus, password);
+    }
+
+    //getters and setters
+
+    public List<Project> getCreatedProjects() {return createdProjects;}
+
+    public void setCreatedProjects(List<Project> createdProjects) {this.createdProjects = createdProjects;}
+
+    public List<HDBOfficer> getOfficers() {return Officers;}
+
+    public void setOfficers(List<HDBOfficer> officers) {Officers = officers;}
+
+    public Project getCurrentProject() {return currentProject;}
+
+    public void setCurrentProject(Project currentProject) {this.currentProject = currentProject;}
 
     public void setProjectController(ProjectController projectController) {
         this.projectController = projectController;
@@ -48,9 +65,7 @@ public class HDBManager extends User{
     public void setWithdrawalController(WithdrawalController withdrawalController) {
         this.withdrawalController = withdrawalController;
     }
-    public HDBManager(String name, String nric, int age, String maritalStatus, String password) {
-        super(name, nric, age, maritalStatus, password);
-    }
+
 
     public void createProject(HDBManager manager) throws ParseException {
         projectController.createProject(manager);

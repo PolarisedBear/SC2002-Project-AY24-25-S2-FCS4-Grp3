@@ -51,7 +51,7 @@ public class Applicant extends User {
 
     public void viewEligibleProjects(ProjectController projectController){
         List<Project> eligibleProjects = projectController.displayEligibleProjects(this);
-        ProjectView.displayProjects(eligibleProjects);
+        ProjectView.displayProjectList(eligibleProjects);
     }
     public void applyForEligibleProject(Project project, FlatType flatType){
         if(applicationController.hasExistingBooking(this)){
@@ -119,6 +119,14 @@ public class Applicant extends User {
         return enquiries;
     }
 
+    public boolean canBookFlat() {
+        boolean canBook = true;
+        canBook = !(application==null) //list fail conditions
+                && !(FlatTypeBooked==null)
+                && !(application.getStatus()==ApplicationStatus.Booked || application.getStatus()==ApplicationStatus.Booking)
+                && application.getStatus()==ApplicationStatus.Successful;
+        return canBook;
+    }
 
 
 }

@@ -18,7 +18,7 @@ public class Session{
 
 //    if (gonna check the user type in csv)
 //    currentUser = new sg.com.ntu.groupX.roles.Applicant()
-//    currentUser = new sg.com.ntu.groupX.roles.HDBOfficer()
+//    currentUser = new sg.com.ntu.groupX.roles.HDBOfficer.java()
     public void gainAccess() {
         if (this.currentUser instanceof HDBOfficer) {
             this.role = Role.OFFICER;

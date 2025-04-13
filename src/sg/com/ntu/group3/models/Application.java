@@ -12,6 +12,7 @@ public class Application {
     private Applicant applicant;
     private ApplicationStatus status;
     private Project project;
+    private FlatType bookedFlat;
     private static Map<Applicant, Application> applicationMap;
 
     public Application(Applicant applicant) {
@@ -38,13 +39,25 @@ public class Application {
 
     public Map<FlatType, Integer> getAvailableUnitsForApplicant() {
         Map<FlatType, Integer> availableUnitsByFlatType = new HashMap<>();
-        for (FlatType flatType : this.project.getFlatTypes()) {
+        for (FlatType flatType : this.project.getUnitsAvailable().keySet()) {
             if (flatType.isEligibleForApplicant(this.applicant)) {
                 Integer availableUnits = this.project.getUnitsAvailable().get(flatType);
                 availableUnitsByFlatType.put(flatType, availableUnits);
             }
         }
         return availableUnitsByFlatType;
+    }
+
+    public void setBookedFlat(FlatType flat) {
+        this.bookedFlat = flat;
+    }
+    public FlatType getBookedFlat() {
+        return this.bookedFlat;
+    }
+
+    public void approveBooking() {
+        setStatus(ApplicationStatus.Booked);
+        this.project.updateAvailableUnits(bookedFlat, 1, '-');
     }
 
     @Override
