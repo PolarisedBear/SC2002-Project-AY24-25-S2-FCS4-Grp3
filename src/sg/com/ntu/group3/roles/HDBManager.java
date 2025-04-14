@@ -99,11 +99,8 @@ public class HDBManager extends User{
         }
     }
 
-    public void viewAllOfficerRegistration() throws IOException {
-        Officers = UserRepository.getAllOfficers();
-        for (HDBOfficer officer : Officers) {
-            System.out.println(officer.getRegistrations());
-        }
+    public void viewAllOfficerRegistration() {
+        officerController.viewAllOfficerRegistration(Officers);
     }
 
     public void approveOfficerRegistration(HDBOfficer officer, Registration registration) {
@@ -111,7 +108,7 @@ public class HDBManager extends User{
     }
 
     public void rejectOfficerRegistration(Registration registration) {
-        registration.reject();
+        officerController.rejectOfficer(registration);
     }
 
     public void approveApplication(Application application) {
@@ -145,6 +142,5 @@ public class HDBManager extends User{
     public void replyEnquiries(Enquiry enquiry, String reply) {
         enquiryController.replyToEnquiry(enquiry, reply);
     }
-
 
 }

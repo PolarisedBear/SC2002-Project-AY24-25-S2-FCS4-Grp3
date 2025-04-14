@@ -112,7 +112,7 @@ public class ProjectController extends ProjectView implements IProjectService{
     public boolean hasActiveProject(HDBManager manager, Date date) {
         return false;
     }
-    public List<Project> displayEligibleProjects(Applicant applicant) {
+    public void displayEligibleProjects(Applicant applicant) {
         List<Project> Projects = Project.getProjectList();
         List<Project> eligibleProjects = new ArrayList<>();
         for (Project project : Projects) {
@@ -120,7 +120,10 @@ public class ProjectController extends ProjectView implements IProjectService{
                 eligibleProjects.add(project);
             }
         }
-        return eligibleProjects;
+        System.out.println("Eligible projects:\n");
+        for (Project project : eligibleProjects) {
+            System.out.println(project.getName());
+        }
     }
     public List<Project> getAllProjects() {
         return Project.getProjectList();
