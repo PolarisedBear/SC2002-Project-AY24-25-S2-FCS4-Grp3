@@ -92,9 +92,15 @@ public class Main {
                         int choice = SessionView.showMainMenuHDBOfficer(session);
                         switch (choice) {
                             case 1: session.logout(); break; //logout
-                            case 2://change password
+                            case 2: //change password
+                                boolean passwordChange = userController.changePassword();
+                                break;
                             case 3://update user info
+                                userController.updateUserInfo();
+                                break;
                             case 4://view user profile
+                                userController.displayUserInfo();
+                                break;
                             case 5://
                             case 6://
                             case 7://
@@ -116,9 +122,15 @@ public class Main {
                         int choice = SessionView.showMainMenuHDBManager(session);
                         switch (choice) {
                             case 1: session.logout(); break; //logout
-                            case 2://change password
+                            case 2: //change password
+                                boolean passwordChange = userController.changePassword();
+                                break;
                             case 3://update user info
+                                userController.updateUserInfo();
+                                break;
                             case 4://view user profile
+                                userController.displayUserInfo();
+                                break;
                             case 5://
                             case 6://
                             case 7://
