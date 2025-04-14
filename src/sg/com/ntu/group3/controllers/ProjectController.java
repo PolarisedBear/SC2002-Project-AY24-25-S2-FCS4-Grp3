@@ -113,13 +113,7 @@ public class ProjectController extends ProjectView implements IProjectService{
         return false;
     }
     public void displayEligibleProjects(Applicant applicant) {
-        List<Project> Projects = Project.getProjectList();
-        List<Project> eligibleProjects = new ArrayList<>();
-        for (Project project : Projects) {
-            if (project.isVisible() && project.isEligibleForApplication(applicant)) {
-                eligibleProjects.add(project);
-            }
-        }
+        List<Project> eligibleProjects = applicant.viewEligibleProjects(applicant);
         System.out.println("Eligible projects:\n");
         for (Project project : eligibleProjects) {
             System.out.println(project.getName());

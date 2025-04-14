@@ -1,5 +1,6 @@
 package sg.com.ntu.group3.roles;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import enums.ApplicationStatus;
@@ -37,25 +38,21 @@ public class Applicant extends User {
         super(name, nric, age, maritalStatus, password);
     }
 
-    public void setApplicationController(ApplicationController applicationController) {
-        this.applicationController = applicationController;
-    }
+    public List<Project> viewEligibleProjects(Applicant applicant){
 
-    public void setEnquiryController(EnquiryController enquiryController) {
-        this.enquiryController = enquiryController;
-    }
+        List<Project> Projects = Project.getProjectList();
+        List<Project> eligibleProjects = new ArrayList<>();
+        
+        for (Project project : Projects) {
+            if (project.isVisible() && project.isEligibleForApplication(applicant)) {
+                eligibleProjects.add(project);
+            }
+        }
 
-    public void setWithdrawalController(WithdrawalController withdrawalController) {
-        this.withdrawalController = withdrawalController;
-    }
-    public void setProjectController(ProjectController projectController) {
-        this.projectController = projectController;
-    }
+        return eligibleProjects;
 
-    public void viewEligibleProjects(){
-        projectController.displayEligibleProjects(this);
     }
-    public void applyForEligibleProject(Project project, FlatType flatType){
+    /*public void applyForEligibleProject(Project project, FlatType flatType){
         if(applicationController.hasExistingBooking(this)){
             System.out.println("you have an existing booking");
             return;
@@ -66,14 +63,13 @@ public class Applicant extends User {
         else{
             System.out.println("Uneligible, please apply for an eligible project");
         }
-    }
-    public void viewApplicationStatus(){
+    }*/
+    /*public void viewApplicationStatus(){
         if(this.application!=null){
-            String appStatus = applicationController.getApplicationStatus(application).toString();
-            applicationView.displayApplicationStatus(application, appStatus);
+            this.application.getStatus();
         }
 
-    }
+    }*/
     public void requestFlatBooking(){
         if(this.application!=null && this.application.getStatus()==ApplicationStatus.Successful){
             applicationController.requestFlatBooking(this.application);
@@ -86,9 +82,8 @@ public class Applicant extends User {
     public void RequestWithdrawal(){
         withdrawalController.submitWithdrawalRequest(this.application);
     }
-    public void SubmitEnquiry(String content, Project project){
-        enquiryController.submitEnquiry(this, content, project);
-        enquiryView.displayEnquirySubmission();
+    public void addEnquiry(Enquiry enquiry){
+        enquiries.add(enquiry);
     }
     public void editEnquiry(Enquiry enquiry){
         enquiryController.editEnquiry(enquiry);
@@ -119,7 +114,9 @@ public class Applicant extends User {
     public List<Enquiry> getEnquiries() {
         return enquiries;
     }
-
+    public boolean canBookFlat() {
+        return application != null && application.getStatus() == ApplicationStatus.Successful;
+    }
 
 
 }

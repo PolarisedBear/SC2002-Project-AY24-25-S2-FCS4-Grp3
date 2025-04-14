@@ -27,7 +27,8 @@ public class ApplicationController extends ApplicationView implements IApplicati
         Applicant applicant = (Applicant) this.session.getCurrentUser();
         if (applicant.getApplication()!=null
                 || applicant.getApplication().getStatus()==ApplicationStatus.Unsuccessful
-                || applicant.getApplication().getStatus()==ApplicationStatus.Withdrawn) {
+                || applicant.getApplication().getStatus()==ApplicationStatus.Withdrawn
+                || applicant.getApplication().getStatus()==ApplicationStatus.Booking) {
             List<Project> projectList = findAvailableProjects(
                     findVisibleProjects(findEligibleProjects(applicant))
                     , applicant);
@@ -107,7 +108,9 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
     @Override
     public ApplicationStatus getApplicationStatus(Application application) {
-        return application.getStatus();
+        ApplicationStatus appStatus = application.getStatus();
+        ApplicationView.displayApplicationStatus(application);
+        return appStatus;
     }
 
     @Override
@@ -157,12 +160,6 @@ public class ApplicationController extends ApplicationView implements IApplicati
         } else {
             return false;
         }
-    }
-
-    public void applyForProject(Applicant applicant, Project project, FlatType flatType) {
-            Application newApplication = new Application(applicant, project);
-            applicant.setApplication(newApplication);
-            project.addApplication(newApplication);
     }
 
 

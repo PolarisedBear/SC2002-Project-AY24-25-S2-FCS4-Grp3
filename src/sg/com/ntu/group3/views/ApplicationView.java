@@ -37,8 +37,11 @@ public class ApplicationView implements View {
         System.out.println("Your currently applied project is:");
         System.out.println(application);
     }
-    public void displayApplicationStatus(Application application) {
+    public static void displayApplicationStatus(Application application) {
+        System.out.println("Application Status: ");
         System.out.println(application.getStatus());
+        System.out.println("Project: ");
+        System.out.println(application.getProject());
     };
     public void showWithdrawalForm() {};
     public static void showBookingForm(Application application, Applicant applicant) {
@@ -51,10 +54,6 @@ public class ApplicationView implements View {
         System.out.println(applications);
         System.out.println("Enter the NRIC of the applicant to begin booking");
         return input.nextLine();
-    }
-    public void displayApplicationStatus(Application application, String appStatus) {
-        System.out.println("Application Status: " + appStatus);
-        System.out.println("Project Name: " + application.getProject().getName());
     }
 
 }

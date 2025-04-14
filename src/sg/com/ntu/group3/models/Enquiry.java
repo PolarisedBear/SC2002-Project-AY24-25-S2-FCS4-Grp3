@@ -30,6 +30,9 @@ public class Enquiry {
     public Project getProj() {
         return proj;
     }
+    public User getUser() {
+        return user;
+    }
 
     public void reply(String response) {
         this.response = response;

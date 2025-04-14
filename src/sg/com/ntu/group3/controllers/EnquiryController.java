@@ -1,5 +1,6 @@
 package sg.com.ntu.group3.controllers;
 import java.util.Map;
+import java.util.Scanner;
 
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.controllers.services.IEnquiryService;
@@ -10,20 +11,10 @@ import sg.com.ntu.group3.views.EnquiryView;
 public class EnquiryController implements EnquiryView, IEnquiryService{
     private IEnquiryService enquiryService;
     private static Map<Project, sg.com.ntu.group3.models.Enquiry> enquiryMap;
+     private Scanner input = new Scanner(System.in);
 
-    public EnquiryController(IEnquiryService enquiryService) {
-        this.enquiryService = enquiryService;
-    }
+
     public EnquiryController() {}
-
-    public void submitEnquiry() {
-    }
-
-    public void editEnquiry() {
-    }
-
-    public void deleteEnquiry() {
-    }
 
 
     @Override
@@ -51,16 +42,10 @@ public class EnquiryController implements EnquiryView, IEnquiryService{
     }
 
     @Override
-    public boolean submitEnquiry(Enquiry enquiry) {
-
-    }
-
-    @Override
     public void editEnquiry(Enquiry enquiry) {
         EnquiryView.showEditEnquiry();
-        enquiry.editEnquiry(enquiry.getContent());
-        System.out.println("edited enquiry.");
-
+        String editedResponse = input.nextLine();
+        enquiry.editEnquiry(editedResponse);
     }
 
     @Override
@@ -68,14 +53,16 @@ public class EnquiryController implements EnquiryView, IEnquiryService{
         enquiry.deleteEnquiry();
         System.out.println("deleted enquiry.");
     }
-
+    //needs to be done
     public void replyToEnquiry(Enquiry enquiry,String reply) {
         enquiry.reply(reply);
     }
 
     public void submitEnquiry(Applicant applicant, String content, Project project) {
         Enquiry enquiry = new Enquiry(project, content, applicant);
+        EnquiryView.displayEnquirySubmit();
+        applicant.addEnquiry(enquiry);
         enquiryMap.put(project, enquiry);
-        System.out.println("submitted enquiry.");
+       
     }
 }
