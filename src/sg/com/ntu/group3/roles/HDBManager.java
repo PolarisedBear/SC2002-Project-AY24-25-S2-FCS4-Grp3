@@ -100,7 +100,7 @@ public class HDBManager extends User{
     }
 
     public void viewAllOfficerRegistration() {
-        officerController.viewAllOfficerRegistration(Officers);
+       // officerController.viewAllOfficerRegistration(Officers);
     }
 
     public void approveOfficerRegistration(HDBOfficer officer, Registration registration) {
@@ -108,7 +108,7 @@ public class HDBManager extends User{
     }
 
     public void rejectOfficerRegistration(Registration registration) {
-        officerController.rejectOfficer(registration);
+       // officerController.rejectOfficer(registration);
     }
 
     public void approveApplication(Application application) {

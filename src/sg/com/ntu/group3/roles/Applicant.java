@@ -49,10 +49,10 @@ public class Applicant extends User {
     }
 
 
-    public void viewEligibleProjects(ProjectController projectController){
-        List<Project> eligibleProjects = projectController.displayEligibleProjects(this);
-        ProjectView.displayProjectList(eligibleProjects);
-    }
+   // public void viewEligibleProjects(ProjectController projectController){
+     //   List<Project> eligibleProjects = projectController.displayEligibleProjects(this);
+       // ProjectView.displayProjectList(eligibleProjects);
+    //}
     public void applyForEligibleProject(Project project, FlatType flatType){
         if(applicationController.hasExistingBooking(this)){
             System.out.println("you have an existing booking");
