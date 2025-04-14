@@ -66,10 +66,6 @@ public class HDBOfficer extends Applicant{
         officerController.viewProjectDetails(this);
     }
 
-    /*public void registerForProject(HDBOfficer officer, Project project) {
-        Registration newRegistration = new Registration(project);
-        registrations.add(newRegistration);
-    }*/
 
     public Application findApplicationByNRIC(String nric) {
         for (Application application : applications) {
@@ -115,13 +111,9 @@ public class HDBOfficer extends Applicant{
     }
 
 
-
-
-
-
     public void generateReceipt(Application application) {
         System.out.println("Name: " + application.getApplicant().getName() +"\nNRIC: " + application.getApplicant().getNric() +
-                "\nProj name: " + application.getProject().getName() +"\nFlat Type: " + application.getFlatType() +
+                "\nProj name: " + application.getProject().getName() +"\nFlat Type: " + application.getProject().getFlatTypes() +
                 "\nStatus: " + application.getStatus() +"\nUnits Avail: " + application.getProject().getUnitsAvailable());
 
 
@@ -129,8 +121,7 @@ public class HDBOfficer extends Applicant{
 
     public void viewEnquiries() {
         for (Enquiry enquiry : applicantProfile.getEnquiries()) {
-            System.out.println("Enquiry: " + enquiry.getContent()
-                    + "\nStatus: " + enquiry.getStatus());
+            System.out.println("Enquiry: " + enquiry.getContent());
         }
 
     }
@@ -149,6 +140,20 @@ public class HDBOfficer extends Applicant{
         return assignedProject;
     }
 
+    public boolean canApplyforproject(Project project) {
+        for (Application application : applications) {
+            if (application.getApplicant().getNric().equals(this.getNric())) {
+                System.out.println("Officer is as an applicant, unable to apply for project.");
+                return false;
+            }
+        }
+        if (assignedProject != null && assignedProject.isWithinApplicationPeriod(project.getCloseDate())) {
+            System.out.println("officer already assigned to another project within application period.");
+            return false;
+        }
+
+        return true;
+    }
 
 
 }

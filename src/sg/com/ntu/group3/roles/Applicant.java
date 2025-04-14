@@ -81,12 +81,7 @@ public class Applicant extends User {
 //        }
 //    }
     public void RequestWithdrawal(){
-        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Withdrawn){
-            this.application = null;
-            System.out.println("Application withdrawn.");
-        }else{
-            System.out.println("Application does not exist.");
-        }
+        getApplication().createWithdrawalRequest();
     }
     public void SubmitEnquiry(String content, Project project){
         Enquiry newEnquiry = new Enquiry(project, content, this);

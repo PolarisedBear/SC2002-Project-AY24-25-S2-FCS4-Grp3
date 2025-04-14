@@ -33,14 +33,14 @@ public class Report {
     }
 
     public List<Applicant> filterByMaritalStatus(int number) {
-
+        return List.of();
     }
 
     public List<Applicant> filterByFlatType(int number) {
-
+        return List.of();
     }
 
     public List<Applicant> filterByAgeRange(int lowerBound, int higherBound) {
-
+        return List.of();
     }
 }

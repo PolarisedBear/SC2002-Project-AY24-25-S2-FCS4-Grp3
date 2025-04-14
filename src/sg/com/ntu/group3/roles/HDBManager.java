@@ -131,7 +131,7 @@ public class HDBManager extends User{
     }
 
     public void generateReport(Project project, int number) {
-        reportController.generateReport(project, number);
+       // reportController.generateReport(project, number);
         /*List <Applicant> applicants = project.getApplicants();
         Report report = new Report();
         report.generateApplicantBookingReport(number, applicants);*/

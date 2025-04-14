@@ -62,9 +62,10 @@ public class Main {
                                 break;
                             case 7://book flat and send to attached officer
                                 Boolean booking = applicationController.requestFlatBooking(currentUser);
-
                                 break;
                             case 8://request withdrawal
+                                withdrawalController.submitWithdrawalRequest(currentUser);
+                                break;
                             case 9://submit enquiry
                             case 10://view, edit, delete enquiry
 

@@ -1,7 +1,7 @@
 package sg.com.ntu.group3.views;
-public interface EnquiryView {
-    public void displayEnquiryForm();
-    public void displayEnquiryList();
-    public void showEditEnquiry();
-    public void showResponseForm();
+public class EnquiryView {
+    public static void displayEnquiryForm() {};
+    public static void displayEnquiryList() {};
+    public static void showEditEnquiry() {};
+    public static void showResponseForm() {};
 }

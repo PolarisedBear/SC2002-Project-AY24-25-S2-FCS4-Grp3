@@ -7,7 +7,7 @@ import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.views.EnquiryView;
 
-public class EnquiryController implements EnquiryView, IEnquiryService{
+public class EnquiryController implements IEnquiryService{
     private IEnquiryService enquiryService;
     private static Map<Project, sg.com.ntu.group3.models.Enquiry> enquiryMap;
 
@@ -26,12 +26,6 @@ public class EnquiryController implements EnquiryView, IEnquiryService{
     }
 
 
-    @Override
-    public void displayEnquiryForm() {
-
-    }
-
-    @Override
     public void displayEnquiryList() {
         for (Map.Entry<Project, Enquiry> entry : enquiryMap.entrySet()) {
             Project project = entry.getKey();
@@ -41,18 +35,8 @@ public class EnquiryController implements EnquiryView, IEnquiryService{
     }
 
     @Override
-    public void showEditEnquiry() {
-
-    }
-
-    @Override
-    public void showResponseForm() {
-
-    }
-
-    @Override
     public boolean submitEnquiry(Enquiry enquiry) {
-
+        return false;
     }
 
     @Override

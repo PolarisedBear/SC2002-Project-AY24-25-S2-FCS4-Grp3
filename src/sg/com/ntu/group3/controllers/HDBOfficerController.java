@@ -27,15 +27,16 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         this.applicationFilterService = applicationFilterService;
     }
 
-    public void registerForProject(HDBOfficer officer, Project project) {
+    public boolean registerForProject(HDBOfficer officer, Project project) {
         
         for(Registration registration : officer.getRegistrations()){
             if(registration.getProject() == project){
                 System.out.println("Already registered for the project");
-                return;
+                return false;
             }
         }
         officer.getRegistrations().add(new Registration(project));
+        return true;
     }
 
     @Override
