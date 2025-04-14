@@ -50,9 +50,8 @@ public class UserController extends UserView{
     public void displayUserInfo() {
         if (loginSession.curLoggedIn()) {
             User user = loginSession.getCurrentUser();
-            System.out.println("sg.com.ntu.groupX.roles.User Logged In Info:");
-            System.out.println("Name: " + user.getName());
-            System.out.println("NRIC: " + user.getNric());
+            System.out.println("User Logged In Info:");
+            System.out.println(user.getInfo());
         } else {
             System.out.println("No current session/user logged in");
         }

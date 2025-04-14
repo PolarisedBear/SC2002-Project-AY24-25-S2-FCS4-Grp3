@@ -5,6 +5,7 @@ import enums.Role;
 import sg.com.ntu.group3.controllers.*;
 import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
+import sg.com.ntu.group3.models.*;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
@@ -12,6 +13,9 @@ import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.SessionView;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -26,6 +30,17 @@ public class Main {
         HDBOfficerController hdbOfficerController = new HDBOfficerController(session, authenticationService, applicationFilterService);
         ReportController reportController = new ReportController();
         WithdrawalController withdrawalController = new WithdrawalController();
+
+        //For testing
+        AgeOnlyEligibilityRule atLeast35 = new AgeOnlyEligibilityRule(35);
+        AgeAndMaritalStatusEligibilityRule atLeast21andMaried = new AgeAndMaritalStatusEligibilityRule(true, 21);
+        List<EligibilityRule> two_room = List.of(atLeast35, atLeast21andMaried);
+        List<EligibilityRule> three_room = List.of(atLeast21andMaried);
+        FlatType TwoR = new FlatType(two_room, 2, "2_room");
+        FlatType ThreeR = new FlatType(three_room, 3, "3_room");
+        new Project("Acacia Breeze", List.of(TwoR, ThreeR), "Yishun", new Date(2026, 12, 25), true, 5, Map.of(TwoR, 2, ThreeR, 3));
+
+
 
 
         //register users
@@ -55,16 +70,17 @@ public class Main {
                                 userController.displayUserInfo();
                                 break;
                             case 5://apply for project
-                                applicationController.applyForProject();
+                                applicationController.applyForProject(currentUser);
                                 break;
                             case 6://view applied project
                                 applicationController.viewApplication(currentUser);
                                 break;
                             case 7://book flat and send to attached officer
                                 Boolean booking = applicationController.requestFlatBooking(currentUser);
-
                                 break;
                             case 8://request withdrawal
+                                withdrawalController.submitWithdrawalRequest(currentUser);
+                                break;
                             case 9://submit enquiry
                             case 10://view, edit, delete enquiry
 

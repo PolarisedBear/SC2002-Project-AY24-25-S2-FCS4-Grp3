@@ -3,6 +3,7 @@ package sg.com.ntu.group3.controllers;
 import sg.com.ntu.group3.controllers.services.IWithdrawalService;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.WithdrawalRequest;
+import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.views.WithdrawalRequestView;
 
 import java.util.List;
@@ -15,10 +16,21 @@ public class WithdrawalController implements IWithdrawalService {
 
     }
 
-    public void submitWithdrawalRequest(Application application){
-        if(application.getStatus()==ApplicationStatus.Withdrawn) {
+    public void submitWithdrawalRequest(Applicant applicant){
+        if(applicant.getApplication().getStatus()==ApplicationStatus.Withdrawn
+                || applicant.getApplication().getStatus()==ApplicationStatus.RequestWithdrawal) {
             System.out.println("a withdrawal request has already been submitted");
             return;
+        } else if (applicant.getApplication()!=null) {
+            String choice = WithdrawalRequestView.showWithdrawalConfirmation(applicant);
+            if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("n")) {
+                WithdrawalRequestView.showOperationOutcomes(true);
+                applicant.RequestWithdrawal();
+            } else {
+                WithdrawalRequestView.showOperationOutcomes(false);
+            }
+        } else {
+            WithdrawalRequestView.showOperationOutcomes(false);
         }
 
     }

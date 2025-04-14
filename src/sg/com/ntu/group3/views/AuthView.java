@@ -17,7 +17,7 @@ public class AuthView {
 
     public static int welcomeScreen() {
         int choice = 2;
-        while (choice!=1 || choice!=0) {
+        while (choice!=1 && choice!=0) {
             System.out.println("Welcome to BTOManager!");
             System.out.println("Enter your choice:");
             System.out.println("1. Login");

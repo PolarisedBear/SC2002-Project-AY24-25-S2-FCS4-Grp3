@@ -8,13 +8,22 @@ import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.views.EnquiryView;
 
-public class EnquiryController implements EnquiryView, IEnquiryService{
+public class EnquiryController implements IEnquiryService{
     private IEnquiryService enquiryService;
     private static Map<Project, sg.com.ntu.group3.models.Enquiry> enquiryMap;
      private Scanner input = new Scanner(System.in);
 
 
     public EnquiryController() {}
+
+    public void submitEnquiry() {
+    }
+
+    public void editEnquiry() {
+    }
+
+    public void deleteEnquiry() {
+    }
 
 
     @Override

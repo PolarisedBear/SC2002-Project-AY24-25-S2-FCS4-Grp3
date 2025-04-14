@@ -23,7 +23,10 @@ public class ApplicationView implements View {
 
     public static String displayApplicationFormList(List<Project> projectList) {
         System.out.println("Currently Valid Projects");
-        System.out.println(projectList);
+        for (Project proj : projectList) {
+            System.out.println(proj);
+            System.out.println("\n");
+        }
         return input.nextLine();
     };
 
@@ -55,5 +58,7 @@ public class ApplicationView implements View {
         System.out.println("Enter the NRIC of the applicant to begin booking");
         return input.nextLine();
     }
+
+
 
 }

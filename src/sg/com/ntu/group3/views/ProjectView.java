@@ -79,9 +79,6 @@ public class ProjectView implements View{
         System.out.print("Enter project name: ");
         String name = input.nextLine();
 
-        System.out.print("Enter project ID: ");
-        String projectId = input.nextLine();
-
         System.out.print("Enter neighbourhood: ");
         String neighbourhood = input.nextLine();
 
@@ -114,7 +111,7 @@ public class ProjectView implements View{
             } else {System.out.println("Invalid Flat Type!");}
 
         }
-        return new Project(name, projectId, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
+        return new Project(name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
 
     };
 

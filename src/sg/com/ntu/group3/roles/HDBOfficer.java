@@ -6,7 +6,6 @@ import sg.com.ntu.group3.controllers.HDBOfficerController;
 import sg.com.ntu.group3.controllers.ProjectController;
 import sg.com.ntu.group3.controllers.ReportController;
 import sg.com.ntu.group3.controllers.WithdrawalController;
-import sg.com.ntu.group3.controllers.services.IOfficerService;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.models.FlatType;
@@ -17,9 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 import enums.ApplicationStatus;
-import enums.RegistrationStatus;
 
-public class HDBOfficer extends Applicant implements IOfficerService{
+public class HDBOfficer extends Applicant{
     private Applicant applicantProfile = null;
     private Project assignedProject;
     private List<Registration> registrations;
@@ -68,12 +66,6 @@ public class HDBOfficer extends Applicant implements IOfficerService{
         officerController.viewProjectDetails(this);
     }
 
-    public boolean registerForProject(HDBOfficer officer, Project project) {
-        if(!officerController.registerForProject(officer, project)){
-            return false;
-        }
-        return true;
-    }
 
     public Application findApplicationByNRIC(String nric) {
         for (Application application : applications) {
@@ -121,7 +113,7 @@ public class HDBOfficer extends Applicant implements IOfficerService{
 
     public void generateReceipt(Application application) {
         System.out.println("Name: " + application.getApplicant().getName() +"\nNRIC: " + application.getApplicant().getNric() +
-                "\nProj name: " + application.getProject().getName() +"\nFlat Type: " + application.getFlatType() +
+                "\nProj name: " + application.getProject().getName() +"\nFlat Type: " + application.getProject().getFlatTypes() +
                 "\nStatus: " + application.getStatus() +"\nUnits Avail: " + application.getProject().getUnitsAvailable());
 
 
@@ -129,8 +121,7 @@ public class HDBOfficer extends Applicant implements IOfficerService{
 
     public void viewEnquiries() {
         for (Enquiry enquiry : applicantProfile.getEnquiries()) {
-            System.out.println("Enquiry: " + enquiry.getContent()
-                    + "\nStatus: " + enquiry.getStatus());
+            System.out.println("Enquiry: " + enquiry.getContent());
         }
 
     }
@@ -148,6 +139,7 @@ public class HDBOfficer extends Applicant implements IOfficerService{
     public Project getAssignedProject() {
         return assignedProject;
     }
+
     public boolean canApplyforproject(Project project) {
         for (Application application : applications) {
             if (application.getApplicant().getNric().equals(this.getNric())) {
@@ -159,8 +151,9 @@ public class HDBOfficer extends Applicant implements IOfficerService{
             System.out.println("officer already assigned to another project within application period.");
             return false;
         }
-    
+
         return true;
     }
+
 
 }

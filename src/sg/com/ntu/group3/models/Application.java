@@ -1,19 +1,18 @@
 package sg.com.ntu.group3.models;
 
 import enums.ApplicationStatus;
+import enums.WithdrawalStatus;
 import sg.com.ntu.group3.roles.Applicant;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Application {
     private Applicant applicant;
     private ApplicationStatus status;
+    private WithdrawalRequest withdrawalRequest;
     private Project project;
     private FlatType bookedFlat;
-    private static Map<Applicant, Application> applicationMap;
+    private static Map<Applicant, Application> applicationMap = new HashMap<>();
 
     public Application(Applicant applicant) {
         this.applicant = applicant;
@@ -60,12 +59,21 @@ public class Application {
         this.project.updateAvailableUnits(bookedFlat, 1, '-');
     }
 
+    public void createWithdrawalRequest() {
+        this.withdrawalRequest = new WithdrawalRequest(this, new Date(), WithdrawalStatus.PENDING);
+        setStatus(ApplicationStatus.RequestWithdrawal);
+    }
+
+    public WithdrawalRequest getWithdrawalRequest() {
+        return this.withdrawalRequest;
+    }
+
     @Override
     public String toString() {
         return "Application{" +
-                "applicant=" + applicant +
-                ", status=" + status +
-                ", project=" + project +
+                "\napplicant=" + applicant +
+                "\nstatus=" + status +
+                "\nproject=" + project +
                 '}';
     }
 }

@@ -21,7 +21,6 @@ public class Applicant extends User {
     private ApplicationController applicationController;
     private EnquiryController enquiryController;
     private WithdrawalController withdrawalController;
-    private ProjectController projectController;
     private ApplicationView applicationView;
     private EnquiryView enquiryView;
     private List<Enquiry> enquiries;
@@ -75,12 +74,11 @@ public class Applicant extends User {
             applicationController.requestFlatBooking(this.application);
             System.out.println("requested to book a flat based on application");
         }
-        else{
-            System.out.println("your application was unsuccessful, you cannot book a flat");
-        }
+
     }
+
     public void RequestWithdrawal(){
-        withdrawalController.submitWithdrawalRequest(this.application);
+        getApplication().createWithdrawalRequest();
     }
     public void addEnquiry(Enquiry enquiry){
         enquiries.add(enquiry);
@@ -89,7 +87,9 @@ public class Applicant extends User {
         enquiryController.editEnquiry(enquiry);
     }
     public void deleteEnquiry(Enquiry enquiry){
+
         enquiryController.deleteEnquiry(enquiry);
+
     }
     public Application getApplication(){
         return this.application;
@@ -114,9 +114,22 @@ public class Applicant extends User {
     public List<Enquiry> getEnquiries() {
         return enquiries;
     }
+
     public boolean canBookFlat() {
-        return application != null && application.getStatus() == ApplicationStatus.Successful;
+        boolean canBook = true;
+        canBook = !(application==null) //list fail conditions
+                && !(FlatTypeBooked==null)
+                && application.getProject().hasAvailableUnitsForApplicant(this)
+                && !(application.getStatus()==ApplicationStatus.Booked || application.getStatus()==ApplicationStatus.Booking)
+                && application.getStatus()==ApplicationStatus.Successful;
+        return canBook;
     }
 
+    public boolean canApplyForProject() {
+        if (getApplication()==null) {return true;}
+        if (getApplication().getStatus()==ApplicationStatus.Unsuccessful
+                || getApplication().getStatus()==ApplicationStatus.Withdrawn) {return true;}
+        return false;
+    }
 
 }

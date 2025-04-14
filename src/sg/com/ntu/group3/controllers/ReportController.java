@@ -32,9 +32,6 @@ public class ReportController implements ReportView, IApplicationFilterService, 
 
     }
 
-    public List filterApplications(Map criteria) {
-
-    }
 
     @Override
     public List<Application> filterByMaritalStatus(boolean married) {
