@@ -12,7 +12,7 @@ public class Application {
     private WithdrawalRequest withdrawalRequest;
     private Project project;
     private FlatType bookedFlat;
-    private static Map<Applicant, Application> applicationMap;
+    private static Map<Applicant, Application> applicationMap = new HashMap<>();
 
     public Application(Applicant applicant) {
         this.applicant = applicant;
@@ -71,9 +71,9 @@ public class Application {
     @Override
     public String toString() {
         return "Application{" +
-                "applicant=" + applicant +
-                ", status=" + status +
-                ", project=" + project +
+                "\napplicant=" + applicant +
+                "\nstatus=" + status +
+                "\nproject=" + project +
                 '}';
     }
 }

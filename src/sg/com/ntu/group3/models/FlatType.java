@@ -3,6 +3,7 @@ package sg.com.ntu.group3.models;
 import sg.com.ntu.group3.roles.Applicant;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ public class FlatType {
     private int totalUnits;
     private int remainingUnits; //Remaining units of this flatType across all projects
     private List<EligibilityRule> eligibilityRules;
-    private static Map<String, FlatType> typeList = Map.of();
+    private static Map<String, FlatType> typeList = new HashMap<>();
 
     public FlatType(List<EligibilityRule> eligibilityRules, int totalUnits, String type) {
         this.eligibilityRules = eligibilityRules;
@@ -35,14 +36,12 @@ public class FlatType {
     }
 
     public boolean isEligibleForApplicant(Applicant applicant) {
-        boolean allTrue = true;
         for (EligibilityRule eligibilityRule : this.eligibilityRules) {
-            if (!eligibilityRule.isSatisfiedBy(applicant)) {
-                allTrue = false;
-                break;
+            if (eligibilityRule.isSatisfiedBy(applicant)) {
+                return true;
             }
         }
-        return allTrue;
+        return false;
     }
 
     public void addEligibilityRule(EligibilityRule rule) {
