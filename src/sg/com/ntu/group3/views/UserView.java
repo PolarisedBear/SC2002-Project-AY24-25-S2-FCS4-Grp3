@@ -46,6 +46,7 @@ public class UserView {
     protected static Map.Entry<String, String> showAgeChangeForm() {
         System.out.println("Enter new Age:");
         int newAge = input.nextInt();
+        input.next();
         return Map.entry("Age", String.valueOf(newAge));
     }
 

@@ -130,5 +130,11 @@ public class Applicant extends User {
         return canBook;
     }
 
+    public boolean canApplyForProject() {
+        if (getApplication()==null) {return true;}
+        if (getApplication().getStatus()==ApplicationStatus.Unsuccessful
+                || getApplication().getStatus()==ApplicationStatus.Withdrawn) {return true;}
+        return false;
+    }
 
 }

@@ -12,7 +12,6 @@ import java.util.Map;
 
 public class Project {
     private String name;
-    private String projectId;
     private List<FlatType> flatTypes;
     private String neighbourhood;
     private Date openingDate;
@@ -22,10 +21,10 @@ public class Project {
     private int officerSlots;
     private String createdBy;
     private Map<FlatType, Integer> unitsAvailable; //units Available for that particular flat type in this project
-    private List<Application> applications;
-    private List<Enquiry> enquiries;
-    private List<HDBOfficer> hdbOfficers;
-    private List<Applicant> applicants; //added
+    private List<Application> applications = new ArrayList<>();
+    private List<Enquiry> enquiries = new ArrayList<>();
+    private List<HDBOfficer> hdbOfficers = new ArrayList<>();
+    private List<Applicant> applicants = new ArrayList<>(); //added
     private static List<Project> projectList = new ArrayList<>(); //master list of all created projects
 
     public Project() {
@@ -35,7 +34,6 @@ public class Project {
     }
 
     public Project(String name,
-                   String projectId,
                    List<FlatType> flatTypes,
                    String neighbourhood,
                    Date closeDate,
@@ -43,7 +41,6 @@ public class Project {
                    int maxOfficers,
                    Map<FlatType, Integer> unitsAvailable) {
         this.name = name;
-        this.projectId = projectId;
         this.flatTypes = flatTypes;
         this.neighbourhood = neighbourhood;
         this.openingDate = new Date();
@@ -96,19 +93,15 @@ public class Project {
         return "Project{" +
                 "name='" + name + '\'' +
                 //", projectId='" + projectId + '\'' +
-                ", FlatTypes=" + flatTypes +
-                ", Neighbourhood='" + neighbourhood + '\'' +
-                ", Opening Date=" + openingDate +
-                ", CloseDate=" + closeDate +
-                ", Visibility=" + isVisible +
-                ", maxOfficers=" + maxOfficers +
-                ", Officer Slots=" + officerSlots +
-                ", Creator='" + createdBy + '\'' +
-                ", AvailableUnits=" + unitsAvailable +
-                ", Applications=" + applications +
-                ", Enquiries=" + enquiries +
-                ", HDBOfficers=" + hdbOfficers +
-                ", Applicants=" + applicants +
+                "\nFlatTypes=" + flatTypes +
+                "\nNeighbourhood='" + neighbourhood + '\'' +
+                "\nOpening Date=" + openingDate +
+                "\nCloseDate=" + closeDate +
+                "\nVisibility=" + isVisible +
+                "\nmaxOfficers=" + maxOfficers +
+                "\nOfficer Slots=" + officerSlots +
+                "\nCreator='" + createdBy + '\'' +
+                "\nAvailableUnits=" + unitsAvailable +
                 '}';
     }
 

@@ -2,10 +2,10 @@ package sg.com.ntu.group3.models;
 
 import sg.com.ntu.group3.roles.Applicant;
 
-public class AgeEligibilityRule implements EligibilityRule {
+public class AgeOnlyEligibilityRule extends EligibilityRule {
     private int minimumAge;
 
-    public AgeEligibilityRule(int minimumAge) {
+    public AgeOnlyEligibilityRule(int minimumAge) {
         this.minimumAge = minimumAge;
     }
 
