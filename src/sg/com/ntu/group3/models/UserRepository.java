@@ -10,9 +10,9 @@ import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 
 public class UserRepository {
-    private static final String applicantfilepath = "applicants.csv"; //read different types of users
-    private static final String officerfilepath = "hdb_officers.csv";
-    private static final String managerfilepath = "hdb_managers.csv";
+    private static final String applicantfilepath = "ApplicantList.xlsx"; //read different types of users
+    private static final String officerfilepath = "OfficerList.xlsx";
+    private static final String managerfilepath = "ManagerList.xlsx";
 
     public static List<Applicant> getAllApplicants() throws IOException { 
         List<String[]> rows = ExcelFileReader.read(applicantfilepath);
