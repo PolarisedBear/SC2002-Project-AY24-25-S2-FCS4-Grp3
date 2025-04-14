@@ -35,8 +35,8 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
                 return true;
             }
             return false;
-        }
     }
+
 
     @Override
     public String getRegistrationStatus(HDBOfficer officer, Project project) {
