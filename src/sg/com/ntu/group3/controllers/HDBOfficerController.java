@@ -28,15 +28,14 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
     }
 
     public boolean registerForProject(HDBOfficer officer, Project project) {
-        
-        for(Registration registration : officer.getRegistrations()){
-            if(registration.getProject() == project){
-                System.out.println("Already registered for the project");
-                return false;
+
+            if (officer.canApplyforproject(project) && project.isWithinApplicationPeriod(project.getCloseDate())) {
+                Registration newRegistration = new Registration(project);
+                officer.getRegistrations().add(newRegistration);
+                return true;
             }
+            return false;
         }
-        officer.getRegistrations().add(new Registration(project));
-        return true;
     }
 
     @Override

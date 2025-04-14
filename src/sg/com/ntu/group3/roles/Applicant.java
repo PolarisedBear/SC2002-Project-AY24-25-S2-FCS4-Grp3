@@ -71,15 +71,7 @@ public class Applicant extends User {
         }
 
     }
-//    public void requestFlatBooking(){
-//        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Successful){
-//            applicationController.requestFlatBooking(this.application);
-//            System.out.println("requested to book a flat based on application");
-//        }
-//        else{
-//            System.out.println("your application was unsuccessful, you cannot book a flat");
-//        }
-//    }
+
     public void RequestWithdrawal(){
         getApplication().createWithdrawalRequest();
     }
