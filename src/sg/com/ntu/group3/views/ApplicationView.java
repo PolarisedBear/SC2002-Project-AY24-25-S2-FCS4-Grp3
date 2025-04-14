@@ -60,9 +60,6 @@ public class ApplicationView implements View {
         System.out.println("Project Name: " + application.getProject().getName());
     }
 
-    public void displayApplicationStatus(Application application, String appStatus) {
-        System.out.println("Application Status: " + appStatus);
-        System.out.println("Project Name: " + application.getProject().getName());
-    }
+
 
 }
