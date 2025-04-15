@@ -9,15 +9,25 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements IEnquiryService{
-    private static Map<Project, sg.com.ntu.group3.models.Enquiry> enquiryMap;
-     private Scanner input = new Scanner(System.in);
+    private static Map<Project, Enquiry> enquiryMap;
+    private Scanner input = new Scanner(System.in);
 
 
     public EnquiryController() {}
 
 
-    @Override
-    public void displayEnquiryForm() {
+    public void displayEnquiryForm(Applicant applicant) {
+        Map.Entry<String, String> enquiryContents;
+        do {
+            enquiryContents = EnquiryView.showEnquiryForm();
+            if (Project.projectExists(enquiryContents.getKey())) {
+                EnquiryView.showOperationOutcomes("creation", true);
+            } else {
+                EnquiryView.showOperationOutcomes("creation", false);
+            }
+        } while (!Project.projectExists(enquiryContents.getKey()));
+        Project proj = Project.findProject(enquiryContents.getKey());
+        createNewEnquiry(applicant, enquiryContents.getValue(), proj);
 
     }
 
@@ -41,6 +51,11 @@ public class EnquiryController implements IEnquiryService{
     }
 
     @Override
+    public boolean submitEnquiry(Enquiry enquiry) {
+        return false;
+    }
+
+    @Override
     public void editEnquiry(Enquiry enquiry) {
         EnquiryView.showEditEnquiry();
         String editedResponse = input.nextLine();
@@ -57,7 +72,7 @@ public class EnquiryController implements IEnquiryService{
         enquiry.reply(reply);
     }
 
-    public void submitEnquiry(Applicant applicant, String content, Project project) {
+    public void createNewEnquiry(Applicant applicant, String content, Project project) {
         Enquiry enquiry = new Enquiry(project, content, applicant);
         EnquiryView.displayEnquirySubmit();
         applicant.addEnquiry(enquiry);

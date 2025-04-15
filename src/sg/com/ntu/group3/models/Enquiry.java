@@ -1,5 +1,6 @@
 package sg.com.ntu.group3.models;
 
+import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.User;
 
 public class Enquiry {
@@ -9,10 +10,12 @@ public class Enquiry {
     private String enquiryId;
     private User user;
 
-    public Enquiry(Project proj, String content, User user) {
+    public Enquiry(Project proj, String content, Applicant applicant) {
         this.content = content;
-        this.user = user;
+        this.user = applicant;
         this.proj = proj;
+        proj.addEnquiry(this);
+        applicant.addEnquiry(this);
     }
 
     public void editEnquiry(String content) {

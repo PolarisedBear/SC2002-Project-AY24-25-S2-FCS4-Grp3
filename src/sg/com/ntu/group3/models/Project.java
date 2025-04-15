@@ -172,6 +172,10 @@ public class Project {
         return exists;
     }
 
+    public void addEnquiry(Enquiry enquiry) {
+        this.enquiries.add(enquiry);
+    }
+
     public boolean checkForFlatType(String name) {
         return this.flatTypes.stream().anyMatch(flatType -> flatType.getType().equalsIgnoreCase(name));
     }

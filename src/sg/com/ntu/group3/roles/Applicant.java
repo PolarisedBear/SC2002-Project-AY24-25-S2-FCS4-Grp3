@@ -4,23 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import enums.ApplicationStatus;
-import sg.com.ntu.group3.controllers.EnquiryController;
-import sg.com.ntu.group3.controllers.ProjectController;
-import sg.com.ntu.group3.controllers.WithdrawalController;
-import sg.com.ntu.group3.controllers.ApplicationController;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.views.ApplicationView;
 import sg.com.ntu.group3.views.EnquiryView;
-import sg.com.ntu.group3.views.ProjectView;
 
 public class Applicant extends User {
     private Application application;
-    private ApplicationView applicationView;
-    private EnquiryView enquiryView;
-    private List<Enquiry> enquiries;
+    private List<Enquiry> enquiries = new ArrayList<>();
     private FlatType FlatTypeBooked;
     private Project ProjectBooked;
     /*private String maritalStatus;
