@@ -1,6 +1,6 @@
 package sg.com.ntu.group3.views;
 
-import sg.com.ntu.group3.controllers.ProjectController;
+import sg.com.ntu.group3.controllers.services.AuthenticationService;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
 
@@ -75,34 +75,37 @@ public class ProjectView implements View{
         }
     }
 
-    public static Project showCreateProjectForm() throws ParseException {
+    public static List<Object> showCreateProjectForm() throws ParseException {
+        // enter name
         System.out.print("Enter project name: ");
         String name = input.nextLine();
 
+        // enter neighbourhood
         System.out.print("Enter neighbourhood: ");
         String neighbourhood = input.nextLine();
 
-        System.out.print("Enter close date (dd/mm/yyyy): ");
-        String dateInput = input.nextLine();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date closeDate = sdf.parse(dateInput);
+        //enter date
+        Date closeDate = createProjectFormCloseDate();
 
+        //toggle visibility
         System.out.print("Set Project Visibility (true/false): ");
         boolean isVisible = Boolean.parseBoolean(input.nextLine());
 
+        //max number of officers
         System.out.print("Enter max number of HDB officers: ");
         int maxOfficers = Integer.parseInt(input.nextLine());
 
         List<FlatType> flatTypes = new ArrayList<>();
         Map<FlatType, Integer> unitsAvailable = new HashMap<>();
 
+        // gets flat types and units available
         System.out.println("Enter flat types (type 'done' to stop):");
         while (true) {
             System.out.print("New flat type: ");
             String flatInput = input.nextLine();
             if (flatInput.equalsIgnoreCase("done")) break;
             // check if flat type already exists
-            if (FlatType.getTypeList().containsKey(flatInput)) {
+            if (FlatType.doesFlatTypeExist(flatInput)) {
                 FlatType flatType = FlatType.getTypeList().get(flatInput);
                 flatTypes.add(flatType);
                 System.out.print("Units available for " + flatInput + ": ");
@@ -111,9 +114,24 @@ public class ProjectView implements View{
             } else {System.out.println("Invalid Flat Type!");}
 
         }
-        return new Project(name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
-
+        List<Object> projectParameters = List.of(name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
+        //return (name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
+        return projectParameters;
     };
+
+    private static Date createProjectFormCloseDate() throws ParseException {
+        while (true) {
+            System.out.print("Enter close date (dd/mm/yyyy): ");
+            String dateInput = input.nextLine();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            if (AuthenticationService.isValidDate(dateInput, sdf)) {
+                return sdf.parse(dateInput);
+            } else {
+                System.out.println("Invalid Date!");
+            }
+        }
+    }
+
 
     public static Object showRemoveProjectForm() {
         displayProjectList();

@@ -8,6 +8,8 @@ import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.roles.User;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,6 +71,16 @@ public class AuthenticationService implements IAuthenticationService {
         List<Applicant> applicants = UserRepository.getAllApplicants();
         List<HDBOfficer> officers = UserRepository.getAllOfficers();
         List<HDBManager> managers = UserRepository.getAllManagers();
+    }
+
+    public static boolean isValidDate(String input, SimpleDateFormat sdf) {
+        sdf.setLenient(false);
+        try {
+            sdf.parse(input);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
 

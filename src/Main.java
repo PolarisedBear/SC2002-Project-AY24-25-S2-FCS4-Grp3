@@ -111,14 +111,14 @@ public class Main {
                             case 8://request withdrawal
                             case 9://submit enquiry
                             case 10://view, edit and delete
-                            case 11://
-                            case 12://
-                            case 13://
+                            case 11://register or join project
+                            case 12://view registration status
+                            case 13://view project details
                             case 14://Update applicant flat selection
                                 hdbOfficerController.bookFlat(currentUser);
                                 break;
-                            case 15://
-                            case 16://
+                            case 15://view and reply to enquiries
+                            case 16://generate applicant's flat booking request
 
                         }
                     }

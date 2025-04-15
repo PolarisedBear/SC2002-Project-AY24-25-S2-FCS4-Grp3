@@ -53,6 +53,10 @@ public class FlatType {
         return false;
     }
 
+    public static boolean doesFlatTypeExist(String type) {
+        return FlatType.getTypeList().containsKey(type);
+    }
+
     public static Map<String, FlatType> getTypeList() {
         return typeList;
     }

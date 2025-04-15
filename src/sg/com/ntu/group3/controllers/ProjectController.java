@@ -3,6 +3,7 @@ import java.text.ParseException;
 import java.util.*;
 
 import sg.com.ntu.group3.controllers.services.IProjectService;
+import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
@@ -17,7 +18,14 @@ public class ProjectController extends ProjectView implements IProjectService{
     }
 
     public void createProject(HDBManager manager) throws ParseException {
-        Project newProject = ProjectView.showCreateProjectForm();
+        List<Object> proj = ProjectView.showCreateProjectForm();
+        Project newProject = new Project((String) proj.get(0),
+                (List<FlatType>) proj.get(1),
+                (String) proj.get(2),
+                (Date) proj.get(3),
+                (Boolean) proj.get(4),
+                (Integer) proj.get(5),
+                (Map<FlatType, Integer>) proj.get(6));
         manager.createProject(newProject);
         System.out.println("Project created successfully");
     }
