@@ -1,15 +1,8 @@
 package sg.com.ntu.group3.roles;
 
-import enums.ApplicationStatus;
-import sg.com.ntu.group3.controllers.ApplicationController;
-import sg.com.ntu.group3.controllers.EnquiryController;
-import sg.com.ntu.group3.controllers.HDBOfficerController;
-import sg.com.ntu.group3.controllers.ProjectController;
-import sg.com.ntu.group3.controllers.ReportController;
-import sg.com.ntu.group3.controllers.WithdrawalController;
+
 import sg.com.ntu.group3.models.*;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +11,6 @@ public class HDBManager extends User{
     private List<Project> createdProjects = new ArrayList<>();
     private List<HDBOfficer> Officers = new ArrayList<>();
     private Project currentProject;
-    private ProjectController projectController;
-    private HDBOfficerController officerController;
-    private ApplicationController applicationController;
-    private ReportController reportController;
-    private EnquiryController enquiryController;
-    private WithdrawalController withdrawalController;
 
     //constructors
     public HDBManager() {
@@ -47,45 +34,28 @@ public class HDBManager extends User{
 
     public void setCurrentProject(Project currentProject) {this.currentProject = currentProject;}
 
-    public void setProjectController(ProjectController projectController) {
-        this.projectController = projectController;
-    }
-    public void setOfficerController(HDBOfficerController officerController) {
-        this.officerController = officerController;
-    }
-    public void setApplicationController(ApplicationController applicationController) {
-        this.applicationController = applicationController;
-    }
-    public void setReportController(ReportController reportController) {
-        this.reportController = reportController;
-    }
-    public void setEnquiryController(EnquiryController enquiryController) {
-        this.enquiryController = enquiryController;
-    }
-    public void setWithdrawalController(WithdrawalController withdrawalController) {
-        this.withdrawalController = withdrawalController;
-    }
-
 
     public void createProject(Project project) throws ParseException {
         project.setCreatedBy(this.getName());
         this.createdProjects.add(project);
     }
 
-    public void editProject(Project project) throws ParseException {
+   /* public void editProject(Project project) throws ParseException {
+        projectController.findProjectsByManager(this);
         projectController.editProject(project);
 
     }
 
     public void deleteProject() {
         projectController.deleteProject();
-    }
+    }*/
 
-    public void toggleProjectVisibility(Project project, boolean isVisible) {
-        projectController.toggleVisibility(project, isVisible);
-    }
+    /*public void toggleProjectVisibility(Project project, boolean isVisible) {
+        project.setVisible(!isVisible);
 
-    public void viewAllProjects() {
+    }*/
+
+    /*public void viewAllProjects() {
         List<Project> AllProjects = projectController.getAllProjects();
         for (Project project : AllProjects) {
             System.out.println(project.toString());
@@ -132,7 +102,7 @@ public class HDBManager extends User{
         /*List <Applicant> applicants = project.getApplicants();
         Report report = new Report();
         report.generateApplicantBookingReport(number, applicants);*/
-        
+        /* 
     }
 
     public void viewEnquiries() {
@@ -141,6 +111,6 @@ public class HDBManager extends User{
 
     public void replyEnquiries(Enquiry enquiry, String reply) {
         enquiryController.replyToEnquiry(enquiry, reply);
-    }
+    }*/
 
 }

@@ -84,7 +84,7 @@ public class ProjectController extends ProjectView implements IProjectService{
     }
 
     public void toggleVisibility(Project project, boolean isVisible) {
-        project.setVisible(isVisible);
+        project.setVisible(!project.isVisible());
     }
 
     public List<Project> getProjectList() {

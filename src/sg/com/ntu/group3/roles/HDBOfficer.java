@@ -1,11 +1,5 @@
 package sg.com.ntu.group3.roles;
 
-import sg.com.ntu.group3.controllers.ApplicationController;
-import sg.com.ntu.group3.controllers.EnquiryController;
-import sg.com.ntu.group3.controllers.HDBOfficerController;
-import sg.com.ntu.group3.controllers.ProjectController;
-import sg.com.ntu.group3.controllers.ReportController;
-import sg.com.ntu.group3.controllers.WithdrawalController;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.models.FlatType;
@@ -22,49 +16,23 @@ public class HDBOfficer extends Applicant{
     private Project assignedProject;
     private List<Registration> registrations;
     private List<Application> applications;
-    private ProjectController projectController;
-    private HDBOfficerController officerController;
-    private ApplicationController applicationController;
-    private ReportController reportController;
-    private EnquiryController enquiryController;
-    private WithdrawalController withdrawalController;
 
 
     public HDBOfficer() {
         super();
-    }
-    public void setProjectController(ProjectController projectController) {
-        this.projectController = projectController;
-    }
-
-    public void setOfficerController(HDBOfficerController officerController) {
-        this.officerController = officerController;
-    }
-
-    public void setApplicationController(ApplicationController applicationController) {
-        this.applicationController = applicationController;
-    }
-    public void setReportController(ReportController reportController) {
-        this.reportController = reportController;
-    }
-    public void setEnquiryController(EnquiryController enquiryController) {
-        this.enquiryController = enquiryController;
-    }
-    public void setWithdrawalController(WithdrawalController withdrawalController) {
-        this.withdrawalController = withdrawalController;
     }
 
     public HDBOfficer(String name, String nric, int age, String maritalStatus, String password) {
         super(name, nric, age, maritalStatus, password);
     }
 
-    public void viewRegistrationStatus() {
+    /*public void viewRegistrationStatus() {
         officerController.viewRegistrationStatus(this);
     }
 
     public void viewProjectDetails() {
         officerController.viewProjectDetails(this);
-    }
+    }*/
 
 
     public Application findApplicationByNRIC(String nric) {

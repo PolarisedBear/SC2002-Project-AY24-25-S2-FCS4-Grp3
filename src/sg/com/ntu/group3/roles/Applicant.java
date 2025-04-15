@@ -18,9 +18,6 @@ import sg.com.ntu.group3.views.ProjectView;
 
 public class Applicant extends User {
     private Application application;
-    private ApplicationController applicationController;
-    private EnquiryController enquiryController;
-    private WithdrawalController withdrawalController;
     private ApplicationView applicationView;
     private EnquiryView enquiryView;
     private List<Enquiry> enquiries;
@@ -37,7 +34,7 @@ public class Applicant extends User {
         super(name, nric, age, maritalStatus, password);
     }
 
-    public List<Project> viewEligibleProjects(Applicant applicant){
+    /*public List<Project> viewEligibleProjects(Applicant applicant){
 
         List<Project> Projects = Project.getProjectList();
         List<Project> eligibleProjects = new ArrayList<>();
@@ -50,7 +47,7 @@ public class Applicant extends User {
 
         return eligibleProjects;
 
-    }
+    }*/
     /*public void applyForEligibleProject(Project project, FlatType flatType){
         if(applicationController.hasExistingBooking(this)){
             System.out.println("you have an existing booking");
@@ -69,13 +66,13 @@ public class Applicant extends User {
         }
 
     }*/
-    public void requestFlatBooking(){
+    /*public void requestFlatBooking(){
         if(this.application!=null && this.application.getStatus()==ApplicationStatus.Successful){
             applicationController.requestFlatBooking(this.application);
             System.out.println("requested to book a flat based on application");
         }
 
-    }
+    }*/
 
     public void RequestWithdrawal(){
         getApplication().createWithdrawalRequest();
@@ -83,14 +80,7 @@ public class Applicant extends User {
     public void addEnquiry(Enquiry enquiry){
         enquiries.add(enquiry);
     }
-    public void editEnquiry(Enquiry enquiry){
-        enquiryController.editEnquiry(enquiry);
-    }
-    public void deleteEnquiry(Enquiry enquiry){
 
-        enquiryController.deleteEnquiry(enquiry);
-
-    }
     public Application getApplication(){
         return this.application;
     }
