@@ -3,12 +3,16 @@ package sg.com.ntu.group3.models;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.User;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Enquiry {
     private String content;
     private String response;
     private Project proj;
     private String enquiryId;
     private User user;
+    private static Map<Project, Enquiry> enquiryMap = new HashMap<>();
 
     public Enquiry(Project proj, String content, Applicant applicant) {
         this.content = content;
@@ -45,6 +49,10 @@ public class Enquiry {
         this.content = null;
         this.response = null;
         this.proj = null;
+    }
+
+    public static Map<Project, Enquiry> getEnquiryMap() {
+        return enquiryMap;
     }
 
 }

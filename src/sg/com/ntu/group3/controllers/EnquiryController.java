@@ -10,7 +10,7 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements IEnquiryService{
-    private static Map<Project, Enquiry> enquiryMap = new HashMap<>();
+
     private Scanner input = new Scanner(System.in);
 
 
@@ -33,7 +33,7 @@ public class EnquiryController implements IEnquiryService{
     }
 
     public void displayEnquiryList() {
-        for (Map.Entry<Project, Enquiry> entry : enquiryMap.entrySet()) {
+        for (Map.Entry<Project, Enquiry> entry : Enquiry.getEnquiryMap().entrySet()) {
             Project project = entry.getKey();
             Enquiry enquiry = entry.getValue();
             System.out.println("Project: " + project.getName() + ", Enquiry: " + enquiry.getContent());
@@ -76,7 +76,7 @@ public class EnquiryController implements IEnquiryService{
         Enquiry enquiry = new Enquiry(project, content, applicant);
         EnquiryView.displayEnquirySubmit();
         applicant.addEnquiry(enquiry);
-        enquiryMap.put(project, enquiry);
+        Enquiry.getEnquiryMap().put(project, enquiry);
        
     }
 }
