@@ -31,8 +31,9 @@ public class EnquiryView implements View {
     public static String showEditReplyAndDeleteMainApplicant() {
         System.out.println("Edit, Reply to and Delete your own enquiries");
         System.out.println("Select your action:");
-        System.out.println("1. Edit enquiry");
-        System.out.println("2. Delete enquiry");
+        System.out.println("1. View Enquiries");
+        System.out.println("2. Edit enquiry");
+        System.out.println("3. Delete enquiry");
         System.out.println("Enter any other key to cancel");
         return input.nextLine();
 
