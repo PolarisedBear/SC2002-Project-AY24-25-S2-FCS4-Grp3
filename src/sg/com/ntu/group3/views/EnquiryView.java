@@ -14,7 +14,7 @@ public class EnquiryView implements View {
     public static Map.Entry<String, String> showEnquiryForm() {
         System.out.println("Create a new Enquiry: Find a project to enquire about\n");
         System.out.println(Project.getProjectList());
-        System.out.println("\n Enter the name of the project you wish to enquire about");
+        System.out.println("\nEnter the name of the project you wish to enquire about");
         String proj = input.nextLine();
         System.out.println("Enter the content of your query");
         String content = input.nextLine();
@@ -23,6 +23,7 @@ public class EnquiryView implements View {
     public static void displayEnquiryList(Applicant applicant) {
         for (Enquiry enquiry : applicant.getEnquiries()) {
             System.out.println(enquiry);
+            System.out.println("\n");
         }
     };
     public void showResponseForm() {};

@@ -8,9 +8,6 @@ import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.controllers.services.IEnquiryService;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
-import sg.com.ntu.group3.roles.HDBManager;
-import sg.com.ntu.group3.roles.HDBOfficer;
-import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements IEnquiryService{
@@ -55,7 +52,7 @@ public class EnquiryController implements IEnquiryService{
         }
         String choice = EnquiryView.showEditReplyAndDeleteMainApplicant();
         switch (choice) {
-            case "1" -> EnquiryView.displayEnquiryList(applicant);
+            case "1" -> {EnquiryView.displayEnquiryList(applicant);}
             case "2" -> {
                 EnquiryView.displayEnquiryList(applicant);
                 int id = EnquiryView.requestEnquiryId("edit");
@@ -99,7 +96,6 @@ public class EnquiryController implements IEnquiryService{
     public void createNewEnquiry(Applicant applicant, String content, Project project) {
         Enquiry enquiry = new Enquiry(project, content, applicant);
         EnquiryView.displayEnquirySubmit();
-        applicant.addEnquiry(enquiry);
         if (Enquiry.getEnquiryMap().containsKey(project)) {
             Enquiry.getEnquiryMap().get(project).add(enquiry);
         } else {

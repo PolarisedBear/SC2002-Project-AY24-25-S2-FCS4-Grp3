@@ -51,10 +51,13 @@ public class Enquiry {
     }
 
     public void deleteEnquiry() {
+        //remove from project and applicant
+        this.proj.removeEnquiry(this);
+        Applicant applicant = (Applicant) this.user;
+        applicant.removeEnquiry(this);
         this.content = null;
         this.response = null;
         this.proj = null;
-        this.enquiryId = Integer.parseInt(null);
     }
 
 

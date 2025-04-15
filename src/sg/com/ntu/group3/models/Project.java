@@ -175,6 +175,9 @@ public class Project {
     public void addEnquiry(Enquiry enquiry) {
         this.enquiries.add(enquiry);
     }
+    public void removeEnquiry(Enquiry enquiry) {
+        enquiries.remove(enquiry);
+    }
 
     public boolean checkForFlatType(String name) {
         return this.flatTypes.stream().anyMatch(flatType -> flatType.getType().equalsIgnoreCase(name));

@@ -73,6 +73,9 @@ public class Applicant extends User {
     public void addEnquiry(Enquiry enquiry){
         enquiries.add(enquiry);
     }
+    public void removeEnquiry(Enquiry enquiry) {
+        enquiries.remove(enquiry);
+    }
 
     public Application getApplication(){
         return this.application;
