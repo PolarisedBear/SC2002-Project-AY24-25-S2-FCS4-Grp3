@@ -1,4 +1,5 @@
 package sg.com.ntu.group3.controllers;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements IEnquiryService{
-    private static Map<Project, Enquiry> enquiryMap;
+    private static Map<Project, Enquiry> enquiryMap = new HashMap<>();
     private Scanner input = new Scanner(System.in);
 
 

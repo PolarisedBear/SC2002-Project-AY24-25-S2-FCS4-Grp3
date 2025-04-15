@@ -76,7 +76,7 @@ public class Main {
                             case 6://view applied project
                                 applicationController.viewApplication(currentUser);
                                 break;
-                            case 7://book flat and send to attached officer
+                            case 7://request booking
                                 Boolean booking = applicationController.requestFlatBooking(currentUser);
                                 break;
                             case 8://request withdrawal
@@ -105,16 +105,18 @@ public class Main {
                             case 4://view user profile
                                 userController.displayUserInfo();
                                 break;
-                            case 5://
-                            case 6://
-                            case 7://
-                            case 8://
-                            case 9://
-                            case 10://
+                            case 5://apply for project (cannot apply for registered project)
+                            case 6://view applied project
+                            case 7://request booking
+                            case 8://request withdrawal
+                            case 9://submit enquiry
+                            case 10://view, edit and delete
                             case 11://
                             case 12://
                             case 13://
-                            case 14://
+                            case 14://Update applicant flat selection
+                                hdbOfficerController.bookFlat(currentUser);
+                                break;
                             case 15://
                             case 16://
 
