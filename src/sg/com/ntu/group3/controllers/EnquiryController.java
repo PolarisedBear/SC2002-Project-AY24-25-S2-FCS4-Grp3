@@ -1,5 +1,6 @@
 package sg.com.ntu.group3.controllers;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -7,14 +8,18 @@ import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.controllers.services.IEnquiryService;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.roles.HDBManager;
+import sg.com.ntu.group3.roles.HDBOfficer;
+import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements IEnquiryService{
 
+    private Session session;
     private Scanner input = new Scanner(System.in);
 
 
-    public EnquiryController() {}
+    public EnquiryController(Session session) {this.session = session;}
 
 
     public void newEnquirySubmission(Applicant applicant) {
@@ -33,22 +38,36 @@ public class EnquiryController implements IEnquiryService{
     }
 
     public void displayEnquiryList() {
-        for (Map.Entry<Project, Enquiry> entry : Enquiry.getEnquiryMap().entrySet()) {
+        for (Map.Entry<Project, List<Enquiry>> entry : Enquiry.getEnquiryMap().entrySet()) {
             Project project = entry.getKey();
-            Enquiry enquiry = entry.getValue();
-            System.out.println("Project: " + project.getName() + ", Enquiry: " + enquiry.getContent());
+            List<Enquiry> enquiryList = entry.getValue();
+            for (Enquiry enquiry : enquiryList) {
+                System.out.println("Project: " + project.getName() + ", Enquiry: " + enquiry.getContent());
+            }
+        }
+    }
+
+    public void editReplyAndDelete(Applicant applicant) {
+        if (!applicant.hasEnquiries()) {
+            EnquiryView.showOperationOutcomes("Search", false);
+            System.out.println("No enquiries found!");
+            return;
+        }
+        String choice = EnquiryView.showEditReplyAndDeleteMainApplicant();
+        if (choice.equals("1")) {
+            EnquiryView.displayEnquiryList(applicant);
+            int id = EnquiryView.requestEnquiryId("edit");
+            Enquiry enquiry = applicant.findEnquiry(id);
+            editEnquiry(enquiry);
+        } else if (choice.equals("2")) {
+            EnquiryView.displayEnquiryList(applicant);
+            int id = EnquiryView.requestEnquiryId("delete");
+            Enquiry enquiry = applicant.findEnquiry(id);
+            deleteEnquiry(enquiry);
         }
     }
 
 
-    public void showEditEnquiry() {
-
-    }
-
-
-    public void showResponseForm() {
-
-    }
 
     @Override
     public boolean submitEnquiry(Enquiry enquiry) {
@@ -57,7 +76,7 @@ public class EnquiryController implements IEnquiryService{
 
     @Override
     public void editEnquiry(Enquiry enquiry) {
-        EnquiryView.showEditEnquiry();
+        EnquiryView.showEditEnquiryForm();
         String editedResponse = input.nextLine();
         enquiry.editEnquiry(editedResponse);
     }
@@ -76,7 +95,11 @@ public class EnquiryController implements IEnquiryService{
         Enquiry enquiry = new Enquiry(project, content, applicant);
         EnquiryView.displayEnquirySubmit();
         applicant.addEnquiry(enquiry);
-        Enquiry.getEnquiryMap().put(project, enquiry);
-       
+        if (Enquiry.getEnquiryMap().containsKey(project)) {
+            Enquiry.getEnquiryMap().get(project).add(enquiry);
+        } else {
+            Enquiry.getEnquiryMap().put(project, new ArrayList<>());
+            Enquiry.getEnquiryMap().get(project).add(enquiry);
+        }
     }
 }

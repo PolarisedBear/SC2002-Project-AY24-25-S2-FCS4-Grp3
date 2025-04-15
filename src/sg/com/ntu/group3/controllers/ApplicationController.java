@@ -45,10 +45,6 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
     }
 
-    public void withdrawApplication() {
-
-    }
-
     public void approveApplication(Application application) {
         application.setStatus(ApplicationStatus.Successful);
     }
@@ -95,6 +91,8 @@ public class ApplicationController extends ApplicationView implements IApplicati
         }
         return availableProjects;
     }
+
+
 
 
     @Override

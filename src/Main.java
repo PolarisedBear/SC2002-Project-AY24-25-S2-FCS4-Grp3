@@ -27,7 +27,7 @@ public class Main {
         ApplicationController applicationController = new ApplicationController(session);
         ApplicationFilterService applicationFilterService = new ApplicationFilterService(session);
         ProjectController projectController = new ProjectController();
-        EnquiryController enquiryController = new EnquiryController();
+        EnquiryController enquiryController = new EnquiryController(session);
         HDBOfficerController hdbOfficerController = new HDBOfficerController(session, authenticationService, applicationFilterService);
         ReportController reportController = new ReportController();
         WithdrawalController withdrawalController = new WithdrawalController();
@@ -86,7 +86,8 @@ public class Main {
                                 enquiryController.newEnquirySubmission(currentUser);
                                 break;
                             case 10://view, edit, delete enquiry
-
+                                enquiryController.editReplyAndDelete(currentUser);
+                                break;
 
                         }
                     }

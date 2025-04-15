@@ -98,6 +98,14 @@ public class Applicant extends User {
         return enquiries;
     }
 
+    public Enquiry findEnquiry(int id) {
+        return enquiries.stream().filter(enquiry -> enquiry.getId()==id).findFirst().orElse(null);
+    }
+
+    public boolean hasEnquiries() {
+        return !enquiries.isEmpty();
+    }
+
     public boolean canBookFlat() {
         boolean canBook = true;
         canBook = !(application==null) //list fail conditions
