@@ -54,20 +54,21 @@ public class EnquiryController implements IEnquiryService{
             return;
         }
         String choice = EnquiryView.showEditReplyAndDeleteMainApplicant();
-        if (choice.equals("1")) {
-            EnquiryView.displayEnquiryList(applicant);
-        } else if (choice.equals("2")) {
-            EnquiryView.displayEnquiryList(applicant);
-            int id = EnquiryView.requestEnquiryId("edit");
-            Enquiry enquiry = applicant.findEnquiry(id);
-            editEnquiry(enquiry);
-        } else if (choice.equals("3")) {
-            EnquiryView.displayEnquiryList(applicant);
-            int id = EnquiryView.requestEnquiryId("delete");
-            Enquiry enquiry = applicant.findEnquiry(id);
-            deleteEnquiry(enquiry);
-        } else {
-            System.out.println("Cancelled");
+        switch (choice) {
+            case "1" -> EnquiryView.displayEnquiryList(applicant);
+            case "2" -> {
+                EnquiryView.displayEnquiryList(applicant);
+                int id = EnquiryView.requestEnquiryId("edit");
+                Enquiry enquiry = applicant.findEnquiry(id);
+                editEnquiry(enquiry);
+            }
+            case "3" -> {
+                EnquiryView.displayEnquiryList(applicant);
+                int id = EnquiryView.requestEnquiryId("delete");
+                Enquiry enquiry = applicant.findEnquiry(id);
+                deleteEnquiry(enquiry);
+            }
+            default -> System.out.println("Cancelled");
         }
     }
 
