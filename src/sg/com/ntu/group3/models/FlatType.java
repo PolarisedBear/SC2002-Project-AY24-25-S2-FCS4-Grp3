@@ -68,7 +68,7 @@ public class FlatType {
     @Override
     public String toString() {
         return "FlatType{" +
-                "type='" + type + '\'' +
+                "Type: " + type +
                 '}';
     }
     public boolean isFullyBooked(){ 

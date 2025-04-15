@@ -23,7 +23,6 @@ public class EnquiryView implements View {
     public static void displayEnquiryList(Applicant applicant) {
         for (Enquiry enquiry : applicant.getEnquiries()) {
             System.out.println(enquiry);
-            System.out.println("\n");
         }
     };
     public void showResponseForm() {};

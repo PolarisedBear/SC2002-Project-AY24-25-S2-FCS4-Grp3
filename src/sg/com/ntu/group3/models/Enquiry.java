@@ -65,10 +65,10 @@ public class Enquiry {
     @Override
     public String toString() {
         return "Enquiry{" +
-                "\nContent='" + content + '\'' +
-                "\nResponse='" + response + '\'' +
-                "\nProject=" + proj +
-                "\nEnquiryId=" + enquiryId +
+                "\nContent: " + content +
+                "\nResponse: " + response +
+                "\nProject: " + proj.getName() +
+                "\nEnquiryId: " + enquiryId +
                 '}';
     }
 }

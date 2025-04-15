@@ -91,18 +91,18 @@ public class Project {
     @Override
     public String toString() {
         return "Project{" +
-                "name='" + name + '\'' +
+                "\nname: " + name +
                 //", projectId='" + projectId + '\'' +
-                "\nFlatTypes=" + flatTypes +
-                "\nNeighbourhood='" + neighbourhood + '\'' +
-                "\nOpening Date=" + openingDate +
-                "\nCloseDate=" + closeDate +
-                "\nVisibility=" + isVisible +
-                "\nmaxOfficers=" + maxOfficers +
-                "\nOfficer Slots=" + officerSlots +
-                "\nCreator='" + createdBy + '\'' +
-                "\nAvailableUnits=" + unitsAvailable +
-                '}';
+                "\nFlatTypes: " + flatTypes +
+                "\nNeighbourhood: " + neighbourhood +
+                "\nOpening Date: " + openingDate +
+                "\nCloseDate: " + closeDate +
+                "\nVisibility: " + isVisible +
+                "\nmaxOfficers: " + maxOfficers +
+                "\nOfficer Slots: " + officerSlots +
+                "\nCreator: " + createdBy +
+                "\nAvailableUnits: " + unitsAvailable +
+                "\n}";
     }
 
 
