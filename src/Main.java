@@ -13,12 +13,13 @@ import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.SessionView;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         // initialise app and services
         Session session = new Session();
         AuthenticationService authenticationService = new AuthenticationService(session);
@@ -82,7 +83,10 @@ public class Main {
                                 withdrawalController.submitWithdrawalRequest(currentUser);
                                 break;
                             case 9://submit enquiry
+                                enquiryController.newEnquirySubmission(currentUser);
+                                break;
                             case 10://view, edit, delete enquiry
+
 
                         }
                     }
@@ -131,12 +135,14 @@ public class Main {
                             case 4://view user profile
                                 userController.displayUserInfo();
                                 break;
-                            case 5://
-                            case 6://
-                            case 7://
-                            case 8://
-                            case 9://
-                            case 10://
+                            case 5://create project
+                                projectController.createProject(currentUser);
+                                break;
+                            case 6://view projects
+                            case 7://approve/reject application
+                            case 8://approve/reject withdrawal
+                            case 9://generate report
+                            case 10://view enquiries
 
                         }
                     }

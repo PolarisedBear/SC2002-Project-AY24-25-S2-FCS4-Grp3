@@ -16,7 +16,7 @@ public class EnquiryController implements IEnquiryService{
     public EnquiryController() {}
 
 
-    public void displayEnquiryForm(Applicant applicant) {
+    public void newEnquirySubmission(Applicant applicant) {
         Map.Entry<String, String> enquiryContents;
         do {
             enquiryContents = EnquiryView.showEnquiryForm();
@@ -31,7 +31,6 @@ public class EnquiryController implements IEnquiryService{
 
     }
 
-    @Override
     public void displayEnquiryList() {
         for (Map.Entry<Project, Enquiry> entry : enquiryMap.entrySet()) {
             Project project = entry.getKey();
@@ -40,12 +39,12 @@ public class EnquiryController implements IEnquiryService{
         }
     }
 
-    @Override
+
     public void showEditEnquiry() {
 
     }
 
-    @Override
+
     public void showResponseForm() {
 
     }
