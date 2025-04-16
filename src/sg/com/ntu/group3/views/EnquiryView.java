@@ -5,6 +5,7 @@ import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.User;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -56,5 +57,19 @@ public class EnquiryView implements View {
     public static void showOperationOutcomes(String action, boolean success) {
         if (success) System.out.println("Enquiry " +action+ " successful");
         else System.out.println("Enquiry " +action+ " unsuccessful");
+    }
+
+    public static int displayManagerEnquiryList(List<Enquiry> enquiries) {
+        System.out.println("\n--- Enquiries for Your Projects ---");
+        for (int i = 0; i < enquiries.size(); i++) {
+            Enquiry e = enquiries.get(i);
+            System.out.println("[" + i + "] " + e.getContent() +
+                    " (from: " + e.getUser().getName() +
+                    ", Project: " + e.getProj().getName() + ")");
+        }
+        System.out.print("Enter the index of the enquiry to reply (or -1 to cancel): ");
+        int choice = input.nextInt();
+        input.nextLine();
+        return choice;
     }
 }

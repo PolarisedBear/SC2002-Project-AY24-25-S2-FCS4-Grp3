@@ -8,6 +8,7 @@ import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.controllers.services.IEnquiryService;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements IEnquiryService{
@@ -102,5 +103,35 @@ public class EnquiryController implements IEnquiryService{
             Enquiry.getEnquiryMap().put(project, new ArrayList<>());
             Enquiry.getEnquiryMap().get(project).add(enquiry);
         }
+    }
+
+
+    public void viewAndReplyToEnquiries(HDBManager manager) {
+        List<Project> managerProjects = Project.getProjectList().stream()
+                .filter(p -> p.getCreatedBy().equalsIgnoreCase(manager.getName()))
+                .toList();
+
+        List<Enquiry> relevantEnquiries = new ArrayList<>();
+        for (Project project : managerProjects) {
+            List<Enquiry> projectEnquiries = Enquiry.getEnquiryMap().getOrDefault(project, List.of());
+            relevantEnquiries.addAll(projectEnquiries);
+        }
+
+        if (relevantEnquiries.isEmpty()) {
+            System.out.println("No enquiries for your projects.");
+            return;
+        }
+
+        int selectedIndex = EnquiryView.displayManagerEnquiryList(relevantEnquiries);
+        if (selectedIndex < 0 || selectedIndex >= relevantEnquiries.size()) {
+            System.out.println("Invalid selection.");
+            return;
+        }
+
+        Enquiry selectedEnquiry = relevantEnquiries.get(selectedIndex);
+        System.out.print("Enter your reply: ");
+        String reply = input.nextLine();
+        selectedEnquiry.reply(reply);
+        System.out.println("Reply submitted successfully.");
     }
 }

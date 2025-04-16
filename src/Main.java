@@ -159,7 +159,8 @@ public class Main {
                                 reportController.generateReport(currentUser);
                                 break;
                             case 10://view enquiries
-
+                                enquiryController.viewAndReplyToEnquiries(currentUser);
+                                break;
                         }
                     }
                 }
