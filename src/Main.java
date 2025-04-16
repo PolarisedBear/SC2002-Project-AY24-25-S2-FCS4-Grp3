@@ -153,6 +153,8 @@ public class Main {
                             case 7://approve/reject application
                                 applicationController.reviewApplications(currentUser);
                             case 8://approve/reject withdrawal
+                                withdrawalController.reviewWithdrawalRequests(currentUser);
+                                break;
                             case 9://generate report
                             case 10://view enquiries
 

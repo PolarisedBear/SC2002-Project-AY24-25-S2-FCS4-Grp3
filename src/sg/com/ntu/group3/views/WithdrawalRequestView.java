@@ -27,4 +27,28 @@ public class WithdrawalRequestView implements View{
         if (success) System.out.println("Request Successful");
         else System.out.println("Request Unsuccessful");
     }
+
+
+    public static int selectWithdrawalRequest(List<WithdrawalRequest> requests) {
+        System.out.println("\n--- Pending Withdrawal Requests ---");
+        for (int i = 0; i < requests.size(); i++) {
+            System.out.println("[" + i + "] Application: " + requests.get(i).getApplication());
+        }
+        System.out.print("Select a request to review (or -1 to cancel): ");
+        int inputNum = input.nextInt();
+        input.nextLine();
+        return inputNum;
+    }
+
+    public static int promptApproveOrReject(WithdrawalRequest request) {
+        System.out.println("\nReviewing Withdrawal Request:");
+        System.out.println("Application:\n" + request.getApplication());
+        System.out.println("1. Approve");
+        System.out.println("2. Reject");
+        System.out.println("0. Cancel");
+        System.out.print("Choose an action: ");
+        int decision = input.nextInt();
+        input.nextLine();
+        return decision;
+    }
 }

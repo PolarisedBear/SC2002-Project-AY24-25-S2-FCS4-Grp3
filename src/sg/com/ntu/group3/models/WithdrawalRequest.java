@@ -9,7 +9,7 @@ import java.util.List;
 public class WithdrawalRequest {
     private Application application;
     private Date requestDate;
-    private WithdrawalStatus status;
+    public WithdrawalStatus status;
     private static List<WithdrawalRequest> allWithdrawalRequests = new ArrayList<>();
 
     public WithdrawalRequest(Application application, Date requestDate, WithdrawalStatus status) {
@@ -29,5 +29,9 @@ public class WithdrawalRequest {
 
     public static List<WithdrawalRequest> getAllWithdrawalRequests() {
         return allWithdrawalRequests;
+    }
+
+    public Application getApplication() {
+        return this.application;
     }
 }
