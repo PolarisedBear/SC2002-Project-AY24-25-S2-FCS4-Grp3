@@ -12,7 +12,9 @@ import sg.com.ntu.group3.models.Registration;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.ApplicationView;
+import sg.com.ntu.group3.views.ProjectView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,14 +29,15 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         this.applicationFilterService = applicationFilterService;
     }
 
-    public boolean registerForProject(HDBOfficer officer, Project project) {
-
-            if (officer.canApplyforproject(project) && project.isWithinApplicationPeriod(project.getCloseDate())) {
-                Registration newRegistration = new Registration(project);
-                officer.getRegistrations().add(newRegistration);
-                return true;
-            }
-            return false;
+    public boolean registerForProject(HDBOfficer officer) {
+        Project project = officer.getAssignedProject();
+        if (officer.canApplyforproject(project) && project.isWithinApplicationPeriod(null)) {
+            //notcompleted below logic needs to be approved by manager before can be added
+            Registration registeredProject = new Registration(project);
+            officer.getRegistrations().add(registeredProject);
+            return true;
+        }
+        return false;
     }
 
 
@@ -60,14 +63,9 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
 
 
     public void viewProjectDetails(HDBOfficer officer) {
-        Project project = officer.getAssignedProject();
-        if (project != null) {
-            System.out.println("Project Name: " + project.getName() +
-            "units avail: " + project.getUnitsAvailable() + 
-            "Project Opening Date: " + project.getOpeningDate() +
-            "Project Closing Date: " + project.getCloseDate() +
-            "Flat Types: " + project.getFlatTypes());
-
+        Project officerAssignedProject = officer.getAssignedProject();
+        if (officerAssignedProject != null) {
+            ProjectView.displayProjectInfo(officerAssignedProject);
         } else {
             System.out.println("No project assigned to the officer.");
         }
@@ -97,6 +95,56 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             ApplicationView.showOperationOutcome("Booking", false);
             System.out.println("Invalid Input!");
         }
+    }
+    public List<Project> findEligibleProjects(Applicant applicant) {
+        List<Project> eligibleProjects = new ArrayList<>();
+        for (Project project : Project.getProjectList()) {
+            if (project.isEligibleForApplication(applicant)) {
+                eligibleProjects.add(project);
+            }
+        }
+        return eligibleProjects;
+    }
+
+    public List<Project> findVisibleProjects(List<Project> eligibleProjects) {
+        List<Project> visibleProjects = new ArrayList<>();
+        for (Project project : eligibleProjects) {
+            if (project.isVisible()) {
+                visibleProjects.add(project);
+            }
+        }
+        return visibleProjects;
+    }
+
+    public List<Project> findAvailableProjects(List<Project> visibleProjects, Applicant applicant) {
+        List<Project> availableProjects = new ArrayList<>();
+        for (Project project : visibleProjects) {
+            if (project.hasAvailableUnitsForApplicant(applicant)) {
+                availableProjects.add(project);
+            }
+        }
+        return availableProjects;
+    }
+
+    public void officerApplyForProject(HDBOfficer officer) {
+        if (officer.canApplyForProject()) {
+            List<Project> projectList = findAvailableProjects(
+                    findVisibleProjects(findEligibleProjects(officer))
+                    , officer);
+            String applicationName = ApplicationView.displayApplicationFormList(projectList);
+            boolean success = Project.projectExists(applicationName, projectList);
+            if (success) {
+                Application newApplication = new Application(officer, Project.findProject(applicationName));
+                officer.setApplication(newApplication);
+                ApplicationView.showOperationOutcome("Application", success);
+            } else {
+                ApplicationView.showOperationOutcome("Application", success);
+            }
+        } else {
+            ApplicationView.showOperationOutcome("Application", false);
+            System.out.println("Applicant has already submitted an application");
+        }
+
     }
 
 }

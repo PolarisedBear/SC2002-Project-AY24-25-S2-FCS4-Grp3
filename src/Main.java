@@ -107,12 +107,18 @@ public class Main {
                                 userController.displayUserInfo();
                                 break;
                             case 5://apply for project (cannot apply for registered project)
+                                applicationController.applyForProject(currentUser);
+                                break;
                             case 6://view applied project
+                                hdbOfficerController.viewProjectDetails(currentUser);
+                                break;
                             case 7://request booking
                             case 8://request withdrawal
                             case 9://submit enquiry
                             case 10://view, edit and delete
                             case 11://register or join project
+                                hdbOfficerController.registerForProject(currentUser);
+                                break;
                             case 12://view registration status
                             case 13://view project details
                             case 14://Update applicant flat selection

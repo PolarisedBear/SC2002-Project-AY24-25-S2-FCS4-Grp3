@@ -111,12 +111,12 @@ public class HDBOfficer extends Applicant{
     public boolean canApplyforproject(Project project) {
         for (Application application : applications) {
             if (application.getApplicant().getNric().equals(this.getNric())) {
-                System.out.println("Officer is as an applicant, unable to apply for project.");
+                System.out.println("Officer has an application, unable to apply for project.");
                 return false;
             }
         }
-        if (assignedProject != null && assignedProject.isWithinApplicationPeriod(project.getCloseDate())) {
-            System.out.println("officer already assigned to another project within application period.");
+        if (assignedProject == project) {
+            System.out.println("officer cannot apply to his assigned project.");
             return false;
         }
 
