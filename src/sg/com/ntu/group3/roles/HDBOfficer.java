@@ -108,7 +108,7 @@ public class HDBOfficer extends Applicant{
         return assignedProject;
     }
 
-    public boolean canApplyforproject(Project project) {
+    public boolean canApplyForProject(Project project) {
         for (Application application : applications) {
             if (application.getApplicant().getNric().equals(this.getNric())) {
                 System.out.println("Officer has an application, unable to apply for project.");

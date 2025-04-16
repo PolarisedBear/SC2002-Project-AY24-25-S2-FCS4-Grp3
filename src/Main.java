@@ -107,7 +107,7 @@ public class Main {
                                 userController.displayUserInfo();
                                 break;
                             case 5://apply for project (cannot apply for registered project)
-                                applicationController.applyForProject(currentUser);
+                                hdbOfficerController.officerApplyForProject(currentUser);
                                 break;
                             case 6://view applied project
                                 hdbOfficerController.viewProjectDetails(currentUser);

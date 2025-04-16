@@ -30,13 +30,23 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
     }
 
     public boolean registerForProject(HDBOfficer officer) {
-        Project project = officer.getAssignedProject();
-        if (officer.canApplyforproject(project) && project.isWithinApplicationPeriod(null)) {
-            //notcompleted below logic needs to be approved by manager before can be added
-            Registration registeredProject = new Registration(project);
-            officer.getRegistrations().add(registeredProject);
-            return true;
-        }
+            List<Project> projectList = findAvailableProjects(
+                    findVisibleProjects(findEligibleProjects(officer))
+                    , officer);
+            String applicationName = ApplicationView.displayApplicationFormList(projectList);
+            boolean success = Project.projectExists(applicationName, projectList);
+            if (success) {
+                Project project = Project.findProject(applicationName);
+                if (officer.canApplyForProject(project) && project.isWithinApplicationPeriod(null)) {
+                    //notcompleted below logic needs to be approved by manager before can be added
+                    Registration registeredProject = new Registration(project);
+                    officer.getRegistrations().add(registeredProject);
+                    return true;
+                }
+            } else {
+                ApplicationView.showOperationOutcome("Application", success);
+            }
+
         return false;
     }
 
@@ -127,23 +137,27 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
     }
 
     public void officerApplyForProject(HDBOfficer officer) {
-        if (officer.canApplyForProject()) {
-            List<Project> projectList = findAvailableProjects(
-                    findVisibleProjects(findEligibleProjects(officer))
-                    , officer);
-            String applicationName = ApplicationView.displayApplicationFormList(projectList);
-            boolean success = Project.projectExists(applicationName, projectList);
-            if (success) {
+        List<Project> projectList = findAvailableProjects(
+                findVisibleProjects(findEligibleProjects(officer))
+                , officer);
+        String applicationName = ApplicationView.displayApplicationFormList(projectList);
+        boolean success = Project.projectExists(applicationName, projectList);
+        if (success) {
+            Project project = Project.findProject(applicationName);
+            if (officer.canApplyForProject(project)) {
                 Application newApplication = new Application(officer, Project.findProject(applicationName));
                 officer.setApplication(newApplication);
                 ApplicationView.showOperationOutcome("Application", success);
+            
             } else {
-                ApplicationView.showOperationOutcome("Application", success);
+                ApplicationView.showOperationOutcome("Application", false);
+                System.out.println("Applicant has already submitted an application");
             }
+
         } else {
-            ApplicationView.showOperationOutcome("Application", false);
-            System.out.println("Applicant has already submitted an application");
+            ApplicationView.showOperationOutcome("Application", success);
         }
+
 
     }
 
