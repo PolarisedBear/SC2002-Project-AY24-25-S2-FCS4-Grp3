@@ -60,5 +60,25 @@ public class ApplicationView implements View {
     }
 
 
+    public static int displayPendingApplications(List<Application> applications) {
+        System.out.println("\n--- Pending Applications ---");
+        for (int i = 0; i < applications.size(); i++) {
+            System.out.println("[" + i + "] " + applications.get(i));
+        }
+        System.out.print("Select an application to review (or -1 to cancel): ");
+        int choice = input.nextInt();
+        input.nextLine();
+        return choice;
+    }
 
+    public static int promptApproveOrReject(Application application) {
+        System.out.println("Reviewing Application:\n" + application);
+        System.out.println("1. Approve");
+        System.out.println("2. Reject");
+        System.out.println("0. Cancel");
+        System.out.print("Choose an action: ");
+        int decision = input.nextInt();
+        input.nextLine();
+        return decision;
+    }
 }

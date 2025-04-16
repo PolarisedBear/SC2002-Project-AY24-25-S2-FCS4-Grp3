@@ -4,6 +4,7 @@ import sg.com.ntu.group3.controllers.services.IApplicationService;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.views.ApplicationView;
@@ -157,4 +158,31 @@ public class ApplicationController extends ApplicationView implements IApplicati
     }
 
 
+    public void reviewApplications(HDBManager manager) {
+        List<Application> pendingApps = new ArrayList<>();
+        for (Application app : Application.getAllApplications().values()) {
+            if (app.getStatus() == ApplicationStatus.Pending &&
+                    app.getProject().getCreatedBy().equalsIgnoreCase(manager.getName())) {
+                pendingApps.add(app);
+            }
+        }
+
+        if (pendingApps.isEmpty()) {
+            System.out.println("No pending applications found for your projects.");
+            return;
+        }
+
+        int selection = ApplicationView.displayPendingApplications(pendingApps);
+        if (selection >= 0 && selection < pendingApps.size()) {
+            Application selectedApp = pendingApps.get(selection);
+            int action = ApplicationView.promptApproveOrReject(selectedApp);
+            switch (action) {
+                case 1 -> approveApplication(selectedApp);
+                case 2 -> rejectApplication(selectedApp);
+                default -> System.out.println("No action taken.");
+            }
+        } else {
+            System.out.println("Invalid selection.");
+        }
+    }
 }
