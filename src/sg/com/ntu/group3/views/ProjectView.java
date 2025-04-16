@@ -151,4 +151,15 @@ public class ProjectView implements View{
     }
 
 
+    public static int chooseProjectViewScope() {
+        System.out.println("\n=== View Projects ===");
+        System.out.println("1. View My Created Projects");
+        System.out.println("2. View All Projects");
+        System.out.println("0. Cancel");
+        System.out.print("Choose an option: ");
+
+        int choice = input.nextInt();
+        input.nextLine();
+        return choice;
+    }
 }

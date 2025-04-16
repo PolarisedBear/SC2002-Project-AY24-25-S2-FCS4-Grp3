@@ -148,6 +148,8 @@ public class Main {
                                 projectController.createProject(currentUser);
                                 break;
                             case 6://view projects
+                                projectController.viewProjects(currentUser);
+                                break;
                             case 7://approve/reject application
                             case 8://approve/reject withdrawal
                             case 9://generate report

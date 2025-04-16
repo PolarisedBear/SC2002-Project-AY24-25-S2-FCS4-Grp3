@@ -135,4 +135,18 @@ public class ProjectController extends ProjectView implements IProjectService{
     public List<Project> getAllProjects() {
         return Project.getProjectList();
     }
+
+
+    public void viewProjects(HDBManager manager) {
+        int choice = ProjectView.chooseProjectViewScope();
+        if (choice == 1) {
+            List<Project> managerProjects = findProjectsByManager(manager);
+            ProjectView.displayProjectList(managerProjects);
+        } else if (choice == 2) {
+            List<Project> allProjects = getAllProjects();
+            ProjectView.displayProjectList(allProjects);
+        } else {
+            System.out.println("Cancelled");
+        }
+    }
 }
