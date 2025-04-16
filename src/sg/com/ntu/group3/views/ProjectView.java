@@ -20,8 +20,14 @@ public class ProjectView implements View{
     public static void displayProjectList(List<Project> eligibleProjects) {
         System.out.println(eligibleProjects);
     }
+
+    public static String queryProjectName() {
+        System.out.print("Enter project name: ");
+        return input.nextLine();
+    }
     public static String showEditProjectForm() {
         System.out.println("Enter the attribute you'd like to edit");
+        System.out.println("name, flattypes, neighbourhood, closedate, visibility or maxofficers");
         return input.nextLine();
     };
 
@@ -75,10 +81,18 @@ public class ProjectView implements View{
         }
     }
 
+    public static String showCreateEditOrDeleteForm() {
+        System.out.println("Create, edit, or delete BTO project.");
+        System.out.println("Enter the corresponding number to select an action, or any other key to cancel");
+        System.out.println("1. Create New BTO Project");
+        System.out.println("2. Edit Existing BTO Project");
+        System.out.println("3. Delete Existing BTO Project");
+        return input.nextLine();
+    }
+
     public static List<Object> showCreateProjectForm() throws ParseException {
         // enter name
-        System.out.print("Enter project name: ");
-        String name = input.nextLine();
+        String name = queryProjectName();
 
         // enter neighbourhood
         System.out.print("Enter neighbourhood: ");
@@ -114,9 +128,8 @@ public class ProjectView implements View{
             } else {System.out.println("Invalid Flat Type!");}
 
         }
-        List<Object> projectParameters = List.of(name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
         //return (name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
-        return projectParameters;
+        return List.of(name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
     };
 
     private static Date createProjectFormCloseDate() throws ParseException {

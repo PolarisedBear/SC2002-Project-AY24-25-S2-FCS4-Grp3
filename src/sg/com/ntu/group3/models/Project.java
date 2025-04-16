@@ -19,7 +19,7 @@ public class Project {
     private boolean isVisible;
     private int maxOfficers;
     private int officerSlots;
-    private String createdBy;
+    private String createdBy = "";
     private Map<FlatType, Integer> unitsAvailable; //units Available for that particular flat type in this project
     private List<Application> applications = new ArrayList<>();
     private List<Enquiry> enquiries = new ArrayList<>();

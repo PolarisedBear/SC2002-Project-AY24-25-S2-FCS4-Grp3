@@ -17,6 +17,28 @@ public class ProjectController extends ProjectView implements IProjectService{
 
     }
 
+    public void createEditOrDeleteProject(HDBManager manager) throws ParseException {
+        String choice = ProjectView.showCreateEditOrDeleteForm();
+        switch (choice) {
+            case "1":
+                createProject(manager);
+                break;
+            case "2":
+                ProjectView.displayProjectList();
+                String name = ProjectView.queryProjectName();
+                Project project = Project.findProject(name);
+                editProject(project);
+                break;
+            case "3":
+                deleteProject();
+                break;
+            default:
+                System.out.println("Cancelled");
+                break;
+
+        }
+    }
+
     public void createProject(HDBManager manager) throws ParseException {
         List<Object> proj = ProjectView.showCreateProjectForm();
         Project newProject = new Project((String) proj.get(0),
@@ -111,9 +133,7 @@ public class ProjectController extends ProjectView implements IProjectService{
 
     @Override
     public List<Project> findProjectsByManager(HDBManager manager) {
-        List<Project> filteredList = Project.getProjectList().stream()
-                .filter(proj -> proj.getCreatedBy().equalsIgnoreCase(manager.getName())).toList();
-        return filteredList;
+        return manager.getCreatedProjects();
     }
 
     @Override

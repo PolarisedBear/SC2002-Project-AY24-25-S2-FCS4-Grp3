@@ -113,18 +113,31 @@ public class Main {
                                 hdbOfficerController.viewProjectDetails(currentUser);
                                 break;
                             case 7://request booking
+                                applicationController.requestFlatBooking(currentUser);
+                                break;
                             case 8://request withdrawal
+                                withdrawalController.submitWithdrawalRequest(currentUser);
+                                break;
                             case 9://submit enquiry
+                                enquiryController.newEnquirySubmission(currentUser);
+                                break;
                             case 10://view, edit and delete
+                                enquiryController.editReplyAndDelete(currentUser);
+                                break;
                             case 11://register or join project
                                 hdbOfficerController.registerForProject(currentUser);
                                 break;
                             case 12://view registration status
+                                hdbOfficerController.viewRegistrationStatus(currentUser);
+                                break;
                             case 13://view project details
+                                hdbOfficerController.viewProjectDetails(currentUser);
+                                break;
                             case 14://Update applicant flat selection
                                 hdbOfficerController.bookFlat(currentUser);
                                 break;
                             case 15://view and reply to enquiries
+
                             case 16://generate applicant's flat booking request
 
                         }
@@ -144,8 +157,8 @@ public class Main {
                             case 4://view user profile
                                 userController.displayUserInfo();
                                 break;
-                            case 5://create project
-                                projectController.createProject(currentUser);
+                            case 5://create/edit/delete project
+                                projectController.createEditOrDeleteProject(currentUser);
                                 break;
                             case 6://view projects
                                 projectController.viewProjects(currentUser);
