@@ -156,6 +156,8 @@ public class Main {
                                 withdrawalController.reviewWithdrawalRequests(currentUser);
                                 break;
                             case 9://generate report
+                                reportController.generateReport(currentUser);
+                                break;
                             case 10://view enquiries
 
                         }
