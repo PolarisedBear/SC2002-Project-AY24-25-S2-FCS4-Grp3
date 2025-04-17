@@ -29,7 +29,7 @@ public class Main {
         ProjectController projectController = new ProjectController();
         EnquiryController enquiryController = new EnquiryController(session);
         HDBOfficerController hdbOfficerController = new HDBOfficerController(session, authenticationService, applicationFilterService);
-        ReportController reportController = new ReportController();
+        ReportController reportController = new ReportController(applicationFilterService);
         WithdrawalController withdrawalController = new WithdrawalController();
 
         //For testing
@@ -140,7 +140,8 @@ public class Main {
                                 enquiryController.viewAndReplyToEnquiries(currentUser);
                                 break;
                             case 16://generate applicant's flat booking request
-
+                                reportController.generateReceiptForm(currentUser);
+                                break;
                         }
                     }
 

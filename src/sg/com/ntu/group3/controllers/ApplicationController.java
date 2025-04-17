@@ -11,6 +11,7 @@ import sg.com.ntu.group3.views.ApplicationView;
 import sg.com.ntu.group3.views.View;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -85,9 +86,10 @@ public class ApplicationController extends ApplicationView implements IApplicati
     }
 
     public List<Project> findAvailableProjects(List<Project> visibleProjects, Applicant applicant) {
+        Date currentDate = new Date();
         List<Project> availableProjects = new ArrayList<>();
         for (Project project : visibleProjects) {
-            if (project.hasAvailableUnitsForApplicant(applicant)) {
+            if (project.hasAvailableUnitsForApplicant(applicant) && project.isWithinApplicationPeriod(currentDate)) {
                 availableProjects.add(project);
             }
         }
