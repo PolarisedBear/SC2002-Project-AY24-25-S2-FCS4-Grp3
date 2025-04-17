@@ -48,38 +48,34 @@ public class WithdrawalController implements IWithdrawalService {
     }
 
     @Override
-    public List<WithdrawalRequest> getPendingRequests() {
-        return List.of();
+    public List<WithdrawalRequest> getPendingRequests(HDBManager manager) {
+        return WithdrawalRequest.getAllWithdrawalRequests().stream()
+                .filter(req -> req.status == WithdrawalStatus.PENDING)
+                .filter(req -> req.getApplication().getProject().getCreatedBy().equalsIgnoreCase(manager.getName()))
+                .toList();
     }
 
     @Override
     public void approveRequest(WithdrawalRequest request) {
-
-    }
-
-    @Override
-    public void rejectRequest(WithdrawalRequest request) {
-
-    }
-
-
-    public void approveWithdrawal(Application application) {
+        request.approve();
+        Application application = request.getApplication();
         application.setStatus(ApplicationStatus.Withdrawn);
         application.getApplicant().setApplication(null);
         application.getProject().getApplicants().remove(application.getApplicant());
         System.out.println("application withdrawal approved");
     }
-    public void rejectWithdrawal(Application application) {
+
+    @Override
+    public void rejectRequest(WithdrawalRequest request) {
+        request.reject();
+        Application application = request.getApplication();
         application.setStatus(ApplicationStatus.WithdrawnUnsuccessful);
         System.out.println("application withdrawal");
     }
 
 
     public void reviewWithdrawalRequests(HDBManager manager) {
-        List<WithdrawalRequest> pendingRequests = WithdrawalRequest.getAllWithdrawalRequests().stream()
-                .filter(req -> req.status == WithdrawalStatus.PENDING)
-                .filter(req -> req.getApplication().getProject().getCreatedBy().equalsIgnoreCase(manager.getName()))
-                .toList();
+        List<WithdrawalRequest> pendingRequests = getPendingRequests(manager);
 
         if (pendingRequests.isEmpty()) {
             System.out.println("No pending withdrawal requests for your projects.");
@@ -92,11 +88,11 @@ public class WithdrawalController implements IWithdrawalService {
             int decision = WithdrawalRequestView.promptApproveOrReject(selected);
 
             if (decision == 1) {
-                approveWithdrawal(selected.getApplication());
+                approveRequest(selected);
                 selected.approve();
                 System.out.println("Withdrawal request approved.");
             } else if (decision == 2) {
-                rejectWithdrawal(selected.getApplication());
+                rejectRequest(selected);
                 selected.reject();
                 System.out.println("Withdrawal request rejected.");
             } else {

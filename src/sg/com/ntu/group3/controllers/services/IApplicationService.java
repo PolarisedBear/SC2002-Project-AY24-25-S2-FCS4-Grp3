@@ -5,7 +5,7 @@ import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.roles.Applicant;
 
 public interface IApplicationService {
-    public void withdrawApplication(Application application);
-    public ApplicationStatus getApplicationStatus(Application application);
-    public Boolean requestFlatBooking(Applicant applicant);
+    void withdrawApplication(Application application);
+    ApplicationStatus getApplicationStatus(Application application);
+    Boolean requestFlatBooking(Applicant applicant);
 }

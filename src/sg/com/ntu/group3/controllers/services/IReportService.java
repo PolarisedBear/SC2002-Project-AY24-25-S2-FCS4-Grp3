@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface IReportService {
-    public List<Application> generateReport(Map criteria);
-    public Map<String, String> generateReceipt(Application application);
+    List<Application> generateReport(Map criteria);
+    Map<String, String> generateReceipt(Application application);
 }

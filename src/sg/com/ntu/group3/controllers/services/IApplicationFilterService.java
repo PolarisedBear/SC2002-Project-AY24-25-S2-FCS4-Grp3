@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface IApplicationFilterService {
-    public List<Application> filterByMaritalStatus(boolean married);
-    public List<Application> filterByAge(int minAge, int maxAge);
-    public List<Application> filterByFlatType(String flatType);
-    public List<Application> filterByCompositeCriteria(Map criteria);
+    List<Application> filterByMaritalStatus(boolean married);
+    List<Application> filterByAge(int minAge, int maxAge);
+    List<Application> filterByFlatType(String flatType);
+    List<Application> filterByCompositeCriteria(Map criteria);
 }

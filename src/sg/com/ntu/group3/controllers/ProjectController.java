@@ -138,7 +138,14 @@ public class ProjectController extends ProjectView implements IProjectService{
 
     @Override
     public boolean hasActiveProject(HDBManager manager, Date date) {
-        return false;
+        boolean hasActive = false;
+        for (Project proj : manager.getCreatedProjects()) {
+            if ((date.compareTo(proj.getOpeningDate())>=0) && (date.compareTo(proj.getCloseDate())<=0)) {
+                hasActive = true;
+                break;
+            }
+        }
+        return hasActive;
     }
 
 
