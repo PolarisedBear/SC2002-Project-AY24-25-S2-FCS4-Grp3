@@ -1,6 +1,7 @@
 package sg.com.ntu.group3.models;
 
 import enums.RegistrationStatus;
+import sg.com.ntu.group3.roles.HDBOfficer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,10 +11,12 @@ public class Registration {
     private RegistrationStatus status;
     private Date requestDate;
     private Project project;
+    private HDBOfficer officer;
     private static List<Registration> registrationList = new ArrayList<>();
 
-    public Registration(Project project) {
+    public Registration(Project project, HDBOfficer officer) {
         this.project = project;
+        this.officer = officer;
         this.requestDate = new Date();
         this.status = RegistrationStatus.Pending;
         registrationList.add(this);
@@ -37,6 +40,12 @@ public class Registration {
 
     public void reject() {
         this.status = RegistrationStatus.Rejection;
+    }
+    public List<Registration> getRegistrations() {
+        return registrationList;
+    }
+    public HDBOfficer getOfficer(){
+        return officer;
     }
 
 }

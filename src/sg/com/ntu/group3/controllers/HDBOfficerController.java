@@ -1,6 +1,7 @@
 package sg.com.ntu.group3.controllers;
 
 import enums.ApplicationStatus;
+import enums.RegistrationStatus;
 import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
 import sg.com.ntu.group3.controllers.services.IManagerService;
@@ -10,6 +11,7 @@ import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.models.Registration;
 import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.ApplicationView;
 import sg.com.ntu.group3.views.ProjectView;
@@ -38,9 +40,8 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             boolean success = Project.projectExists(applicationName, projectList);
             if (success) {
                 Project project = Project.findProject(applicationName);
-                if (officer.canApplyForProject(project) && project.isWithinApplicationPeriod(null)) {
-                    //notcompleted below logic needs to be approved by manager before can be added
-                    Registration registeredProject = new Registration(project);
+                if (officer.canApplyForProject(project) && project.isWithinApplicationPeriod(project.getOpeningDate())&& project.isWithinApplicationPeriod(project.getCloseDate())) {
+                    Registration registeredProject = new Registration(project, officer);
                     officer.getRegistrations().add(registeredProject);
                     return true;
                 }
@@ -70,6 +71,44 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         }
 
 
+    }
+    public void approveOfficerRegistration(HDBManager manager){
+    List<HDBOfficer> officers = manager.getOfficers();
+
+    List<Registration> officerRegistrations = new ArrayList<>();
+    for (HDBOfficer officer : officers) {
+        officerRegistrations.addAll(officer.getRegistrations());
+    }
+    List<Registration> pendingRegs = officerRegistrations.stream()
+            .filter(registration -> registration.getStatus() == RegistrationStatus.Pending)
+            .toList();
+
+    if (pendingRegs.isEmpty()) {
+        System.out.println("No pending registrations");
+        return;
+    }
+
+    Registration regToApprove = ApplicationView.ChoosePendingReg(pendingRegs);
+    if (regToApprove != null) {
+        int choice = ApplicationView.chooseApproveReject();
+        switch (choice) {
+            case 1:
+                approveOfficer(regToApprove.getOfficer(), regToApprove);
+                break;
+            case 2:
+                rejectOfficerRegistration(regToApprove);
+            default:
+                System.out.println("invalid selection");
+                break;
+            }
+        } 
+        else {
+            System.out.println("invalid project");
+        }
+    }
+    public void rejectOfficerRegistration(Registration registration) {
+        registration.reject();
+        System.out.println("Registration rejected " + registration.getProject().getName());
     }
 
 

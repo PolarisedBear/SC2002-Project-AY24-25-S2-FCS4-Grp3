@@ -176,6 +176,8 @@ public class Main {
                             case 10://view enquiries
                                 enquiryController.viewAndReplyToEnquiries(currentUser);
                                 break;
+                            case 11://approve officer
+                                hdbOfficerController.approveOfficerRegistration(currentUser);;
                         }
                     }
                 }
