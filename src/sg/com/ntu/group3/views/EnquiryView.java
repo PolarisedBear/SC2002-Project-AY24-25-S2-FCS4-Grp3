@@ -34,7 +34,10 @@ public class EnquiryView implements View {
             View.lineSeparator();
         }
     }
-    public void showResponseForm() {};
+    public static String showResponseForm() {
+        System.out.println("Enter your response to this enquiry:");
+        return input.nextLine();
+    };
 
     public static String showEditReplyAndDeleteMainApplicant() {
         System.out.println("Edit, Reply to and Delete your own enquiries");

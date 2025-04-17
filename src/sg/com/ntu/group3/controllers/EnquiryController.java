@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.controllers.services.IEnquiryService;
@@ -108,8 +109,21 @@ public class EnquiryController implements IEnquiryService{
 
     //Officer Ver:
     public void viewAndReplyToEnquiries(HDBOfficer officer) {
-        if (officer.getAssignedProject()!=null) {
-
+        Project assignedProject = officer.getAssignedProject();
+        if (assignedProject!=null) {
+            int inputID = Integer.parseInt(EnquiryView.viewAndReplyForm(officer));
+            if (assignedProject.findEnquiry(inputID)!=null) {
+                String response = EnquiryView.showResponseForm();
+                Enquiry enquiry = assignedProject.findEnquiry(inputID);
+                replyToEnquiry(enquiry, response);
+                EnquiryView.showOperationOutcome("Response", true);
+            } else {
+                EnquiryView.showOperationOutcome("Reponse", false);
+                System.out.println("Invalid input!");
+            }
+        } else {
+            EnquiryView.showOperationOutcome("Retrieval", false);
+            System.out.println("No project assigned!");
         }
     }
 

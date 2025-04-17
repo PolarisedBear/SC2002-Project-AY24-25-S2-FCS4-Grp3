@@ -178,6 +178,9 @@ public class Project {
     public void removeEnquiry(Enquiry enquiry) {
         enquiries.remove(enquiry);
     }
+    public Enquiry findEnquiry(int id) {
+        return enquiries.stream().filter(enquiry -> enquiry.getId()==id).findFirst().orElse(null);
+    }
 
     public boolean checkForFlatType(String name) {
         return this.flatTypes.stream().anyMatch(flatType -> flatType.getType().equalsIgnoreCase(name));

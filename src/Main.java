@@ -137,7 +137,8 @@ public class Main {
                                 hdbOfficerController.bookFlat(currentUser);
                                 break;
                             case 15://view and reply to enquiries
-
+                                enquiryController.viewAndReplyToEnquiries(currentUser);
+                                break;
                             case 16://generate applicant's flat booking request
 
                         }
