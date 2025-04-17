@@ -25,6 +25,7 @@ public class ApplicationView implements View {
         System.out.println("Currently Valid Projects");
         for (Project proj : projectList) {
             System.out.println(proj);
+            View.lineSeparator();
             System.out.println("\n");
         }
         return input.nextLine();
