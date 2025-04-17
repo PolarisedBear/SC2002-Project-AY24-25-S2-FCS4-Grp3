@@ -9,6 +9,7 @@ import sg.com.ntu.group3.controllers.services.IEnquiryService;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
+import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.EnquiryView;
 
 public class EnquiryController implements IEnquiryService{
@@ -23,11 +24,11 @@ public class EnquiryController implements IEnquiryService{
     public void newEnquirySubmission(Applicant applicant) {
         Map.Entry<String, String> enquiryContents;
         do {
-            enquiryContents = EnquiryView.showEnquiryForm();
+            enquiryContents = EnquiryView.showCreateEnquiryForm();
             if (Project.projectExists(enquiryContents.getKey())) {
-                EnquiryView.showOperationOutcomes("creation", true);
+                EnquiryView.showOperationOutcome("creation", true);
             } else {
-                EnquiryView.showOperationOutcomes("creation", false);
+                EnquiryView.showOperationOutcome("creation", false);
             }
         } while (!Project.projectExists(enquiryContents.getKey()));
         Project proj = Project.findProject(enquiryContents.getKey());
@@ -47,7 +48,7 @@ public class EnquiryController implements IEnquiryService{
 
     public void editReplyAndDelete(Applicant applicant) {
         if (!applicant.hasEnquiries()) {
-            EnquiryView.showOperationOutcomes("Search", false);
+            EnquiryView.showOperationOutcome("Search", false);
             System.out.println("No enquiries found!");
             return;
         }
@@ -105,11 +106,16 @@ public class EnquiryController implements IEnquiryService{
         }
     }
 
+    //Officer Ver:
+    public void viewAndReplyToEnquiries(HDBOfficer officer) {
+        if (officer.getAssignedProject()!=null) {
 
+        }
+    }
+
+    //Manager Ver:
     public void viewAndReplyToEnquiries(HDBManager manager) {
-        List<Project> managerProjects = Project.getProjectList().stream()
-                .filter(p -> p.getCreatedBy().equalsIgnoreCase(manager.getName()))
-                .toList();
+        List<Project> managerProjects = manager.getCreatedProjects();
 
         List<Enquiry> relevantEnquiries = new ArrayList<>();
         for (Project project : managerProjects) {

@@ -3,7 +3,7 @@ package sg.com.ntu.group3.views;
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
-import sg.com.ntu.group3.roles.User;
+import sg.com.ntu.group3.roles.HDBOfficer;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class EnquiryView implements View {
     private static Scanner input = new Scanner(System.in);
 
-    public static Map.Entry<String, String> showEnquiryForm() {
+    public static Map.Entry<String, String> showCreateEnquiryForm() {
         System.out.println("Create a new Enquiry: Find a project to enquire about\n");
         System.out.println(Project.getProjectList());
         System.out.println("\nEnter the name of the project you wish to enquire about");
@@ -27,6 +27,13 @@ public class EnquiryView implements View {
             System.out.println("\n");
         }
     };
+    public static void displayEnquiryList(Project project) {
+        List<Enquiry> enquiryList = project.getEnquiries();
+        for (Enquiry enquiry : enquiryList) {
+            System.out.println(enquiry);
+            View.lineSeparator();
+        }
+    }
     public void showResponseForm() {};
 
     public static String showEditReplyAndDeleteMainApplicant() {
@@ -54,9 +61,21 @@ public class EnquiryView implements View {
         System.out.println("Enter the Edit Enquiry Form");
     };
 
-    public static void showOperationOutcomes(String action, boolean success) {
+    public static void showOperationOutcome(String action, boolean success) {
         if (success) System.out.println("Enquiry " +action+ " successful");
         else System.out.println("Enquiry " +action+ " unsuccessful");
+    }
+
+    public static String viewAndReplyForm(HDBOfficer officer) {
+        Project assignedProject = officer.getAssignedProject();
+        System.out.println("Viewing and Replying to relevant enquiries");
+        System.out.println("Currently assigned project:");
+        ProjectView.displayProjectInfo(assignedProject);
+        System.out.println("=============================");
+        System.out.println("Relevant Enquiries:");
+        displayEnquiryList(assignedProject);
+        System.out.println("Enter the ID of the enquiry you'd like to reply to:");
+        return input.nextLine();
     }
 
     public static int displayManagerEnquiryList(List<Enquiry> enquiries) {

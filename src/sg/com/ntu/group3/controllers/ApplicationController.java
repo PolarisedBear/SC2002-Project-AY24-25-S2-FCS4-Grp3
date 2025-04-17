@@ -8,6 +8,7 @@ import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.views.ApplicationView;
+import sg.com.ntu.group3.views.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +35,12 @@ public class ApplicationController extends ApplicationView implements IApplicati
             if (success) {
                 Application newApplication = new Application(applicant, Project.findProject(applicationName));
                 applicant.setApplication(newApplication);
-                ApplicationView.showOperationOutcome("Application", success);
+                View.showOperationOutcome("Application", success);
             } else {
-                ApplicationView.showOperationOutcome("Application", success);
+                View.showOperationOutcome("Application", success);
             }
         } else {
-            ApplicationView.showOperationOutcome("Application", false);
+            View.showOperationOutcome("Application", false);
             System.out.println("Applicant has already submitted an application");
         }
 
@@ -57,7 +58,7 @@ public class ApplicationController extends ApplicationView implements IApplicati
         if (applicant.getApplication()!=null) {
             ApplicationView.displayApplication(applicant.getApplication());
         } else {
-            ApplicationView.showOperationOutcome("Display", false);
+            View.showOperationOutcome("Display", false);
             System.out.println("No application found!");
         }
     }
@@ -112,10 +113,10 @@ public class ApplicationController extends ApplicationView implements IApplicati
     public Boolean requestFlatBooking(Applicant applicant) {
         if (applicant.canBookFlat()) {
             applicant.getApplication().setStatus(ApplicationStatus.Booking);
-            ApplicationView.showOperationOutcome("Request for Booking", true);
+            View.showOperationOutcome("Request for Booking", true);
             return true;
         } else {
-            ApplicationView.showOperationOutcome("Request for Booking", false);
+            View.showOperationOutcome("Request for Booking", false);
         }
         return false;
     }

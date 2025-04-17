@@ -13,6 +13,7 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.ApplicationView;
 import sg.com.ntu.group3.views.ProjectView;
+import sg.com.ntu.group3.views.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
                     return true;
                 }
             } else {
-                ApplicationView.showOperationOutcome("Application", success);
+                View.showOperationOutcome("Application", success);
             }
 
         return false;
@@ -96,13 +97,13 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
             if (application.getProject().checkForFlatType(booking)) {
                 application.setStatus(ApplicationStatus.Booked); //update to being booked
-                ApplicationView.showOperationOutcome("Booking", true);
+                View.showOperationOutcome("Booking", true);
             } else {
-                ApplicationView.showOperationOutcome("Booking", false);
+                View.showOperationOutcome("Booking", false);
                 System.out.println("Invalid Input!"); //unsuccessful: invalid flat type entered from view class
             }
         } else {
-            ApplicationView.showOperationOutcome("Booking", false);
+            View.showOperationOutcome("Booking", false);
             System.out.println("Invalid Input!");
         }
     }
@@ -147,15 +148,15 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             if (officer.canApplyForProject(project)) {
                 Application newApplication = new Application(officer, Project.findProject(applicationName));
                 officer.setApplication(newApplication);
-                ApplicationView.showOperationOutcome("Application", success);
+                View.showOperationOutcome("Application", success);
             
             } else {
-                ApplicationView.showOperationOutcome("Application", false);
+                View.showOperationOutcome("Application", false);
                 System.out.println("Applicant has already submitted an application");
             }
 
         } else {
-            ApplicationView.showOperationOutcome("Application", success);
+            View.showOperationOutcome("Application", success);
         }
 
 
