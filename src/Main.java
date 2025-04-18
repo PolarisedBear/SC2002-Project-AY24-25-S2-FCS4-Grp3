@@ -26,7 +26,7 @@ public class Main {
         UserController userController = new UserController(session, authenticationService);
         ApplicationController applicationController = new ApplicationController(session);
         ApplicationFilterService applicationFilterService = new ApplicationFilterService(session);
-        ProjectController projectController = new ProjectController();
+        ProjectController projectController = new ProjectController(authenticationService);
         EnquiryController enquiryController = new EnquiryController(session);
         HDBOfficerController hdbOfficerController = new HDBOfficerController(session, authenticationService, applicationFilterService);
         ReportController reportController = new ReportController(applicationFilterService);

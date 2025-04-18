@@ -1,7 +1,9 @@
 package sg.com.ntu.group3.controllers;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
+import sg.com.ntu.group3.controllers.services.AuthenticationService;
 import sg.com.ntu.group3.controllers.services.IProjectService;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
@@ -12,13 +14,13 @@ import sg.com.ntu.group3.views.View;
 
 public class ProjectController extends ProjectView implements IProjectService{
 
+    private AuthenticationService authenticationService;
 
-
-    public ProjectController() {
-
+    public ProjectController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
     }
 
-    public void createEditOrDeleteProject(HDBManager manager) throws ParseException {
+    public void createEditOrDeleteProject(HDBManager manager) throws ParseException, IOException {
         String choice = ProjectView.showCreateEditOrDeleteForm();
         switch (choice) {
             case "1":
@@ -51,17 +53,30 @@ public class ProjectController extends ProjectView implements IProjectService{
                 (Integer) proj.get(6),
                 (Map<FlatType, Integer>) proj.get(7));
         manager.createProject(newProject);
-        System.out.println("Project created successfully");
+        View.showOperationOutcome("Project Creation", true);
+        View.lineSeparator();
+        boolean isInCharge = setInChargeOf(manager, newProject);
+        if (!isInCharge) {
+            View.showOperationOutcome("Automatic IC assignment", false);
+            System.out.println("You cannot be in charge of another project right now.");
+        }
     }
 
-    public void addProject() {
-        // Prob a function to add unclaimed or blank project
-        Project newProject = new Project();
-        newProject.setVisible(true);
-        newProject.setName("Blank Project");
+    public boolean setInChargeOf(HDBManager manager, Project project) {
+        if(manager.getCurrentProject()!=null) {
+            if (manager.getCurrentProject().isWithinApplicationPeriod(new Date())) {
+                return false;
+            } else {
+                manager.setCurrentProject(project);
+                return true;
+            }
+        } else {
+            manager.setCurrentProject(project);
+            return true;
+        }
     }
 
-    public void editProject(Project project) throws ParseException {
+    public void editProject(Project project) throws ParseException, IOException {
         String attributeToEdit = ProjectView.showEditProjectForm().toLowerCase(Locale.ROOT);
         if (isValidAttribute(attributeToEdit)) {
             switch (attributeToEdit) {
@@ -95,6 +110,12 @@ public class ProjectController extends ProjectView implements IProjectService{
                 case "maxofficers":
                     newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
                     project.setMaxOfficers(Integer.parseInt(newAttribute)); break;
+                case "incharge":
+                    String newManagerNric = ProjectView.showEditManagerInCharge();
+                    if (authenticationService.findUserByNric(newManagerNric) instanceof HDBManager) {
+                        boolean isInCharge = setInChargeOf((HDBManager) authenticationService.findUserByNric(newManagerNric), project);
+                        ProjectView.showOperationOutcome(isInCharge);
+                    } else {ProjectView.showOperationOutcome(false);} break;
                 default:
                     ProjectView.showOperationOutcome(false); break;
             }

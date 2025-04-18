@@ -27,7 +27,7 @@ public class ProjectView implements View{
     }
     public static String showEditProjectForm() {
         System.out.println("Enter the attribute you'd like to edit");
-        System.out.println("name, flattypes, neighbourhood, closedate, visibility or maxofficers");
+        System.out.println("name, flattypes, neighbourhood, closedate, visibility, maxofficers, or incharge");
         return input.nextLine();
     };
 
@@ -71,6 +71,11 @@ public class ProjectView implements View{
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date closeDate = sdf.parse(dateInput);
         return closeDate;
+    }
+
+    public static String showEditManagerInCharge() {
+        System.out.println("Enter the new NRIC of the manager to take charge:");
+        return input.nextLine();
     }
 
     public static void showOperationOutcome(boolean successful) {

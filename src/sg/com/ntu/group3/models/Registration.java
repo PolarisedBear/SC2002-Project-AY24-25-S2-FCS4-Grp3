@@ -48,6 +48,10 @@ public class Registration {
         return officer;
     }
 
+    public static List<Registration> findRegistrationsByProject(Project project) {
+        return registrationList.stream().filter(reg -> reg.getProject().toString().equals(project.toString())).toList();
+    }
+
     @Override
     public String toString() {
         return "Registration{" +

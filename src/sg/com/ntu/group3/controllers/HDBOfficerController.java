@@ -77,13 +77,13 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
 
     }
     public void approveOfficerRegistration(HDBManager manager){
-        List<HDBOfficer> officers = manager.getOfficers();
-
-        List<Registration> officerRegistrations = new ArrayList<>();
-        for (HDBOfficer officer : officers) {
-            officerRegistrations.addAll(officer.getRegistrations());
+        if (!manager.hasActiveProject()) {
+            View.showOperationOutcome("Operation", false);
+            System.out.println("No currently active project!");
+            return;
         }
-        List<Registration> pendingRegs = officerRegistrations.stream()
+        List<Registration> regList = Registration.findRegistrationsByProject(manager.getCurrentProject());
+        List<Registration> pendingRegs = regList.stream()
                 .filter(registration -> registration.getStatus() == RegistrationStatus.Pending)
                 .toList();
 

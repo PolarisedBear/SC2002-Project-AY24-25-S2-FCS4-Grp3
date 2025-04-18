@@ -5,6 +5,7 @@ import sg.com.ntu.group3.models.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HDBManager extends User{
@@ -31,8 +32,8 @@ public class HDBManager extends User{
     public void setOfficers(List<HDBOfficer> officers) {Officers = officers;}
 
     public Project getCurrentProject() {return currentProject;}
-
-    public void setCurrentProject(Project currentProject) {this.currentProject = currentProject;}
+    public void setCurrentProject(Project project) {this.currentProject = project;}
+    public boolean hasActiveProject() {return currentProject!=null;}
 
 
     public void createProject(Project project) throws ParseException {
