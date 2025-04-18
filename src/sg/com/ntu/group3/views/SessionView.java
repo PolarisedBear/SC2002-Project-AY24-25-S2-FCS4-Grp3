@@ -42,6 +42,7 @@ public class SessionView implements View{
         System.out.println("8. Approve/Reject BTO Withdrawal");
         System.out.println("9. Generate Report");
         System.out.println("10. View Enquiries");
+        System.out.println("11. Approve Officer Registration");
     }
 
     public static int showMainMenuApplicant(Session session) {

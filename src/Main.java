@@ -167,6 +167,7 @@ public class Main {
                                 break;
                             case 7://approve/reject application
                                 applicationController.reviewApplications(currentUser);
+                                break;
                             case 8://approve/reject withdrawal
                                 withdrawalController.reviewWithdrawalRequests(currentUser);
                                 break;
@@ -178,6 +179,7 @@ public class Main {
                                 break;
                             case 11://approve officer
                                 hdbOfficerController.approveOfficerRegistration(currentUser);;
+                                break;
                         }
                     }
                 }

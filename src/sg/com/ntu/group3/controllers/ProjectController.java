@@ -8,6 +8,7 @@ import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.views.ProjectView;
+import sg.com.ntu.group3.views.View;
 
 public class ProjectController extends ProjectView implements IProjectService{
 
@@ -109,6 +110,10 @@ public class ProjectController extends ProjectView implements IProjectService{
             deletedProject.setName(null);
             deletedProject.setVisible(false);
             Project.removeProject(deletedProject);
+            View.showOperationOutcome("Deletion", true);
+        } else {
+            View.showOperationOutcome("Deletion", false);
+            System.out.println("Project does not exist");
         }
 
     }

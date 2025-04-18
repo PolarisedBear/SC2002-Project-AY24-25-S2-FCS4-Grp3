@@ -33,21 +33,24 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
     }
 
     public boolean registerForProject(HDBOfficer officer) {
-            List<Project> projectList = findAvailableProjects(
-                    findVisibleProjects(findEligibleProjects(officer))
-                    , officer);
-            String applicationName = ApplicationView.displayApplicationFormList(projectList);
-            boolean success = Project.projectExists(applicationName, projectList);
-            if (success) {
-                Project project = Project.findProject(applicationName);
-                if (officer.canApplyForProject(project) && project.isWithinApplicationPeriod(project.getOpeningDate())&& project.isWithinApplicationPeriod(project.getCloseDate())) {
-                    Registration registeredProject = new Registration(project, officer);
-                    officer.getRegistrations().add(registeredProject);
-                    return true;
-                }
-            } else {
-                View.showOperationOutcome("Application", success);
+        List<Project> projectList = new ArrayList<>();
+        for (Project project : Project.getProjectList()) {
+            if (officer.canRegisterForProject(project)) {
+                projectList.add(project);
             }
+        }
+        String applicationName = ApplicationView.displayApplicationFormList(projectList);
+        boolean success = Project.projectExists(applicationName, projectList);
+        if (success) {
+            Project project = Project.findProject(applicationName);
+            if (officer.canApplyForProject(project) && project.isWithinApplicationPeriod(project.getOpeningDate())&& project.isWithinApplicationPeriod(project.getCloseDate())) {
+                Registration registeredProject = new Registration(project, officer);
+                officer.getRegistrations().add(registeredProject);
+                return true;
+            }
+        } else {
+            View.showOperationOutcome("Application", success);
+        }
 
         return false;
     }
@@ -128,7 +131,16 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
     }
 
     public void bookFlat(HDBOfficer officer) {
+        if (officer.getAssignedProject()==null) {
+            View.showOperationOutcome("Booking", false);
+            System.out.println("No Project Assigned!");
+            return;}
         List<Application> applications = officer.getAssignedProject().searchApplicationByStatus(ApplicationStatus.Booking);
+        if (applications.isEmpty()) {
+            View.showOperationOutcome("Booking", false);
+            System.out.println("No approved applications!");
+            return;
+        }
         String nric = ApplicationView.showBookingForm(applications);
         if (authenticationService.validateNRIC(nric)) {
             Application application = applicationFilterService.filterByNRIC(applications,nric);
