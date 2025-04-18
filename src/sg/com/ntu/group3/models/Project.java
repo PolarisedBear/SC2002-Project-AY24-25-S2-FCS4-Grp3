@@ -36,6 +36,7 @@ public class Project {
     public Project(String name,
                    List<FlatType> flatTypes,
                    String neighbourhood,
+                   Date openDate,
                    Date closeDate,
                    boolean isVisible,
                    int maxOfficers,
@@ -43,7 +44,7 @@ public class Project {
         this.name = name;
         this.flatTypes = flatTypes;
         this.neighbourhood = neighbourhood;
-        this.openingDate = new Date();
+        this.openingDate = openDate;
         this.closeDate = closeDate;
         this.isVisible = isVisible;
         this.maxOfficers = maxOfficers;

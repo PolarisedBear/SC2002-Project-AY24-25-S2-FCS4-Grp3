@@ -46,9 +46,10 @@ public class ProjectController extends ProjectView implements IProjectService{
                 (List<FlatType>) proj.get(1),
                 (String) proj.get(2),
                 (Date) proj.get(3),
-                (Boolean) proj.get(4),
-                (Integer) proj.get(5),
-                (Map<FlatType, Integer>) proj.get(6));
+                (Date) proj.get(4),
+                (Boolean) proj.get(5),
+                (Integer) proj.get(6),
+                (Map<FlatType, Integer>) proj.get(7));
         manager.createProject(newProject);
         System.out.println("Project created successfully");
     }

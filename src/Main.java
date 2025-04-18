@@ -39,7 +39,7 @@ public class Main {
         List<EligibilityRule> three_room = List.of(atLeast21andMaried);
         FlatType TwoR = new FlatType(two_room, 2, "2_room");
         FlatType ThreeR = new FlatType(three_room, 3, "3_room");
-        new Project("Acacia Breeze", List.of(TwoR, ThreeR), "Yishun", new Date(2026, 12, 25), true, 5, Map.of(TwoR, 2, ThreeR, 3));
+        new Project("Acacia Breeze", List.of(TwoR, ThreeR), "Yishun",new Date(), new Date(2026, 12, 25), true, 5, Map.of(TwoR, 2, ThreeR, 3));
 
 
 

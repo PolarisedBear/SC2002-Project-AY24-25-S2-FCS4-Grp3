@@ -98,7 +98,8 @@ public class ProjectView implements View{
         System.out.print("Enter neighbourhood: ");
         String neighbourhood = input.nextLine();
 
-        //enter date
+        //enter dates
+        Date openDate = createProjectFormOpenDate();
         Date closeDate = createProjectFormCloseDate();
 
         //toggle visibility
@@ -128,9 +129,22 @@ public class ProjectView implements View{
             } else {System.out.println("Invalid Flat Type!");}
 
         }
-        //return (name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
-        return List.of(name, flatTypes, neighbourhood, closeDate, isVisible, maxOfficers, unitsAvailable);
+        //return (name, flatTypes, neighbourhood, openDate, closeDate, isVisible, maxOfficers, unitsAvailable);
+        return List.of(name, flatTypes, neighbourhood, openDate, closeDate, isVisible, maxOfficers, unitsAvailable);
     };
+
+    private static Date createProjectFormOpenDate() throws ParseException {
+        while (true) {
+            System.out.print("Enter open date (dd/mm/yyyy), or any key to default to today: ");
+            String dateInput = input.nextLine();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            if (AuthenticationService.isValidDate(dateInput, sdf)) {
+                return sdf.parse(dateInput);
+            } else {
+                return new Date();
+            }
+        }
+    }
 
     private static Date createProjectFormCloseDate() throws ParseException {
         while (true) {
