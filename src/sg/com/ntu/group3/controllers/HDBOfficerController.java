@@ -18,6 +18,7 @@ import sg.com.ntu.group3.views.ProjectView;
 import sg.com.ntu.group3.views.View;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,27 +33,27 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         this.applicationFilterService = applicationFilterService;
     }
 
-    public boolean registerForProject(HDBOfficer officer) {
+    public void registerForProject(HDBOfficer officer) {
         List<Project> projectList = new ArrayList<>();
         for (Project project : Project.getProjectList()) {
             if (officer.canRegisterForProject(project)) {
                 projectList.add(project);
             }
         }
-        String applicationName = ApplicationView.displayApplicationFormList(projectList);
-        boolean success = Project.projectExists(applicationName, projectList);
+        System.out.println("Enter the Name of the project you'd like to register for:");
+        String projectRegName = ApplicationView.displayApplicationFormList(projectList);
+        boolean success = Project.projectExists(projectRegName, projectList);
         if (success) {
-            Project project = Project.findProject(applicationName);
-            if (officer.canApplyForProject(project) && project.isWithinApplicationPeriod(project.getOpeningDate())&& project.isWithinApplicationPeriod(project.getCloseDate())) {
+            Project project = Project.findProject(projectRegName);
+            if (officer.canRegisterForProject(project) && project.isWithinApplicationPeriod(new Date())) {
                 Registration registeredProject = new Registration(project, officer);
-                officer.getRegistrations().add(registeredProject);
-                return true;
+                officer.register(registeredProject);
+                View.showOperationOutcome("Registration", success);
             }
         } else {
-            View.showOperationOutcome("Application", success);
+            View.showOperationOutcome("Registration", success);
         }
 
-        return false;
     }
 
 
@@ -76,37 +77,36 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
 
     }
     public void approveOfficerRegistration(HDBManager manager){
-    List<HDBOfficer> officers = manager.getOfficers();
+        List<HDBOfficer> officers = manager.getOfficers();
 
-    List<Registration> officerRegistrations = new ArrayList<>();
-    for (HDBOfficer officer : officers) {
-        officerRegistrations.addAll(officer.getRegistrations());
-    }
-    List<Registration> pendingRegs = officerRegistrations.stream()
-            .filter(registration -> registration.getStatus() == RegistrationStatus.Pending)
-            .toList();
+        List<Registration> officerRegistrations = new ArrayList<>();
+        for (HDBOfficer officer : officers) {
+            officerRegistrations.addAll(officer.getRegistrations());
+        }
+        List<Registration> pendingRegs = officerRegistrations.stream()
+                .filter(registration -> registration.getStatus() == RegistrationStatus.Pending)
+                .toList();
 
-    if (pendingRegs.isEmpty()) {
-        System.out.println("No pending registrations");
-        return;
-    }
+        if (pendingRegs.isEmpty()) {
+            System.out.println("No pending registrations");
+            return;
+        }
 
-    Registration regToApprove = ApplicationView.ChoosePendingReg(pendingRegs);
-    if (regToApprove != null) {
-        int choice = ApplicationView.chooseApproveReject();
-        switch (choice) {
-            case 1:
-                approveOfficer(regToApprove.getOfficer(), regToApprove);
-                break;
-            case 2:
-                rejectOfficerRegistration(regToApprove);
-            default:
-                System.out.println("invalid selection");
-                break;
-            }
-        } 
-        else {
-            System.out.println("invalid project");
+        Registration regToApprove = ApplicationView.ChoosePendingReg(pendingRegs);
+        if (regToApprove != null) {
+            int choice = ApplicationView.chooseApproveReject();
+            switch (choice) {
+                case 1:
+                    approveOfficer(regToApprove.getOfficer(), regToApprove);
+                    break;
+                case 2:
+                    rejectOfficerRegistration(regToApprove);
+                default:
+                    System.out.println("invalid selection");
+                    break;
+                }
+            } else {
+                System.out.println("invalid project");
         }
     }
     public void rejectOfficerRegistration(Registration registration) {

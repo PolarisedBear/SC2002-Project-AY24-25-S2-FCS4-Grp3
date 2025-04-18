@@ -41,11 +41,20 @@ public class Registration {
     public void reject() {
         this.status = RegistrationStatus.Rejection;
     }
-    public List<Registration> getRegistrations() {
+    public static List<Registration> getRegistrations() {
         return registrationList;
     }
     public HDBOfficer getOfficer(){
         return officer;
     }
 
+    @Override
+    public String toString() {
+        return "Registration{" +
+                "Status: " + status +
+                "\nRequest Date: " + requestDate +
+                "\nProject: " + project +
+                "\nOfficer: " + officer +
+                '}';
+    }
 }

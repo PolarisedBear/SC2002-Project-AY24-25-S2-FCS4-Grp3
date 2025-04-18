@@ -6,6 +6,7 @@ import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.models.Registration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,8 @@ import enums.ApplicationStatus;
 public class HDBOfficer extends Applicant{
     private Applicant applicantProfile = null;
     private Project assignedProject;
-    private List<Registration> registrations;
-    private List<Application> applications;
+    private List<Registration> registrations = new ArrayList<>();
+    private List<Application> applications = new ArrayList<>();
 
 
     public HDBOfficer() {
@@ -107,9 +108,12 @@ public class HDBOfficer extends Applicant{
     public Project getAssignedProject() {
         return assignedProject;
     }
+    public void register(Registration registration) {registrations.add(registration);}
 
     public boolean canRegisterForProject(Project project) {
-        return !project.toString().equalsIgnoreCase(super.getApplication().getProject().toString());
+        if (super.getApplication()==null) {return true;} else {
+            return !project.toString().equalsIgnoreCase(super.getApplication().getProject().toString());
+        }
     }
 
     public boolean canApplyForProject(Project project) {
