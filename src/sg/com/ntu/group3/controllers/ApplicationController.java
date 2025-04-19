@@ -162,8 +162,13 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
 
     public void reviewApplications(HDBManager manager) {
+        if (!manager.hasActiveProject()) {
+            View.showOperationOutcome("Application Retrieval", false);
+            System.out.println("Currently not handling any projects!");
+            return;
+        }
         List<Application> pendingApps = new ArrayList<>();
-        for (Application app : Application.getAllApplications().values()) {
+        for (Application app : manager.getCurrentProject().getApplications()) {
             if (app.getStatus() == ApplicationStatus.Pending &&
                     app.getProject().getCreatedBy().equalsIgnoreCase(manager.getName())) {
                 pendingApps.add(app);
