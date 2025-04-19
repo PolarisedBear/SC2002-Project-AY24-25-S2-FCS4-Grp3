@@ -9,8 +9,10 @@ import sg.com.ntu.group3.models.*;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
+import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.SessionView;
+import sg.com.ntu.group3.views.UserView;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -105,6 +107,7 @@ public class Main {
                                 break;
                             case 4://view user profile
                                 userController.displayUserInfo();
+                                UserView.showOfficerProj(currentUser);
                                 break;
                             case 5://apply for project (cannot apply for registered project)
                                 hdbOfficerController.officerApplyForProject(currentUser);
@@ -158,6 +161,7 @@ public class Main {
                                 break;
                             case 4://view user profile
                                 userController.displayUserInfo();
+                                UserView.showManagerInCharge(currentUser);
                                 break;
                             case 5://create/edit/delete project
                                 projectController.createEditOrDeleteProject(currentUser);
@@ -178,7 +182,7 @@ public class Main {
                                 enquiryController.viewAndReplyToEnquiries(currentUser);
                                 break;
                             case 11://approve officer
-                                hdbOfficerController.approveOfficerRegistration(currentUser);;
+                                hdbOfficerController.approveOfficerRegistration(currentUser);
                                 break;
                         }
                     }

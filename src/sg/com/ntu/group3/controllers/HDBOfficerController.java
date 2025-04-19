@@ -15,6 +15,7 @@ import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.ApplicationView;
 import sg.com.ntu.group3.views.ProjectView;
+import sg.com.ntu.group3.views.RegistrationView;
 import sg.com.ntu.group3.views.View;
 
 import java.util.ArrayList;
@@ -57,11 +58,6 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
     }
 
 
-    @Override
-    public String getRegistrationStatus(HDBOfficer officer, Project project) {
-        return "";
-    }
-
     public void approveOfficer(HDBOfficer officer, Registration registration) {
         Project project = registration.getProject();
         if (project.assignOfficer(officer)){
@@ -92,9 +88,9 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             return;
         }
 
-        Registration regToApprove = ApplicationView.ChoosePendingReg(pendingRegs);
+        Registration regToApprove = RegistrationView.ChoosePendingReg(pendingRegs);
         if (regToApprove != null) {
-            int choice = ApplicationView.chooseApproveReject();
+            int choice = RegistrationView.chooseApproveReject();
             switch (choice) {
                 case 1:
                     approveOfficer(regToApprove.getOfficer(), regToApprove);
@@ -141,9 +137,9 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             System.out.println("No approved applications!");
             return;
         }
-        String nric = ApplicationView.showBookingForm(applications);
-        if (authenticationService.validateNRIC(nric)) {
-            Application application = applicationFilterService.filterByNRIC(applications,nric);
+        String number = ApplicationView.showBookingForm(applications);
+        if (Integer.parseInt(number)>=0 && Integer.parseInt(number)<applications.size()) {
+            Application application = applications.get(Integer.parseInt(number));
             Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant();
             String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
             if (application.getProject().checkForFlatType(booking)) {

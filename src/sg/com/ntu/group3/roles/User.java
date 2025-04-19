@@ -1,15 +1,12 @@
 package sg.com.ntu.group3.roles;
 
-import sg.com.ntu.group3.controllers.services.IUserService;
 import sg.com.ntu.group3.models.Application;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class User implements IUserService {
+public class User {
     private String name;
-    private String id;
     private String nric = null;
     private String password;
     private int age = 0;
@@ -17,12 +14,8 @@ public class User implements IUserService {
     private static List<User> userList = new ArrayList<>();
 
     public User() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("New sg.com.ntu.groupX.roles.User! Enter your name:");
-        this.name = scan.next();
-        System.out.println("Enter your password:");
-        this.password = scan.next();
-        userList.add(this);
+        this.name = "None";
+        //Create a dummy user that doesn't ger searched since it is not in the masterlist
     }
 
     public User(String name, String nric, int age, String maritalStatus, String password) {
@@ -85,32 +78,19 @@ public class User implements IUserService {
 
     }
 
-    @Override
-    public boolean login(String nric, String password) {
-        return nric.equalsIgnoreCase(this.nric) && password.equals(this.password);
-    }
-
-    @Override
-    public boolean register(User user) {
-        return false;
-    }
-
-    @Override
-    public void updateProfile(User user) {
-
-    }
-
     public static List<User> getUserList() {
         return userList;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public String getInfo() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                ", nric='" + nric + '\'' +
-                ", age=" + age +
-                ", maritalStatus='" + maritalStatus + '\'' +
-                '}';
+        return  "Name: " + name +
+                "\nNRIC: " + nric +
+                "\nAge: " + age +
+                "\nMarital Status: " + maritalStatus;
     }
 }

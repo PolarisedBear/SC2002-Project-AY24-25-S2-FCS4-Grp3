@@ -110,9 +110,9 @@ public class Applicant extends User {
     }
 
     public boolean canBookFlat() {
-        boolean canBook = true;
-        canBook = !(application==null) //list fail conditions
-                && !(FlatTypeBooked==null)
+        boolean canBook = false;
+        if (application==null) {return false;}
+        canBook = FlatTypeBooked==null
                 && application.getProject().hasAvailableUnitsForApplicant(this)
                 && !(application.getStatus()==ApplicationStatus.Booked || application.getStatus()==ApplicationStatus.Booking)
                 && application.getStatus()==ApplicationStatus.Successful;
@@ -120,8 +120,8 @@ public class Applicant extends User {
     }
 
     public boolean canApplyForProject() {
-        if (getApplication()==null) {return true;}
-        if (getApplication().getStatus()==ApplicationStatus.Unsuccessful
+        if (application==null) {return true;}
+        if (application.getStatus()==ApplicationStatus.Unsuccessful
                 || getApplication().getStatus()==ApplicationStatus.Withdrawn) {return true;}
         return false;
     }

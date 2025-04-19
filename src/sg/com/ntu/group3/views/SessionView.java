@@ -70,7 +70,7 @@ public class SessionView implements View{
 
     public static int showMainMenuHDBManager(Session session) {
         int choice = 0;
-        while (choice<1 || choice>10) {
+        while (choice<1 || choice>11) {
             showMainMenuGlobal(session);
             showMainMenuHDBManager();
             choice = input.nextInt();

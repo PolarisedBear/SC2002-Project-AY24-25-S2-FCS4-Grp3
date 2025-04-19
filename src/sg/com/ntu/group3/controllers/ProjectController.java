@@ -59,6 +59,9 @@ public class ProjectController extends ProjectView implements IProjectService{
         if (!isInCharge) {
             View.showOperationOutcome("Automatic IC assignment", false);
             System.out.println("You cannot be in charge of another project right now.");
+        } else {
+            View.showOperationOutcome("Automatic IC assignment", true);
+            System.out.println("You are now in charge of this project.");
         }
     }
 
@@ -67,11 +70,25 @@ public class ProjectController extends ProjectView implements IProjectService{
             if (manager.getCurrentProject().isWithinApplicationPeriod(new Date())) {
                 return false;
             } else {
+                // update previous manager in charge
+                HDBManager prevManager = project.getManagerInCharge();
+                Project prevProject = manager.getCurrentProject();
+                if (prevProject!=null) {prevProject.setManagerInCharge(new HDBManager());}
+                if (prevManager!=null) {prevManager.setCurrentProject(new Project());}
+                // update current manager in charge
                 manager.setCurrentProject(project);
+                project.setManagerInCharge(manager);
                 return true;
             }
         } else {
+            // update previous manager in charge
+            HDBManager prevManager = project.getManagerInCharge();
+            Project prevProject = manager.getCurrentProject();
+            if (prevProject!=null) {prevProject.setManagerInCharge(new HDBManager());}
+            if (prevManager!=null) {prevManager.setCurrentProject(new Project());}
+            // update current manager in charge
             manager.setCurrentProject(project);
+            project.setManagerInCharge(manager);
             return true;
         }
     }
@@ -85,10 +102,12 @@ public class ProjectController extends ProjectView implements IProjectService{
                     project.setName(newAttribute); break;
                 case "flattypes":
                     int addOrRemove = ProjectView.showEditProjectFlatTypes(project);
+                    String name;
+                    boolean successful;
                     switch (addOrRemove) {
                         case 0:
-                            String name = ProjectView.showRemoveProjectFlatTypes(project);
-                            boolean successful = project.removeFlatType(name);
+                            name = ProjectView.showRemoveProjectFlatTypes(project);
+                            successful = project.removeFlatType(name);
                             ProjectView.showOperationOutcome(successful); break;
                         case 1:
                             name = ProjectView.showAddProjectFlatTypes(project);
@@ -123,7 +142,7 @@ public class ProjectController extends ProjectView implements IProjectService{
         } else {
             ProjectView.showOperationOutcome(false);
         }
-
+        View.lineSeparator();
     }
 
     public void deleteProject() {
@@ -151,8 +170,8 @@ public class ProjectController extends ProjectView implements IProjectService{
 
     private boolean isValidAttribute(String input) {
         List<String> projectAttributes = Arrays
-                .asList("name","flatTypes","neighbourhood",
-                        "closeDate","visibility","maxOfficers");
+                .asList("name","flatTypes","neighbourhood","openDate",
+                        "closeDate","visibility","maxOfficers","incharge");
         return projectAttributes.stream().anyMatch(item -> item.equalsIgnoreCase(input));
 
     }

@@ -4,6 +4,7 @@ import sg.com.ntu.group3.controllers.services.AuthenticationService;
 import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.UserView;
+import sg.com.ntu.group3.views.View;
 
 import java.io.IOException;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class UserController extends UserView{
             User user = loginSession.getCurrentUser();
             System.out.println("User Logged In Info:");
             System.out.println(user.getInfo());
+            View.lineSeparator();
         } else {
             System.out.println("No current session/user logged in");
         }

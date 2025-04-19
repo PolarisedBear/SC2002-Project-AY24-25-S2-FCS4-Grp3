@@ -41,7 +41,12 @@ public class HDBManager extends User{
         this.createdProjects.add(project);
     }
 
-   /* public void editProject(Project project) throws ParseException {
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    /* public void editProject(Project project) throws ParseException {
         projectController.findProjectsByManager(this);
         projectController.editProject(project);
 

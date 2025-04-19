@@ -1,5 +1,7 @@
 package sg.com.ntu.group3.views;
 
+import sg.com.ntu.group3.roles.HDBManager;
+import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.roles.User;
 
 import java.util.Map;
@@ -73,5 +75,18 @@ public class UserView {
             if (choice<1 || choice>4) {System.out.println("Invalid!");}
         }
         if (choice==4) {return 0;} else {return choice;}
+    }
+
+    public static void showOfficerProj(HDBOfficer officer) {
+        if (officer.getAssignedProject()!=null) {
+            System.out.println("Currently Assigned Project: " + officer.getAssignedProject().getName());
+        } else {System.out.println("Currently Assigned Project: None");}
+
+    }
+
+    public static void showManagerInCharge(HDBManager manager) {
+        if (manager.hasActiveProject()) {
+            System.out.println("Currently In Charge Of: " + manager.getCurrentProject().getName());
+        } else {System.out.println("Currently Not In Charge Of Any Project");}
     }
 }

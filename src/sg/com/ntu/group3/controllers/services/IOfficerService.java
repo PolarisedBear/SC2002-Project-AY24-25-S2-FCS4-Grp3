@@ -5,5 +5,5 @@ import sg.com.ntu.group3.roles.HDBOfficer;
 
 public interface IOfficerService {
     void registerForProject(HDBOfficer officer);
-    String getRegistrationStatus(HDBOfficer officer, Project project);
+    void viewRegistrationStatus(HDBOfficer officer);
 }

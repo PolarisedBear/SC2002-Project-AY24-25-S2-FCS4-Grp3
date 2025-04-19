@@ -2,6 +2,7 @@ package sg.com.ntu.group3.models;
 
 import enums.ApplicationStatus;
 import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.roles.User;
 
@@ -20,6 +21,7 @@ public class Project {
     private int maxOfficers;
     private int officerSlots;
     private String createdBy = "";
+    private HDBManager managerInCharge;
     private Map<FlatType, Integer> unitsAvailable; //units Available for that particular flat type in this project
     private List<Application> applications = new ArrayList<>();
     private List<Enquiry> enquiries = new ArrayList<>();
@@ -28,9 +30,8 @@ public class Project {
     private static List<Project> projectList = new ArrayList<>(); //master list of all created projects
 
     public Project() {
-        this.officerSlots = 0;
-        this.openingDate = new Date();
-        projectList.add(this);
+        this.isVisible = false;
+        // initialise a dummy proj that doesn't get searched since it is not in the master list
     }
 
     public Project(String name,
@@ -68,6 +69,8 @@ public class Project {
     public void setMaxOfficers(int maxOfficers) {this.maxOfficers = maxOfficers;}
     public String getCreatedBy() {return createdBy;}
     public void setCreatedBy(String createdBy) {this.createdBy = createdBy;}
+    public HDBManager getManagerInCharge() {return this.managerInCharge;}
+    public void setManagerInCharge(HDBManager manager) {this.managerInCharge = manager;}
     public Map<FlatType, Integer> getUnitsAvailable() {return unitsAvailable;}
     public void setUnitsAvailable(Map<FlatType, Integer> unitsAvailable) {this.unitsAvailable = unitsAvailable;}
     public List<Application> getApplications() {return applications;}
@@ -102,6 +105,7 @@ public class Project {
                 "\nmaxOfficers: " + maxOfficers +
                 "\nOfficer Slots: " + officerSlots +
                 "\nCreator: " + createdBy +
+                "\nManager In Charge: " + managerInCharge +
                 "\nAvailableUnits: " + unitsAvailable +
                 "\n}";
     }

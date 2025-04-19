@@ -56,8 +56,11 @@ public class ApplicationView implements View {
     };
     public static String showBookingForm(List<Application> applications) {
         System.out.println("Select an application from your assigned project to update booking");
-        System.out.println(applications);
-        System.out.println("Enter the NRIC of the applicant to begin booking");
+        for (int i=0; i<applications.size(); i++) {
+            System.out.println("["+i+"] "+ applications.get(i));
+            View.lineSeparator();
+        }
+        System.out.println("Enter the number of the application to begin booking");
         return input.nextLine();
     }
 
@@ -83,35 +86,5 @@ public class ApplicationView implements View {
         input.nextLine();
         return decision;
     }
-    public static Registration ChoosePendingReg(List<Registration> pendingRegs) {
-        System.out.println("Pending registrations");
-        for (int i = 0; i < pendingRegs.size(); i++) {
-        Registration pendingReg = pendingRegs.get(i);
-        System.out.println(i + "Project: " + pendingReg.getProject().getName() +
-                ", Officer: " + pendingReg.getOfficer()+
-                ", Status: " + pendingReg.getStatus());
-        }
-        System.out.print("Select a registration to approve or reject: ");
-        int choice = input.nextInt();
-        input.nextLine();
-        if (choice >= 0 && choice < pendingRegs.size()) {
-            return pendingRegs.get(choice);
-        } else {
-            System.out.println("invalid selection.");
-            return null;
-        }
-    };
-    public static int chooseApproveReject(){
-        System.out.println("Approve or reject the registration? 1. Approve 2. Reject");
-        int choice = input.nextInt();
-        input.nextLine();
-        if (choice == 1) {
-            System.out.println("Registration approved.");
-        } else if (choice == 2) {
-            System.out.println("Registration rejected.");
-        } else {
-            System.out.println("Invalid selection.");
-        }
-        return choice;
-    }
+
 }
