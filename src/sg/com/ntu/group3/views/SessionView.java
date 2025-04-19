@@ -48,8 +48,10 @@ public class SessionView implements View{
     public static int showMainMenuApplicant(Session session) {
         int choice = 0;
         while (choice<1 || choice>10) {
+            View.lineSeparator();
             showMainMenuGlobal(session);
             showMainMenuApplicant();
+            View.lineSeparator();
             choice = input.nextInt();
             input.nextLine();
         }
@@ -59,9 +61,11 @@ public class SessionView implements View{
     public static int showMainMenuHDBOfficer(Session session) {
         int choice = 0;
         while (choice<1 || choice>16) {
+            View.lineSeparator();
             showMainMenuGlobal(session);
             showMainMenuApplicant();
             showMainMenuHDBOfficer();
+            View.lineSeparator();
             choice = input.nextInt();
             input.nextLine();
         }
@@ -71,8 +75,10 @@ public class SessionView implements View{
     public static int showMainMenuHDBManager(Session session) {
         int choice = 0;
         while (choice<1 || choice>11) {
+            View.lineSeparator();
             showMainMenuGlobal(session);
             showMainMenuHDBManager();
+            View.lineSeparator();
             choice = input.nextInt();
             input.nextLine();
         }

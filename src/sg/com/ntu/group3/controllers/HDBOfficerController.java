@@ -46,7 +46,7 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         boolean success = Project.projectExists(projectRegName, projectList);
         if (success) {
             Project project = Project.findProject(projectRegName);
-            if (officer.canRegisterForProject(project) && project.isWithinApplicationPeriod(new Date())) {
+            if (officer.canRegisterForProject(project) && project.isWithinApplicationPeriod(new Date()) && project.isAvailableForRegistration()) {
                 Registration registeredProject = new Registration(project, officer);
                 officer.register(registeredProject);
                 View.showOperationOutcome("Registration", success);

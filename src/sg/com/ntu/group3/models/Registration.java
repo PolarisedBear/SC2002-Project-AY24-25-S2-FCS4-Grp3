@@ -55,7 +55,7 @@ public class Registration {
     @Override
     public String toString() {
         return "Registration{" +
-                "Status: " + status +
+                "\nStatus: " + status +
                 "\nRequest Date: " + requestDate +
                 "\nProject: " + project +
                 "\nOfficer: " + officer +

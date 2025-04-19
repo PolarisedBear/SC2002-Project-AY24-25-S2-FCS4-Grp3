@@ -15,10 +15,16 @@ public class ProjectView implements View{
         System.out.println(project.toString());
     };
     public static void displayProjectList() {
-        System.out.println(Project.getProjectList());
+        for (Project project : Project.getProjectList()) {
+            System.out.println(project);
+            View.lineSeparator();
+        }
     };
     public static void displayProjectList(List<Project> eligibleProjects) {
-        System.out.println(eligibleProjects);
+        for (Project project : eligibleProjects) {
+            System.out.println(project);
+            View.lineSeparator();
+        }
     }
 
     public static String queryProjectName() {

@@ -70,10 +70,10 @@ public class Application {
 
     @Override
     public String toString() {
-        return "Application{" +
-                "\napplicant=" + applicant +
-                "\nstatus=" + status +
-                "\nproject=" + project +
+        return "Application Details{" +
+                "\nApplicant: " + applicant +
+                "\nStatus: " + status +
+                "\nProject: " + project +
                 '}';
     }
 }

@@ -94,7 +94,7 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "Project Details{" +
                 "\nname: " + name +
                 //", projectId='" + projectId + '\'' +
                 "\nFlatTypes: " + flatTypes +
@@ -151,9 +151,8 @@ public class Project {
         return !date.before(this.openingDate) && !date.after(this.closeDate);
     }
 
-    public boolean checkForConflictOfInterest(User user) {
-        // don't quite understand what this means
-        return false;
+    public boolean isAvailableForRegistration() {
+        return officerSlots<maxOfficers;
     }
 
     public boolean removeFlatType(String name) {
@@ -219,5 +218,10 @@ public class Project {
             System.out.println("no more slots for officers");
             return false;
         }
+    }
+
+    public void removeOfficer(HDBOfficer officer) {
+        hdbOfficers.remove(officer);
+        officerSlots-=1;
     }
 }

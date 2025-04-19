@@ -26,13 +26,15 @@ public class EnquiryView implements View {
             System.out.println(enquiry);
             System.out.println("\n");
         }
+        View.lineSeparator();
     };
     public static void displayEnquiryList(Project project) {
         List<Enquiry> enquiryList = project.getEnquiries();
         for (Enquiry enquiry : enquiryList) {
             System.out.println(enquiry);
-            View.lineSeparator();
+            System.out.println("\n");
         }
+        View.lineSeparator();
     }
     public static String showResponseForm() {
         System.out.println("Enter your response to this enquiry:");
@@ -74,7 +76,7 @@ public class EnquiryView implements View {
         System.out.println("Viewing and Replying to relevant enquiries");
         System.out.println("Currently assigned project:");
         ProjectView.displayProjectInfo(assignedProject);
-        System.out.println("=============================");
+        View.lineSeparator();
         System.out.println("Relevant Enquiries:");
         displayEnquiryList(assignedProject);
         System.out.println("Enter the ID of the enquiry you'd like to reply to:");
