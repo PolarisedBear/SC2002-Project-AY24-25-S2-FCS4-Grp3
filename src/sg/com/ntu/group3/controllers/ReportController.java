@@ -121,14 +121,14 @@ public class ReportController implements View, IReportService {
 
         // Get number of applicants
         int count = ReportView.reportFormApplicantQuery();
-        if (count<1 || count>selectedProject.getApplicants().size()) {
+        if (count<1 || count>applicantList.size()) {
             View.showOperationOutcome("Report Generation", false);
             System.out.println("Invalid range");
             return;
         }
 
         Report report = new Report();
-        report.generateApplicantBookingReport(count, selectedProject.getApplicants());
+        report.generateApplicantBookingReport(count, applicantList);
 
     }
 

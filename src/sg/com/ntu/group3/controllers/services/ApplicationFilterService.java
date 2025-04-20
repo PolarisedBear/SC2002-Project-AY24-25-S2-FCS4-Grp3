@@ -30,7 +30,7 @@ public class ApplicationFilterService implements IApplicationFilterService{
     public List<Application> filterByAge(int minAge, int maxAge, List<Application> AppList) {
 
         return AppList.stream().filter(application ->
-        {return application.getApplicant().getAge()>=minAge && application.getApplicant().getAge()<=maxAge;}).toList();
+                application.getApplicant().getAge()>=minAge && application.getApplicant().getAge()<=maxAge).toList();
     }
 
     @Override
