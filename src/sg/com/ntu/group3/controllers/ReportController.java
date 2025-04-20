@@ -1,4 +1,5 @@
 package sg.com.ntu.group3.controllers;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -18,9 +19,11 @@ import sg.com.ntu.group3.views.View;
 
 public class ReportController implements View, IReportService {
     private ApplicationFilterService applicationFilterService;
+    private Scanner input;
 
     public ReportController(ApplicationFilterService applicationFilterService) {
         this.applicationFilterService = applicationFilterService;
+        this.input = new Scanner(System.in);
     }
 
 
@@ -86,28 +89,34 @@ public class ReportController implements View, IReportService {
         }
 
         // Ask user to select project
-        System.out.println("\n--- Your Projects ---");
-        for (int i = 0; i < managerProjects.size(); i++) {
-            System.out.println("[" + i + "] " + managerProjects.get(i).getName());
+        try {
+            System.out.println("\n--- Your Projects ---");
+            for (int i = 0; i < managerProjects.size(); i++) {
+                System.out.println("[" + i + "] " + managerProjects.get(i).getName());
+            }
+
+            System.out.print("Select a project to generate report for: ");
+            int projectChoice = input.nextInt();
+            input.nextLine();
+
+            if (projectChoice < 0 || projectChoice >= managerProjects.size()) {
+                System.out.println("Invalid selection.");
+                return;
+            }
+
+            Project selectedProject = managerProjects.get(projectChoice);
+
+            // Get number of applicants
+            System.out.print("Enter number of applicants to include in the report: ");
+            int count = input.nextInt();
+            input.nextLine();
+
+            Report report = new Report();
+            report.generateApplicantBookingReport(count, selectedProject.getApplicants());
+        } catch (InputMismatchException e) {
+            View.showOperationOutcome("Report Generation", false);
+            input.nextLine();
         }
-
-        System.out.print("Select a project to generate report for: ");
-        int projectChoice = input.nextInt();
-        input.nextLine();
-
-        if (projectChoice < 0 || projectChoice >= managerProjects.size()) {
-            System.out.println("Invalid selection.");
-            return;
-        }
-
-        Project selectedProject = managerProjects.get(projectChoice);
-
-        // Get number of applicants
-        System.out.print("Enter number of applicants to include in the report: ");
-        int count = input.nextInt();
-        input.nextLine();
-
-        Report report = new Report();
-        report.generateApplicantBookingReport(count, selectedProject.getApplicants());
     }
+
 }

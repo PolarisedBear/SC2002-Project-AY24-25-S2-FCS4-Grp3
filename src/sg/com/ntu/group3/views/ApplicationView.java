@@ -7,6 +7,7 @@ import sg.com.ntu.group3.models.Registration;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBOfficer;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -70,9 +71,15 @@ public class ApplicationView implements View {
         for (int i = 0; i < applications.size(); i++) {
             System.out.println("[" + i + "] " + applications.get(i));
         }
-        System.out.print("Select an application to review (or -1 to cancel): ");
-        int choice = input.nextInt();
-        input.nextLine();
+        int choice = -1;
+        try {
+            System.out.print("Select an application to review (or -1 to cancel): ");
+            choice = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            View.showOperationOutcome("Application Retrieval", false);
+            input.nextLine();
+        }
         return choice;
     }
 

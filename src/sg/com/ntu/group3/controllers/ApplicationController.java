@@ -10,10 +10,7 @@ import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.views.ApplicationView;
 import sg.com.ntu.group3.views.View;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ApplicationController extends ApplicationView implements IApplicationService {
     private Session session;
@@ -179,7 +176,6 @@ public class ApplicationController extends ApplicationView implements IApplicati
             System.out.println("No pending applications found for your projects.");
             return;
         }
-
         int selection = ApplicationView.displayPendingApplications(pendingApps);
         if (selection >= 0 && selection < pendingApps.size()) {
             Application selectedApp = pendingApps.get(selection);
@@ -192,5 +188,6 @@ public class ApplicationController extends ApplicationView implements IApplicati
         } else {
             System.out.println("Invalid selection.");
         }
+
     }
 }

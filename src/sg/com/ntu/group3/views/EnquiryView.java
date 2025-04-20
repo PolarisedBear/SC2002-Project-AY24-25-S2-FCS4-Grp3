@@ -5,6 +5,7 @@ import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBOfficer;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -71,7 +72,7 @@ public class EnquiryView implements View {
         else System.out.println("Enquiry " +action+ " unsuccessful");
     }
 
-    public static String viewAndReplyForm(HDBOfficer officer) {
+    public static int viewAndReplyForm(HDBOfficer officer) throws InputMismatchException {
         Project assignedProject = officer.getAssignedProject();
         System.out.println("Viewing and Replying to relevant enquiries");
         System.out.println("Currently assigned project:");
@@ -80,7 +81,9 @@ public class EnquiryView implements View {
         System.out.println("Relevant Enquiries:");
         displayEnquiryList(assignedProject);
         System.out.println("Enter the ID of the enquiry you'd like to reply to:");
-        return input.nextLine();
+        int choice = input.nextInt();
+        input.nextLine();
+        return choice;
     }
 
     public static int displayManagerEnquiryList(List<Enquiry> enquiries) {

@@ -20,7 +20,7 @@ public class ProjectController extends ProjectView implements IProjectService{
         this.authenticationService = authenticationService;
     }
 
-    public void createEditOrDeleteProject(HDBManager manager) throws ParseException, IOException {
+    public void createEditOrDeleteProject(HDBManager manager) throws ParseException {
         String choice = ProjectView.showCreateEditOrDeleteForm();
         switch (choice) {
             case "1":
@@ -43,7 +43,14 @@ public class ProjectController extends ProjectView implements IProjectService{
     }
 
     public void createProject(HDBManager manager) throws ParseException {
-        List<Object> proj = ProjectView.showCreateProjectForm();
+        List<Object> proj;
+        try {proj = ProjectView.showCreateProjectForm();}
+        catch (ParseException e) {
+            View.showOperationOutcome("Project Creation", false);
+            System.out.println("Invalid input!");
+            return;
+        }
+
         Project newProject = new Project((String) proj.get(0),
                 (List<FlatType>) proj.get(1),
                 (String) proj.get(2),
@@ -93,54 +100,73 @@ public class ProjectController extends ProjectView implements IProjectService{
         }
     }
 
-    public void editProject(Project project) throws ParseException, IOException {
+    public void editProject(Project project) {
         String attributeToEdit = ProjectView.showEditProjectForm().toLowerCase(Locale.ROOT);
-        if (isValidAttribute(attributeToEdit)) {
-            switch (attributeToEdit) {
-                case "name":
-                    String newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
-                    project.setName(newAttribute); break;
-                case "flattypes":
-                    int addOrRemove = ProjectView.showEditProjectFlatTypes(project);
-                    String name;
-                    boolean successful;
-                    switch (addOrRemove) {
-                        case 0:
-                            name = ProjectView.showRemoveProjectFlatTypes(project);
-                            successful = project.removeFlatType(name);
-                            ProjectView.showOperationOutcome(successful); break;
-                        case 1:
-                            name = ProjectView.showAddProjectFlatTypes(project);
-                            Integer number = ProjectView.AddFlatNumberForm();
-                            successful = project.addFlatType(name, number);
-                            ProjectView.showOperationOutcome(successful); break;
-                        default:
-                            System.out.println("Operation cancelled");
-                    }
-                case "neighbourhood":
-                    newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
-                    project.setNeighbourhood(newAttribute); break;
-                case "closedate":
-                    Date newCloseDate = ProjectView.showEditProjectCloseDate(project);
-                    project.setCloseDate(newCloseDate); break;
-                case "visibility":
-                    project.setVisible(!project.isVisible());
-                    ProjectView.showOperationOutcome(true); break;
-                case "maxofficers":
-                    newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
-                    project.setMaxOfficers(Integer.parseInt(newAttribute)); break;
-                case "incharge":
-                    String newManagerNric = ProjectView.showEditManagerInCharge();
-                    if (authenticationService.findUserByNric(newManagerNric) instanceof HDBManager) {
-                        boolean isInCharge = setInChargeOf((HDBManager) authenticationService.findUserByNric(newManagerNric), project);
-                        ProjectView.showOperationOutcome(isInCharge);
-                    } else {ProjectView.showOperationOutcome(false);} break;
-                default:
-                    ProjectView.showOperationOutcome(false); break;
-            }
+        try {
+            if (isValidAttribute(attributeToEdit)) {
+                switch (attributeToEdit) {
+                    case "name":
+                        String newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
+                        project.setName(newAttribute);
+                        break;
+                    case "flattypes":
+                        int addOrRemove = ProjectView.showEditProjectFlatTypes(project);
+                        String name;
+                        boolean successful;
+                        switch (addOrRemove) {
+                            case 0:
+                                name = ProjectView.showRemoveProjectFlatTypes(project);
+                                successful = project.removeFlatType(name);
+                                ProjectView.showOperationOutcome(successful);
+                                break;
+                            case 1:
+                                name = ProjectView.showAddProjectFlatTypes(project);
+                                Integer number = ProjectView.AddFlatNumberForm();
+                                successful = project.addFlatType(name, number);
+                                ProjectView.showOperationOutcome(successful);
+                                break;
+                            default:
+                                System.out.println("Operation cancelled");
+                        }
+                    case "neighbourhood":
+                        newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
+                        project.setNeighbourhood(newAttribute);
+                        break;
+                    case "closedate":
+                        Date newCloseDate = ProjectView.showEditProjectCloseDate(project);
+                        project.setCloseDate(newCloseDate);
+                        break;
+                    case "visibility":
+                        project.setVisible(!project.isVisible());
+                        ProjectView.showOperationOutcome(true);
+                        break;
+                    case "maxofficers":
+                        newAttribute = ProjectView.showEditProjectForm(attributeToEdit);
+                        project.setMaxOfficers(Integer.parseInt(newAttribute));
+                        break;
+                    case "incharge":
+                        String newManagerNric = ProjectView.showEditManagerInCharge();
+                        if (authenticationService.findUserByNric(newManagerNric) instanceof HDBManager) {
+                            boolean isInCharge = setInChargeOf((HDBManager) authenticationService.findUserByNric(newManagerNric), project);
+                            ProjectView.showOperationOutcome(isInCharge);
+                        } else {
+                            ProjectView.showOperationOutcome(false);
+                        }
+                        break;
+                    default:
+                        ProjectView.showOperationOutcome(false);
+                        break;
+                }
 
-        } else {
+            } else {
+                ProjectView.showOperationOutcome(false);
+            }
+        } catch (ParseException e) {
             ProjectView.showOperationOutcome(false);
+            System.out.println("Invalid input!");
+        } catch (IOException e) {
+            ProjectView.showOperationOutcome(false);
+            System.out.println("User doesn't exist");
         }
         View.lineSeparator();
     }

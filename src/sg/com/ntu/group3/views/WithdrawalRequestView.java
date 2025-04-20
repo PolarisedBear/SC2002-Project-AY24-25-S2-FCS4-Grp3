@@ -4,6 +4,7 @@ import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.WithdrawalRequest;
 import sg.com.ntu.group3.roles.Applicant;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,9 +35,16 @@ public class WithdrawalRequestView implements View{
         for (int i = 0; i < requests.size(); i++) {
             System.out.println("[" + i + "] Application: " + requests.get(i).getApplication());
         }
-        System.out.print("Select a request to review (or -1 to cancel): ");
-        int inputNum = input.nextInt();
-        input.nextLine();
+        int inputNum = -1;
+        try {
+            System.out.print("Select a request to review (or -1 to cancel): ");
+            inputNum = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            View.showOperationOutcome("Withdrawal Selection", false);
+            input.nextLine();
+        }
+
         return inputNum;
     }
 
@@ -47,8 +55,15 @@ public class WithdrawalRequestView implements View{
         System.out.println("2. Reject");
         System.out.println("0. Cancel");
         System.out.print("Choose an action: ");
-        int decision = input.nextInt();
-        input.nextLine();
+        int decision = 0;
+        try {
+            decision = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            View.showOperationOutcome("Operation", false);
+            input.nextLine();
+        }
+
         return decision;
     }
 }

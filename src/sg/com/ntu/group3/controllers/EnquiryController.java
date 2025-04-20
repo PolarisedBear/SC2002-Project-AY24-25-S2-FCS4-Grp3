@@ -1,8 +1,6 @@
 package sg.com.ntu.group3.controllers;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import sg.com.ntu.group3.models.Enquiry;
@@ -12,6 +10,7 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.EnquiryView;
+import sg.com.ntu.group3.views.View;
 
 public class EnquiryController implements IEnquiryService{
 
@@ -110,21 +109,28 @@ public class EnquiryController implements IEnquiryService{
     //Officer Ver:
     public void viewAndReplyToEnquiries(HDBOfficer officer) {
         Project assignedProject = officer.getAssignedProject();
-        if (assignedProject!=null) {
-            int inputID = Integer.parseInt(EnquiryView.viewAndReplyForm(officer));
-            if (assignedProject.findEnquiry(inputID)!=null) {
-                String response = EnquiryView.showResponseForm();
-                Enquiry enquiry = assignedProject.findEnquiry(inputID);
-                replyToEnquiry(enquiry, response);
-                EnquiryView.showOperationOutcome("Response", true);
+        try {
+            if (assignedProject != null) {
+                int inputID = EnquiryView.viewAndReplyForm(officer);
+                if (assignedProject.findEnquiry(inputID) != null) {
+                    String response = EnquiryView.showResponseForm();
+                    Enquiry enquiry = assignedProject.findEnquiry(inputID);
+                    replyToEnquiry(enquiry, response);
+                    EnquiryView.showOperationOutcome("Response", true);
+                } else {
+                    EnquiryView.showOperationOutcome("Reponse", false);
+                    System.out.println("Invalid input!");
+                }
             } else {
-                EnquiryView.showOperationOutcome("Reponse", false);
-                System.out.println("Invalid input!");
+                EnquiryView.showOperationOutcome("Retrieval", false);
+                System.out.println("No project assigned!");
             }
-        } else {
-            EnquiryView.showOperationOutcome("Retrieval", false);
-            System.out.println("No project assigned!");
+        } catch (InputMismatchException e) {
+            View.showOperationOutcome("Enquiry Retrieval", false);
+            System.out.println("Invalid Input!");
+            input.nextLine();
         }
+
     }
 
     //Manager Ver:
