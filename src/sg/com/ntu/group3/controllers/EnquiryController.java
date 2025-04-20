@@ -111,8 +111,9 @@ public class EnquiryController implements IEnquiryService{
             if (assignedProject != null) {
                 int inputID = EnquiryView.viewAndReplyForm(officer);
                 if (assignedProject.findEnquiry(inputID) != null) {
-                    String response = EnquiryView.showResponseForm();
                     Enquiry enquiry = assignedProject.findEnquiry(inputID);
+                    System.out.println(enquiry);
+                    String response = EnquiryView.showResponseForm();
                     replyToEnquiry(enquiry, response);
                     EnquiryView.showOperationOutcome("Response", true);
                 } else {
@@ -133,16 +134,16 @@ public class EnquiryController implements IEnquiryService{
 
     //Manager Ver:
     public void viewAndReplyToEnquiries(HDBManager manager) {
-        List<Project> managerProjects = manager.getCreatedProjects();
+        List<Project> allProjects = Project.getProjectList();
 
         List<Enquiry> relevantEnquiries = new ArrayList<>();
-        for (Project project : managerProjects) {
+        for (Project project : allProjects) {
             List<Enquiry> projectEnquiries = Enquiry.getEnquiryMap().getOrDefault(project, List.of());
             relevantEnquiries.addAll(projectEnquiries);
         }
 
         if (relevantEnquiries.isEmpty()) {
-            System.out.println("No enquiries for your projects.");
+            System.out.println("No enquiries.");
             return;
         }
 
@@ -153,6 +154,7 @@ public class EnquiryController implements IEnquiryService{
         }
 
         Enquiry selectedEnquiry = relevantEnquiries.get(selectedIndex);
+        System.out.println(selectedEnquiry);
         System.out.print("Enter your reply: ");
         String reply = input.nextLine();
         selectedEnquiry.reply(reply);

@@ -95,8 +95,15 @@ public class EnquiryView implements View {
                     ", Project: " + e.getProj().getName() + ")");
         }
         System.out.print("Enter the index of the enquiry to reply (or -1 to cancel): ");
-        int choice = input.nextInt();
-        input.nextLine();
+        int choice = -1;
+        try {
+            choice = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            View.showOperationOutcome("Enquiry Display", false);
+            input.nextLine();
+        }
+
         return choice;
     }
 }
