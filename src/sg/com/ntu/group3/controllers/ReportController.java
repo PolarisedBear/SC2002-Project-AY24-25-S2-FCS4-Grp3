@@ -93,6 +93,7 @@ public class ReportController implements View, IReportService {
             return;
         }
 
+        // ask for filter mode
         Project selectedProject = managerProjects.get(projectChoice);
         List<Application> applicationList = selectedProject.getApplications();
         int filter = ReportView.reportFormFilterQuery();
