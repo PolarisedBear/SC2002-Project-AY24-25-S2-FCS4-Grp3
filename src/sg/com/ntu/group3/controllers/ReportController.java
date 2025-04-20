@@ -1,8 +1,5 @@
 package sg.com.ntu.group3.controllers;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 
 import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
@@ -97,6 +94,29 @@ public class ReportController implements View, IReportService {
         }
 
         Project selectedProject = managerProjects.get(projectChoice);
+        List<Application> applicationList = selectedProject.getApplications();
+        int filter = ReportView.reportFormFilterQuery();
+        List<Applicant> applicantList = new ArrayList<>();
+        switch (filter) {
+            case 1:
+                boolean isMarried = ReportView.maritalStatusFilterQuery();
+                applicationList = applicationFilterService.filterByMaritalStatus(isMarried, applicationList);
+                break;
+            case 2:
+                Map.Entry<Integer, Integer> values = ReportView.ageFilterQuery();
+                applicationList = applicationFilterService.filterByAge(values.getKey(), values.getValue(), applicationList);
+                break;
+            case 3:
+                String type = ReportView.flatTypeFilterQuery();
+                applicationList = applicationFilterService.filterByFlatType(type, applicationList);
+                break;
+            default:
+                break;
+
+        }
+        for (Application application : applicationList) {
+            applicantList.add(application.getApplicant());
+        }
 
         // Get number of applicants
         int count = ReportView.reportFormApplicantQuery();

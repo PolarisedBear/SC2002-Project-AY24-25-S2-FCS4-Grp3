@@ -14,8 +14,8 @@ public class ApplicationFilterService implements IApplicationFilterService{
     }
 
     @Override
-    public List<Application> filterByMaritalStatus(boolean married) {
-        List<Application> filteredList = Application.getAllApplications().values().stream().toList();
+    public List<Application> filterByMaritalStatus(boolean married, List<Application> AppList) {
+        List<Application> filteredList = AppList;
         if (married) {
             filteredList = filteredList.stream().filter(application ->
                     application.getApplicant().getMaritalStatus().equalsIgnoreCase("married")).toList();
@@ -27,8 +27,8 @@ public class ApplicationFilterService implements IApplicationFilterService{
     }
 
     @Override
-    public List<Application> filterByAge(int minAge, int maxAge) {
-        List<Application> filteredList = Application.getAllApplications().values().stream().toList();
+    public List<Application> filterByAge(int minAge, int maxAge, List<Application> AppList) {
+        List<Application> filteredList = AppList;
 
         filteredList = filteredList.stream().filter(application ->
         {return application.getApplicant().getAge()>=minAge && application.getApplicant().getAge()<=maxAge;}).toList();
@@ -37,8 +37,8 @@ public class ApplicationFilterService implements IApplicationFilterService{
     }
 
     @Override
-    public List<Application> filterByFlatType(String flatType) {
-        List<Application> filteredList = Application.getAllApplications().values().stream().toList();
+    public List<Application> filterByFlatType(String flatType, List<Application> AppList) {
+        List<Application> filteredList = AppList;
 
         filteredList = filteredList.stream().filter(application ->
                 application.getProject().checkForFlatType(flatType)).toList();
