@@ -48,10 +48,6 @@ public class FlatType {
         this.eligibilityRules.add(rule);
     }
 
-    public boolean checkEligibility(Applicant applicant) {
-        // dk what this method is for tbh
-        return false;
-    }
 
     public static boolean doesFlatTypeExist(String type) {
         return FlatType.getTypeList().containsKey(type);

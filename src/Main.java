@@ -9,7 +9,6 @@ import sg.com.ntu.group3.models.*;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
-import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.SessionView;
 import sg.com.ntu.group3.views.UserView;
@@ -39,9 +38,9 @@ public class Main {
         AgeAndMaritalStatusEligibilityRule atLeast21andMaried = new AgeAndMaritalStatusEligibilityRule(true, 21);
         List<EligibilityRule> two_room = List.of(atLeast35, atLeast21andMaried);
         List<EligibilityRule> three_room = List.of(atLeast21andMaried);
-        FlatType TwoR = new FlatType(two_room, 2, "2_room");
-        FlatType ThreeR = new FlatType(three_room, 3, "3_room");
-        new Project("Acacia Breeze", List.of(TwoR, ThreeR), "Yishun",new Date(), new Date(2026, 12, 25), true, 5, Map.of(TwoR, 2, ThreeR, 3));
+        FlatType TwoR = new FlatType(two_room, 30, "2_room");
+        FlatType ThreeR = new FlatType(three_room, 40, "3_room");
+
 
 
 

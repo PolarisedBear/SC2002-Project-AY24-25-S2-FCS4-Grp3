@@ -49,10 +49,10 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             if (officer.canRegisterForProject(project) && project.isWithinApplicationPeriod(new Date()) && project.isAvailableForRegistration()) {
                 Registration registeredProject = new Registration(project, officer);
                 officer.register(registeredProject);
-                View.showOperationOutcome("Registration", success);
+                View.showOperationOutcome("Registration", true);
             }
         } else {
-            View.showOperationOutcome("Registration", success);
+            View.showOperationOutcome("Registration", false);
         }
 
     }
@@ -143,7 +143,8 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant();
             String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
             if (application.getProject().checkForFlatType(booking)) {
-                application.setStatus(ApplicationStatus.Booked); //update to being booked
+                FlatType bookedFlat = FlatType.getTypeList().get(booking);
+                application.approveBooking(bookedFlat); //update to being booked
                 View.showOperationOutcome("Booking", true);
             } else {
                 View.showOperationOutcome("Booking", false);
@@ -154,6 +155,7 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             System.out.println("Invalid Input!");
         }
     }
+
     public List<Project> findEligibleProjects(Applicant applicant) {
         List<Project> eligibleProjects = new ArrayList<>();
         for (Project project : Project.getProjectList()) {
@@ -195,7 +197,7 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             if (officer.canApplyForProject(project)) {
                 Application newApplication = new Application(officer, Project.findProject(applicationName));
                 officer.setApplication(newApplication);
-                View.showOperationOutcome("Application", success);
+                View.showOperationOutcome("Application", true);
             
             } else {
                 View.showOperationOutcome("Application", false);
@@ -203,7 +205,7 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             }
 
         } else {
-            View.showOperationOutcome("Application", success);
+            View.showOperationOutcome("Application", false);
         }
 
 

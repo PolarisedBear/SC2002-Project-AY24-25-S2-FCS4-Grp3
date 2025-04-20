@@ -1,7 +1,5 @@
 package sg.com.ntu.group3.controllers;
-import java.text.ParseException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.controllers.services.IEnquiryService;
@@ -54,7 +52,7 @@ public class EnquiryController implements IEnquiryService{
         }
         String choice = EnquiryView.showEditReplyAndDeleteMainApplicant();
         switch (choice) {
-            case "1" -> {EnquiryView.displayEnquiryList(applicant);}
+            case "1" -> EnquiryView.displayEnquiryList(applicant);
             case "2" -> {
                 EnquiryView.displayEnquiryList(applicant);
                 int id = EnquiryView.requestEnquiryId("edit");

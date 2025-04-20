@@ -2,13 +2,9 @@ package sg.com.ntu.group3.controllers.services;
 
 import sg.com.ntu.group3.controllers.Session;
 import sg.com.ntu.group3.models.Application;
-import sg.com.ntu.group3.roles.Applicant;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static java.util.stream.Collectors.toList;
 
 public class ApplicationFilterService implements IApplicationFilterService{
     private Session session;
@@ -45,17 +41,16 @@ public class ApplicationFilterService implements IApplicationFilterService{
         List<Application> filteredList = Application.getAllApplications().values().stream().toList();
 
         filteredList = filteredList.stream().filter(application ->
-        {return application.getProject().checkForFlatType(flatType);}).toList();
+                application.getProject().checkForFlatType(flatType)).toList();
 
         return filteredList;
     }
 
     public Application filterByNRIC(List<Application> applications, String nric) {
-        Application application = applications.stream()
+        return applications.stream()
                 .filter(appl -> appl.getApplicant()
                         .getNric().equalsIgnoreCase(nric))
                 .findFirst().orElse(null);
-        return application;
     }
 
     @Override

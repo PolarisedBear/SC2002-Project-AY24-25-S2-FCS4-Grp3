@@ -41,10 +41,7 @@ public class UserController extends UserView{
     public boolean doesUserExist(User user) {
         // Search for existing user
         User userExists = findUser(user.getNric());
-        if(userExists!=null){
-            return false;
-        }
-        return true;
+        return userExists == null;
     }
 
 
@@ -99,12 +96,8 @@ public class UserController extends UserView{
 
     public boolean validateCredentials(String nric, String password) {
         User found = findUser(nric);
-        if(found!=null && found.getPassword().equals(password)){ // if we found the user and pw is correct
-            return true;
-        }
-        else{
-            return false;
-        }
+        // if we found the user and pw is correct
+        return found != null && found.getPassword().equals(password);
         
     }
 
@@ -149,7 +142,5 @@ public class UserController extends UserView{
                 .findFirst().orElse(null);
     }
 
-    public void logout(){
-        loginSession.logout();
-    }
+
 }
