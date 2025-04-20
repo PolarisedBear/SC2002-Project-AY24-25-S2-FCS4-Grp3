@@ -4,6 +4,8 @@ import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.Project;
 import sg.com.ntu.group3.roles.HDBOfficer;
 
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -20,7 +22,37 @@ public class ReportView implements View{
         System.out.println("Enter the nric of the applicant to generate the receipt:");
         return input.nextLine();
     };
-    public void generateReport() {};
+    public static int generateReportForm(List<Project> managerProjects) {
+        System.out.println("\n--- Your Projects ---");
+        for (int i = 0; i < managerProjects.size(); i++) {
+            System.out.println("[" + i + "] " + managerProjects.get(i).getName());
+        }
+
+        System.out.print("Select a project to generate report for: ");
+        int projectChoice = -1;
+        try {
+            projectChoice = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            View.showOperationOutcome("Report Generation", false);
+            input.nextLine();
+        }
+
+        return projectChoice;
+    };
+    public static int reportFormApplicantQuery() {
+        System.out.print("Enter number of applicants to include in the report: ");
+        int count = 0;
+        try {
+            count = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            View.showOperationOutcome("Report Generation", false);
+            input.nextLine();
+        }
+        return count;
+    }
+
     public static void displayReceipt(Map<String, String> details) {
         System.out.println("Application Receipt");
         View.lineSeparator();

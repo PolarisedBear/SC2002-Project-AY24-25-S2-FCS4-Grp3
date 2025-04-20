@@ -20,8 +20,8 @@ public class ProjectView implements View{
             View.lineSeparator();
         }
     };
-    public static void displayProjectList(List<Project> eligibleProjects) {
-        for (Project project : eligibleProjects) {
+    public static void displayProjectList(List<Project> projectList) {
+        for (Project project : projectList) {
             System.out.println(project);
             View.lineSeparator();
         }

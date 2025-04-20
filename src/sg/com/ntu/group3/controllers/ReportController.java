@@ -89,34 +89,26 @@ public class ReportController implements View, IReportService {
         }
 
         // Ask user to select project
-        try {
-            System.out.println("\n--- Your Projects ---");
-            for (int i = 0; i < managerProjects.size(); i++) {
-                System.out.println("[" + i + "] " + managerProjects.get(i).getName());
-            }
+        int projectChoice = ReportView.generateReportForm(managerProjects);
 
-            System.out.print("Select a project to generate report for: ");
-            int projectChoice = input.nextInt();
-            input.nextLine();
-
-            if (projectChoice < 0 || projectChoice >= managerProjects.size()) {
-                System.out.println("Invalid selection.");
-                return;
-            }
-
-            Project selectedProject = managerProjects.get(projectChoice);
-
-            // Get number of applicants
-            System.out.print("Enter number of applicants to include in the report: ");
-            int count = input.nextInt();
-            input.nextLine();
-
-            Report report = new Report();
-            report.generateApplicantBookingReport(count, selectedProject.getApplicants());
-        } catch (InputMismatchException e) {
-            View.showOperationOutcome("Report Generation", false);
-            input.nextLine();
+        if (projectChoice < 0 || projectChoice >= managerProjects.size()) {
+            System.out.println("Invalid selection.");
+            return;
         }
+
+        Project selectedProject = managerProjects.get(projectChoice);
+
+        // Get number of applicants
+        int count = ReportView.reportFormApplicantQuery();
+        if (count<1 || count>selectedProject.getApplicants().size()) {
+            View.showOperationOutcome("Report Generation", false);
+            System.out.println("Invalid range");
+            return;
+        }
+
+        Report report = new Report();
+        report.generateApplicantBookingReport(count, selectedProject.getApplicants());
+
     }
 
 }

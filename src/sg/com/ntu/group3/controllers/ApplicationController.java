@@ -47,6 +47,9 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
     public void approveApplication(Application application) {
         application.setStatus(ApplicationStatus.Successful);
+        Applicant applicant = application.getApplicant();
+        Project project = application.getProject();
+        project.addApplicant(applicant);
     }
     public void rejectApplication(Application application) {
         application.setStatus(ApplicationStatus.Unsuccessful);

@@ -91,6 +91,12 @@ public class Project {
     public List<Applicant> getApplicants(){
         return applicants;
     }
+    public void addApplicant(Applicant applicant) {
+        applicants.add(applicant);
+    }
+    public void removeApplicant(Applicant applicant) {
+        applicants.remove(applicant);
+    }
 
     @Override
     public String toString() {

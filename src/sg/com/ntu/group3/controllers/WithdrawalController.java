@@ -64,11 +64,14 @@ public class WithdrawalController implements IWithdrawalService {
     @Override
     public void approveRequest(WithdrawalRequest request) {
         request.approve();
+        // get application and its respective applicant
         Application application = request.getApplication();
+        Applicant applicant = application.getApplicant();
+        //update respective statuses
         application.setStatus(ApplicationStatus.Withdrawn);
-        application.getApplicant().setApplication(null);
-        application.getProject().getApplicants().remove(application.getApplicant());
-        System.out.println("application withdrawal approved");
+        applicant.setApplication(null);
+        application.getProject().removeApplicant(applicant);
+        System.out.println("Application Withdrawal Approved");
     }
 
     @Override
@@ -76,7 +79,7 @@ public class WithdrawalController implements IWithdrawalService {
         request.reject();
         Application application = request.getApplication();
         application.setStatus(ApplicationStatus.WithdrawnUnsuccessful);
-        System.out.println("application withdrawal");
+        System.out.println("Application Withdrawal Rejected");
     }
 
 

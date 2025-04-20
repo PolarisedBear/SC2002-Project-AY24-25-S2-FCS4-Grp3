@@ -49,7 +49,7 @@ public class ApplicationView implements View {
         System.out.println("Project: ");
         System.out.println(application.getProject());
     };
-    public void showWithdrawalForm() {};
+
     public static void showBookingForm(Application application, Applicant applicant) {
         System.out.println("Application Successful. Proceed to Flat Booking");
         System.out.println("Available Flats:");
