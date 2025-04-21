@@ -106,7 +106,6 @@ public class Main {
                                 break;
                             case 4://view user profile
                                 userController.displayUserInfo();
-                                UserView.showOfficerProj(currentUser);
                                 break;
                             case 5://apply for project (cannot apply for registered project)
                                 hdbOfficerController.officerApplyForProject(currentUser);
@@ -160,7 +159,6 @@ public class Main {
                                 break;
                             case 4://view user profile
                                 userController.displayUserInfo();
-                                UserView.showManagerInCharge(currentUser);
                                 break;
                             case 5://create/edit/delete project
                                 projectController.createEditOrDeleteProject(currentUser);

@@ -1,5 +1,7 @@
 package sg.com.ntu.group3.views;
 
+import sg.com.ntu.group3.models.Application;
+import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.roles.User;
@@ -75,6 +77,12 @@ public class UserView {
             if (choice<1 || choice>4) {System.out.println("Invalid!");}
         }
         if (choice==4) {return 0;} else {return choice;}
+    }
+
+    public static void showApplicantBooking(Applicant applicant) {
+        if (applicant.getFlatTypeBooked()!=null) {
+            System.out.println("Currently Booked Flat: " + applicant.getProjectBooked().getName() + ", " + applicant.getFlatTypeBooked().getType());
+        } else {System.out.println("Currently No Flat Booked");}
     }
 
     public static void showOfficerProj(HDBOfficer officer) {

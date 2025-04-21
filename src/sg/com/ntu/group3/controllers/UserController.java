@@ -1,6 +1,9 @@
 package sg.com.ntu.group3.controllers;
 
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
+import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.roles.HDBManager;
+import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.roles.User;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.UserView;
@@ -50,6 +53,14 @@ public class UserController extends UserView{
             User user = loginSession.getCurrentUser();
             System.out.println("User Logged In Info:");
             System.out.println(user.getInfo());
+            if (user instanceof HDBOfficer) {
+                UserView.showApplicantBooking((Applicant) user);
+                UserView.showOfficerProj((HDBOfficer) user);
+            } else if (user instanceof Applicant) {
+                UserView.showApplicantBooking((Applicant) user);
+            } else if (user instanceof HDBManager) {
+                UserView.showManagerInCharge((HDBManager) user);
+            }
             View.lineSeparator();
         } else {
             System.out.println("No current session/user logged in");
