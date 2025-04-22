@@ -62,7 +62,6 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         Project project = registration.getProject();
         if (project.assignOfficer(officer)){
             officer.assignProject(registration.getProject());
-            project.assignOfficer(officer);
             registration.approve();
             System.out.println("Officer approved for " + project.getName());
         }
