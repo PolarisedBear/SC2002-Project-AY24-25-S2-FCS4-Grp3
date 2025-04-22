@@ -111,7 +111,9 @@ public class HDBOfficer extends Applicant{
     public void register(Registration registration) {registrations.add(registration);}
 
     public boolean canRegisterForProject(Project project) {
-        if (super.getApplication()==null) {return true;} else {
+        boolean hasRegisteredForProject = registrations.stream()
+        .anyMatch(reg -> reg.getProject().equals(project));
+        if (super.getApplication()==null && !hasRegisteredForProject) {return true;} else {
             return !project.toString().equalsIgnoreCase(super.getApplication().getProject().toString());
         }
     }
@@ -124,7 +126,11 @@ public class HDBOfficer extends Applicant{
                 return false;
             }
         }
-        if (assignedProject == project) {
+        boolean hasRegisteredForProject = registrations.stream()
+        .anyMatch(reg -> reg.getProject().equals(project));
+
+        /*check if officer has a registration for the project */
+        if (assignedProject == project && !hasRegisteredForProject) {
             System.out.println("officer cannot apply to his assigned project.");
             return false;
         }
