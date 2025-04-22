@@ -12,8 +12,8 @@ import sg.com.ntu.group3.views.View;
 
 public class EnquiryController implements IEnquiryService{
 
-    private Session session;
-    private Scanner input = new Scanner(System.in);
+    private final Session session;
+    private final Scanner input = new Scanner(System.in);
 
 
     public EnquiryController(Session session) {this.session = session;}
@@ -23,11 +23,7 @@ public class EnquiryController implements IEnquiryService{
         Map.Entry<String, String> enquiryContents;
         do {
             enquiryContents = EnquiryView.showCreateEnquiryForm();
-            if (Project.projectExists(enquiryContents.getKey())) {
-                EnquiryView.showOperationOutcome("creation", true);
-            } else {
-                EnquiryView.showOperationOutcome("creation", false);
-            }
+            EnquiryView.showOperationOutcome("creation", Project.projectExists(enquiryContents.getKey()));
         } while (!Project.projectExists(enquiryContents.getKey()));
         Project proj = Project.findProject(enquiryContents.getKey());
         createNewEnquiry(applicant, enquiryContents.getValue(), proj);
@@ -72,12 +68,6 @@ public class EnquiryController implements IEnquiryService{
     }
 
 
-
-    @Override
-    public boolean submitEnquiry(Enquiry enquiry) {
-        return false;
-    }
-
     @Override
     public void editEnquiry(Enquiry enquiry) {
         EnquiryView.showEditEnquiryForm();
@@ -91,6 +81,7 @@ public class EnquiryController implements IEnquiryService{
         System.out.println("deleted enquiry.");
     }
     //needs to be done
+    @Override
     public void replyToEnquiry(Enquiry enquiry,String reply) {
         enquiry.reply(reply);
     }

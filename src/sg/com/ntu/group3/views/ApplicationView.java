@@ -15,13 +15,6 @@ import java.util.Scanner;
 public class ApplicationView implements View {
     private static Scanner input = new Scanner(System.in);
 
-//    public static void showOperationOutcome(String action, boolean successful) {
-//        if (successful) {
-//            System.out.println(action + " successful");
-//        } else {
-//            System.out.println(action + " unsuccessful");
-//        }
-//    }
 
     public static String displayApplicationFormList(List<Project> projectList) {
         System.out.println("Currently Valid Projects");

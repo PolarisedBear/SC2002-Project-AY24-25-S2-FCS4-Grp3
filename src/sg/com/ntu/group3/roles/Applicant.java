@@ -27,45 +27,6 @@ public class Applicant extends User {
         super(name, nric, age, maritalStatus, password);
     }
 
-    /*public List<Project> viewEligibleProjects(Applicant applicant){
-
-        List<Project> Projects = Project.getProjectList();
-        List<Project> eligibleProjects = new ArrayList<>();
-        
-        for (Project project : Projects) {
-            if (project.isVisible() && project.isEligibleForApplication(applicant)) {
-                eligibleProjects.add(project);
-            }
-        }
-
-        return eligibleProjects;
-
-    }*/
-    /*public void applyForEligibleProject(Project project, FlatType flatType){
-        if(applicationController.hasExistingBooking(this)){
-            System.out.println("you have an existing booking");
-            return;
-        }
-        if (project.isEligibleForApplication(this)) {
-            applicationController.applyForProject(this, project, flatType);
-        }
-        else{
-            System.out.println("Uneligible, please apply for an eligible project");
-        }
-    }*/
-    /*public void viewApplicationStatus(){
-        if(this.application!=null){
-            this.application.getStatus();
-        }
-
-    }*/
-    /*public void requestFlatBooking(){
-        if(this.application!=null && this.application.getStatus()==ApplicationStatus.Successful){
-            applicationController.requestFlatBooking(this.application);
-            System.out.println("requested to book a flat based on application");
-        }
-
-    }*/
 
     public void RequestWithdrawal(){
         getApplication().createWithdrawalRequest();

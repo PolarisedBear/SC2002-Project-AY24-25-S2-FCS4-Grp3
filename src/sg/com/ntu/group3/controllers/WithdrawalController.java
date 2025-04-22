@@ -45,15 +45,6 @@ public class WithdrawalController implements IWithdrawalService {
 
     }
 
-    public void processWithdrawalRequest(WithdrawalRequest request, boolean approved) {
-        
-    }
-
-
-    @Override
-    public WithdrawalRequest createRequest(Application application) {
-        return null;
-    }
 
     @Override
     public List<WithdrawalRequest> getPendingRequests(HDBManager manager) {

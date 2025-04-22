@@ -45,17 +45,6 @@ public class User {
         this.password = password;
     }
 
-    /*public void setNric() {
-        Scanner scan = new Scanner(System.in);
-        do {
-            System.out.println("Set NRIC:");
-            this.nric = scan.next();
-            if (!sg.com.ntu.groupX.roles.User.isValidNric(this.nric)) {
-                System.out.println("Invalid NRIC");
-            }
-        } while (!sg.com.ntu.groupX.roles.User.isValidNric(this.nric));
-
-    } */
 
     public String getNric() {
         return nric;

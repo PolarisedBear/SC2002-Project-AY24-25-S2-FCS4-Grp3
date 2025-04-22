@@ -87,23 +87,6 @@ public class UserController extends UserView{
     }
 
 
-   /* public void showPasswordChangeForm() {
-        if(loginSession.curLoggedIn()){
-            System.out.println("Changing password:");
-            System.out.println("Enter old password:");
-            String oldpw = scanner.nextLine();
-            System.out.println("Changing password:");
-            String newpw = scanner.nextLine();
-
-            processPasswordChange(oldpw, newpw);
-        }
-        else{
-            System.out.println("Not logged in");
-        }
-        
-*/
-
-
 
     public boolean validateCredentials(String nric, String password) {
         User found = findUser(nric);

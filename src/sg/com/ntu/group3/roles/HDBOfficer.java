@@ -27,14 +27,6 @@ public class HDBOfficer extends Applicant{
         super(name, nric, age, maritalStatus, password);
     }
 
-    /*public void viewRegistrationStatus() {
-        officerController.viewRegistrationStatus(this);
-    }
-
-    public void viewProjectDetails() {
-        officerController.viewProjectDetails(this);
-    }*/
-
 
     public Application findApplicationByNRIC(String nric) {
         for (Application application : applications) {
