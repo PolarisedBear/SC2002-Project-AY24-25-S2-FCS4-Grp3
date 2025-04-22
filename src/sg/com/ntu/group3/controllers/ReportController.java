@@ -34,7 +34,7 @@ public class ReportController implements View, IReportService {
         //check if the name input matches that of the applicants
         if (officer.getAssignedProject().getApplications()
                 .stream().anyMatch(appl -> appl.getApplicant().getNric().equalsIgnoreCase(nric))) {
-            Application application = applicationFilterService.filterByNRIC(officer.getAssignedProject().getApplications(), nric);
+            Application application = applicationFilterService.filterByNRIC(nric, officer.getAssignedProject().getApplications());
             Map<String, String> receiptDetails = generateReceipt(application);
             ReportView.displayReceipt(receiptDetails);
         } else {

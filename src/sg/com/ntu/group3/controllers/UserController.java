@@ -1,6 +1,7 @@
 package sg.com.ntu.group3.controllers;
 
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
+import sg.com.ntu.group3.controllers.services.IUserService;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
-public class UserController extends UserView{
+public class UserController extends UserView implements IUserService {
 
     private AuthenticationService authenticationService;
     private Scanner scanner;
@@ -85,16 +86,6 @@ public class UserController extends UserView{
         }
 
     }
-
-
-
-    public boolean validateCredentials(String nric, String password) {
-        User found = findUser(nric);
-        // if we found the user and pw is correct
-        return found != null && found.getPassword().equals(password);
-        
-    }
-
 
 
     public boolean changePassword() {

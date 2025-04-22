@@ -12,6 +12,10 @@ import sg.com.ntu.group3.views.View;
 
 import java.util.*;
 
+/** Application Controller Class responsible for handling operations on application objects from different types of users.
+ * <p>Applicant: applying for a new project, and requesting a flat </p>
+ * <p>Manager: approving and rejecting applications </p>
+ */
 public class ApplicationController extends ApplicationView implements IApplicationService {
     private Session session;
 
@@ -23,6 +27,9 @@ public class ApplicationController extends ApplicationView implements IApplicati
         return false;
     }
 
+    /** Method for applicants to apply for a project. If successful, a new Application is created
+     * @param applicant The Applicant whose new application will be linked to.
+     */
     public void applyForProject(Applicant applicant) {
         if (applicant.canApplyForProject()) {
             List<Project> projectList = findAvailableProjects(
@@ -45,16 +52,26 @@ public class ApplicationController extends ApplicationView implements IApplicati
 
     }
 
+    /** Method for managers to approve a selected application. Involves modifying statuses and attributes from the application
+     * @param application The application object to be approved
+     */
     public void approveApplication(Application application) {
         application.setStatus(ApplicationStatus.Successful);
         Applicant applicant = application.getApplicant();
         Project project = application.getProject();
         project.addApplicant(applicant);
     }
+
+    /** Method for managers to reject a selected application. Involves modifying attributes in the application
+     * @param application The application object to be rejected.
+     */
     public void rejectApplication(Application application) {
         application.setStatus(ApplicationStatus.Unsuccessful);
     }
 
+    /** Method for applicants to view their current application. Prints an error message if no application was found
+     * @param applicant The applicant whose application is to be viewed
+     */
     public void viewApplication(Applicant applicant) {
         if (applicant.getApplication()!=null) {
             ApplicationView.displayApplication(applicant.getApplication());
@@ -65,6 +82,11 @@ public class ApplicationController extends ApplicationView implements IApplicati
     }
 
 
+    /** Method to find all eligible projects for an applicant to apply to.
+     * Only searches by checking the eligibility rules of each project, not availability
+     * @param applicant The applicant whose eligibility is checked
+     * @return a list of projects which the applicant is eligible to apply to
+     */
     public List<Project> findEligibleProjects(Applicant applicant) {
         List<Project> eligibleProjects = new ArrayList<>();
         for (Project project : Project.getProjectList()) {
@@ -75,6 +97,10 @@ public class ApplicationController extends ApplicationView implements IApplicati
         return eligibleProjects;
     }
 
+    /** Method to find all visible projects from a list of eligible projects for an applicant. Used in tandem with findEligibleProjects
+     * @param eligibleProjects The list of eligible projects to search from
+     * @return a list of projects with their visibility attribute set to true
+     */
     public List<Project> findVisibleProjects(List<Project> eligibleProjects) {
         List<Project> visibleProjects = new ArrayList<>();
         for (Project project : eligibleProjects) {
@@ -85,6 +111,11 @@ public class ApplicationController extends ApplicationView implements IApplicati
         return visibleProjects;
     }
 
+    /** Method to check the availability of flats in projects visible to an applicant. Used in tandem with findVisibleProjects
+     * @param visibleProjects The list of visible projects
+     * @param applicant The applicant who is being considered
+     * @return the list of projects with available flats for the applicant to request a booking
+     */
     public List<Project> findAvailableProjects(List<Project> visibleProjects, Applicant applicant) {
         Date currentDate = new Date();
         List<Project> availableProjects = new ArrayList<>();
@@ -111,6 +142,10 @@ public class ApplicationController extends ApplicationView implements IApplicati
         return appStatus;
     }
 
+    /** Method for an applicant to request a flat after the application was approved. Modifies the status of their application
+     * @param applicant The applicant requesting the booking
+     * @return A boolean result true if the conditions for the request are met, false otherwise.
+     */
     @Override
     public Boolean requestFlatBooking(Applicant applicant) {
         if (applicant.canBookFlat()) {
@@ -123,34 +158,6 @@ public class ApplicationController extends ApplicationView implements IApplicati
         return false;
     }
 
-//    public Application bookFlat(Applicant applicant) { //to route to HDBOfficer.java for approval
-//        if (applicant.getApplication()==null) {
-//            ApplicationView.showOperationOutcome("Booking", false);
-//            System.out.println("No application found!");
-//            return null;}
-//
-//        Application application = applicant.getApplication(); //application to be modified
-//
-//        if (application.getStatus() == ApplicationStatus.Successful) {
-//            Map<FlatType, Integer> availableUnitsToBook = application.getAvailableUnitsForApplicant(); // get all the available flats and the number available
-//            String booking = ApplicationView.displayBookingList(availableUnitsToBook); // saves name of the flat type to book
-//            if (application.getProject().checkForFlatType(booking)) {
-//                application.setStatus(ApplicationStatus.Booking); //update to being booked (booking)
-//                ApplicationView.showOperationOutcome("Booking", true);
-//                return application; //successful
-//            } else {
-//                ApplicationView.showOperationOutcome("Booking", false);
-//                System.out.println("Invalid Input!"); //unsuccessful: invalid flat type entered from view class
-//            }
-//        } else if (application.getStatus() == ApplicationStatus.Booking) {
-//            ApplicationView.showOperationOutcome("Booking",false);
-//            System.out.println("Application already has previous booking"); //unsuccessful: application has previously been booked
-//        } else {
-//            ApplicationView.showOperationOutcome("Booking",false);
-//            System.out.println("Application not yet approved"); //unsuccessful: application not approved
-//        }
-//        return null;
-//    }
 
     public boolean hasExistingBooking(Applicant applicant) {
         if (applicant.getApplication().getStatus() == ApplicationStatus.Booking) {
@@ -161,6 +168,9 @@ public class ApplicationController extends ApplicationView implements IApplicati
     }
 
 
+    /** Method for managers to decide whether to approve and reject applications.
+     * @param manager The manager making the review request
+     */
     public void reviewApplications(HDBManager manager) {
         if (!manager.hasActiveProject()) {
             View.showOperationOutcome("Application Retrieval", false);

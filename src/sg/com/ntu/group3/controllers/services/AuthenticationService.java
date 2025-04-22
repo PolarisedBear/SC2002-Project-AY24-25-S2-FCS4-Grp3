@@ -15,6 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+/** Class for verification and search of user details
+ *
+ */
 public class AuthenticationService implements IAuthenticationService {
 
     private Session currentSession;
@@ -23,6 +26,11 @@ public class AuthenticationService implements IAuthenticationService {
         this.currentSession = session;
     }
 
+    /** Method to check if the given NRIC and password match any current users'
+     * @param nric String NRIC following the correct NRIC format, not case-sensitive
+     * @param password String password, case-sensitive
+     * @return boolean true if given details match a user, false if no user exists
+     */
     @Override
     public boolean validateCredentials(String nric, String password) {
         try {
@@ -33,6 +41,10 @@ public class AuthenticationService implements IAuthenticationService {
         }
     }
 
+    /** Method to check if a given String NRIC matches the correct NRIC format
+     * @param nric String NRIC to be tested
+     * @return true if the NRIC is the correct format, false if otherwise
+     */
     @Override
     public boolean validateNRIC(String nric) {
         // Define the nric string
@@ -44,6 +56,12 @@ public class AuthenticationService implements IAuthenticationService {
         return matcher.matches(); // Returns true if nric uses the correct format
     }
 
+    /** Method to change a user's password, only if the entered old password is correct
+     * @param user User object to be updated
+     * @param oldPassword String value of the old password to be checked
+     * @param newPassword String value of the new password
+     * @return true if password change is successful, false is old password is incorrect
+     */
     @Override
     public boolean changePassword(User user, String oldPassword, String newPassword) {
         if (oldPassword.equals(user.getPassword())) {
@@ -54,10 +72,12 @@ public class AuthenticationService implements IAuthenticationService {
         }
     }
 
+    /** Method to search for a user by their NRIC
+     * @param nric String NRIC to search for
+     * @return the User object of which the given NRIC belongs to, null if no such user was found
+     *
+     */
     public User findUserByNric(String nric) throws IOException {
-        /* List<Applicant> applicants = UserRepository.getAllApplicants();
-        List<HDBOfficer.java> officers = UserRepository.getAllOfficers();
-        List<HDBManager> managers = UserRepository.getAllManagers(); */
 
         for (User user : Stream.of(User.getUserList()).flatMap(List::stream).toList()) {
             if (user.getNric().equalsIgnoreCase(nric)) {
@@ -67,12 +87,21 @@ public class AuthenticationService implements IAuthenticationService {
         return null;
     }
 
+
+    /** Method to load user data from 3 csv files containing the credentials for applicants, managers and officers.
+     * @throws IOException if file format is incorrect
+     */
     public void registerFromExcel() throws IOException {
         List<Applicant> applicants = UserRepository.getAllApplicants();
         List<HDBOfficer> officers = UserRepository.getAllOfficers();
         List<HDBManager> managers = UserRepository.getAllManagers();
     }
 
+    /** Method to check if a given String input follows a given Date format
+     * @param input The String input to be checked
+     * @param sdf The SimpleDateFormat object to be checked against
+     * @return true if the input String is correctly formatted, false if otherwise
+     */
     public static boolean isValidDate(String input, SimpleDateFormat sdf) {
         sdf.setLenient(false);
         try {
