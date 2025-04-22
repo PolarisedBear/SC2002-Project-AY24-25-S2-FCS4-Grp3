@@ -44,7 +44,7 @@ public class EnquiryController implements IEnquiryService{
         }
     }
 
-    public void editReplyAndDelete(Applicant applicant) {
+    public void editViewAndDelete(Applicant applicant) {
         if (!applicant.hasEnquiries()) {
             EnquiryView.showOperationOutcome("Search", false);
             System.out.println("No enquiries found!");
@@ -57,7 +57,9 @@ public class EnquiryController implements IEnquiryService{
                 EnquiryView.displayEnquiryList(applicant);
                 int id = EnquiryView.requestEnquiryId("edit");
                 Enquiry enquiry = applicant.findEnquiry(id);
-                editEnquiry(enquiry);
+                if (enquiry!=null) {
+                    editEnquiry(enquiry);
+                } else {EnquiryView.showOperationOutcome("Retrieval", false);}
             }
             case "3" -> {
                 EnquiryView.displayEnquiryList(applicant);

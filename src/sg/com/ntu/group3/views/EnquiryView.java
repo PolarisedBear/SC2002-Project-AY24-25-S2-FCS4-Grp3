@@ -54,9 +54,16 @@ public class EnquiryView implements View {
     }
 
     public static int requestEnquiryId(String action) {
+        int id = 0;
         System.out.println("Enter the id of the enquiry to " + action);
-        int id = input.nextInt();
-        input.nextLine();
+        try {
+            id = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            showOperationOutcome("Retrieval", false);
+            input.nextLine();
+        }
+
         return id;
     }
     

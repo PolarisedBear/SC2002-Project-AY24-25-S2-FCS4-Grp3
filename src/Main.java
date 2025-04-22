@@ -11,13 +11,10 @@ import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.AuthView;
 import sg.com.ntu.group3.views.SessionView;
-import sg.com.ntu.group3.views.UserView;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
@@ -87,7 +84,7 @@ public class Main {
                                 enquiryController.newEnquirySubmission(currentUser);
                                 break;
                             case 10://view, edit, delete enquiry
-                                enquiryController.editReplyAndDelete(currentUser);
+                                enquiryController.editViewAndDelete(currentUser);
                                 break;
 
                         }
@@ -123,7 +120,7 @@ public class Main {
                                 enquiryController.newEnquirySubmission(currentUser);
                                 break;
                             case 10://view, edit and delete
-                                enquiryController.editReplyAndDelete(currentUser);
+                                enquiryController.editViewAndDelete(currentUser);
                                 break;
                             case 11://register or join project
                                 hdbOfficerController.registerForProject(currentUser);
