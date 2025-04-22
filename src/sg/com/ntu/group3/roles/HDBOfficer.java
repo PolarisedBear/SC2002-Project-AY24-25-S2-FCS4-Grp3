@@ -46,39 +46,6 @@ public class HDBOfficer extends Applicant{
         return null;
     }
 
-    public void updateApplication(Application application) {
-        if (application == null) {
-            System.out.println("Application is null.");
-            return;
-        }
-        if (assignedProject == null) {
-            System.out.println("No project assigned to this officer.");
-            return;
-        }
-        if(!application.getProject().equals(assignedProject)){
-            System.out.println("the officer is not assigned to this project");
-            return;
-        }
-
-        if (application.getStatus() == ApplicationStatus.Booking
-                && application.getApplicant().getFlatTypeBooked() == null
-                && application.getApplicant().getProjectBooked() == null) {
-            applicantProfile = application.getApplicant();
-            FlatType flatType = application.getBookedFlat();
-            //Map<FlatType, Integer> availUnits = assignedProject.getUnitsAvailable();
-
-            //if(availUnits.containsKey(flatType) && availUnits.get(flatType)> 0){
-            application.setStatus(ApplicationStatus.Booked);
-           // assignedProject.getUnitsAvailable().put(flatType, availUnits.get(flatType) - 1);
-
-            applicantProfile.setFlatTypeBooked(flatType);
-            applicantProfile.setProjectBooked(assignedProject);
-            System.out.println("Flat booked for" + application.getApplicant().getName());
-        } else {
-            System.out.println("no application found");
-        }
-    }
-
 
     public void generateReceipt(Application application) {
         System.out.println("Name: " + application.getApplicant().getName() +"\nNRIC: " + application.getApplicant().getNric() +
