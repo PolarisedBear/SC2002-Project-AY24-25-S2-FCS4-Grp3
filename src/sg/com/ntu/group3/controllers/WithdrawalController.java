@@ -27,9 +27,11 @@ public class WithdrawalController implements IWithdrawalService {
                 return;
             } else if (applicant.getApplication()!=null) {
                 String choice = WithdrawalRequestView.showWithdrawalConfirmation(applicant);
-                if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("n")) {
+                if (choice.equalsIgnoreCase("y")) {
                     WithdrawalRequestView.showOperationOutcomes(true);
                     applicant.RequestWithdrawal();
+                } else if (choice.equalsIgnoreCase("n")){
+                    System.out.println("Withdrawal Request Cancelled");
                 } else {
                     WithdrawalRequestView.showOperationOutcomes(false);
                 }
