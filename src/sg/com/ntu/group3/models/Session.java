@@ -1,4 +1,4 @@
-package sg.com.ntu.group3.controllers;
+package sg.com.ntu.group3.models;
 
 import enums.Role;
 import sg.com.ntu.group3.roles.Applicant;

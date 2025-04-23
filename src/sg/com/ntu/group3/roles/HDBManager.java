@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/** HDBManager class is a subclass of user, with added attributes to facilitate its unique capabilities.
+ * <p>These include the list of created projects, and the current project.
+ * The HDB Manager class represents the data stored in the </p>
+ */
 public class HDBManager extends User{
     private List<Project> createdProjects = new ArrayList<>();
     private Project currentProject;

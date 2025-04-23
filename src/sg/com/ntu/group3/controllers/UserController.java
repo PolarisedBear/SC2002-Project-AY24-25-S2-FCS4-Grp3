@@ -2,6 +2,7 @@ package sg.com.ntu.group3.controllers;
 
 import sg.com.ntu.group3.controllers.services.AuthenticationService;
 import sg.com.ntu.group3.controllers.services.IUserService;
+import sg.com.ntu.group3.models.Session;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
@@ -12,7 +13,6 @@ import sg.com.ntu.group3.views.View;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.Scanner;
 
 /** User Controller Class responsible for handling generic User processes
  * <p>Such processes include logging in, and modifying user details.

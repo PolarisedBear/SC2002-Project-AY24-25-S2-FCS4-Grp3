@@ -1,7 +1,6 @@
 package sg.com.ntu.group3.views;
 
-import sg.com.ntu.group3.controllers.Session;
-import sg.com.ntu.group3.roles.Applicant;
+import sg.com.ntu.group3.models.Session;
 
 import java.util.Scanner;
 
