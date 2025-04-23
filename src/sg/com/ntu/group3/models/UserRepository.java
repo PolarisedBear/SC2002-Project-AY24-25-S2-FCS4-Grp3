@@ -9,6 +9,9 @@ import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 
+/** This class is used only to extract information from csv files containing user details.
+ *
+ */
 public class UserRepository {
     private static final String applicantfilepath = "src/ApplicantList.csv"; //read different types of users
     private static final String officerfilepath = "src/OfficerList.csv";

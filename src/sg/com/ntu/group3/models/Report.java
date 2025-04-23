@@ -5,11 +5,18 @@ import java.util.List;
 import enums.ApplicationStatus;
 import sg.com.ntu.group3.roles.Applicant;
 
+/** Report class responsible for printing information to the console as a report.
+ *
+ */
 public class Report {
 
     public Report() {
     }
 
+    /** Method to generate a number of applicants' booking reports
+     * @param number The number of reports to generate
+     * @param applicants The list of applicants to generate from
+     */
     public void generateApplicantBookingReport(int number, List<Applicant> applicants) {
         int counter = 0;
         for (Applicant applicant : applicants){

@@ -96,8 +96,8 @@ public class ProjectController extends ProjectView implements IProjectService{
                 // update previous manager in charge
                 HDBManager prevManager = project.getManagerInCharge();
                 Project prevProject = manager.getCurrentProject();
-                if (prevProject!=null) {prevProject.setManagerInCharge(new HDBManager());}
-                if (prevManager!=null) {prevManager.setCurrentProject(new Project());}
+                if (prevProject!=null) {prevProject.setManagerInCharge(null);}
+                if (prevManager!=null) {prevManager.setCurrentProject(null);}
                 // update current manager in charge
                 manager.setCurrentProject(project);
                 project.setManagerInCharge(manager);
@@ -107,8 +107,8 @@ public class ProjectController extends ProjectView implements IProjectService{
             // update previous manager in charge
             HDBManager prevManager = project.getManagerInCharge();
             Project prevProject = manager.getCurrentProject();
-            if (prevProject!=null) {prevProject.setManagerInCharge(new HDBManager());}
-            if (prevManager!=null) {prevManager.setCurrentProject(new Project());}
+            if (prevProject!=null) {prevProject.setManagerInCharge(null);}
+            if (prevManager!=null) {prevManager.setCurrentProject(null);}
             // update current manager in charge
             manager.setCurrentProject(project);
             project.setManagerInCharge(manager);

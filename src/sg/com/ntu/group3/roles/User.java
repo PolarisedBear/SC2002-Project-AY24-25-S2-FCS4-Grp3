@@ -15,7 +15,7 @@ public class User {
 
     public User() {
         this.name = "None";
-        //Create a dummy user that doesn't ger searched since it is not in the masterlist
+        //Create a dummy user that doesn't get searched since it is not in the masterlist
     }
 
     public User(String name, String nric, int age, String maritalStatus, String password) {
