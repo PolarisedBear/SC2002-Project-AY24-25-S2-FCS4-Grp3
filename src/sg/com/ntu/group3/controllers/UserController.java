@@ -14,12 +14,20 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 
+/** User Controller Class responsible for handling generic User processes
+ * <p>Such processes include logging in, and modifying user details.
+ * This class does not handle any role-specific operations like application and registration.</p>
+ */
 public class UserController extends UserView implements IUserService {
 
     private AuthenticationService authenticationService;
     private Scanner scanner;
     private Session loginSession;
 
+    /** Initialise a new userController by specifying the session and authentication service necessary for some of the methods used.
+     * @param session The current session
+     * @param authenticationService The authentication service for login and password change
+     */
     public UserController(Session session, AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
         this.scanner = new Scanner(System.in);
@@ -27,6 +35,11 @@ public class UserController extends UserView implements IUserService {
 
     }
 
+    /** Implemented from IUserService, this is the login method that gathers user input and authenticates it using the authentication service.
+     *
+     * @return true if the login was successful, false otherwise
+     * @throws IOException If no user is registered, throws IOException
+     */
     public boolean login() throws IOException {
         String nric = AuthView.showLoginScreenNRIC();
         String password = AuthView.showLoginScreenPassword();
@@ -42,13 +55,10 @@ public class UserController extends UserView implements IUserService {
         }
     }
 
-    public boolean doesUserExist(User user) {
-        // Search for existing user
-        User userExists = findUser(user.getNric());
-        return userExists == null;
-    }
 
-
+    /** Method for displaying the user's information
+     *
+     */
     public void displayUserInfo() {
         if (loginSession.curLoggedIn()) {
             User user = loginSession.getCurrentUser();
@@ -70,6 +80,9 @@ public class UserController extends UserView implements IUserService {
     }
 
 
+    /** Implemented from IUserService, this method is used to allow the user to change their profile.
+     *
+     */
     public void updateUserInfo() {
         if (loginSession.curLoggedIn()) {
             User user = loginSession.getCurrentUser();
@@ -88,6 +101,9 @@ public class UserController extends UserView implements IUserService {
     }
 
 
+    /** Implemented from IUserService, this method is used to change the password of the user.
+     * @return true if password change was successful, false if otherwise
+     */
     public boolean changePassword() {
         boolean successful;
         User user = this.loginSession.getCurrentUser();
@@ -104,28 +120,6 @@ public class UserController extends UserView implements IUserService {
         return successful;
     }
 
-    public void processPasswordChange(String oldPassword, String newPassword) {
-        if (loginSession.curLoggedIn()) {
-            User currentUser = loginSession.getCurrentUser();
-            if (changePassword()) {
-                System.out.println("Password changed!");
-            } 
-            else {
-                System.out.println("Your old password is not correct");
-            }
-        } 
-        else {
-            System.out.println("Not logged in");
-        }
-
-    }
-
-
-    public User findUser(String nric) {
-        return User.getUserList().stream()
-                .filter(user -> user.getNric().equalsIgnoreCase(nric))
-                .findFirst().orElse(null);
-    }
 
 
 }

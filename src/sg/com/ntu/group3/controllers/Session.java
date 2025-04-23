@@ -6,19 +6,26 @@ import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.roles.User;
 
+/** Session Class handles the tracking and granting of permissions to the current user during runtime.
+ * <p>Only one user can be logged in at any time</p>
+ */
 public class Session{
     private User currentUser;
     private Role role;
 
-    // When we start a new session, we start by logging in.
+
+    /** When a new session is called, it is by default in the logged out state, meaning no user is assigned to this session.
+     *
+     */
     public Session() {
         this.currentUser = null;
         this.role = Role.NONE;
     }
 
-//    if (gonna check the user type in csv)
-//    currentUser = new sg.com.ntu.groupX.roles.Applicant()
-//    currentUser = new sg.com.ntu.groupX.roles.HDBOfficer.java()
+    /** Method for assigning roles to the current user for tracking and granting permissions.
+     * This is used so the Main driver can switch the display screens accordingly.
+     *
+     */
     public void gainAccess() {
         if (this.currentUser instanceof HDBOfficer) {
             this.role = Role.OFFICER;
@@ -33,7 +40,9 @@ public class Session{
         return this.role;
     }
 
-
+    /** Login method, this method assigns a User object to be the current User.
+     * @param user The User object to be logged in.
+     */
     public void login(User user) {
         this.currentUser = user;
     }
@@ -43,11 +52,21 @@ public class Session{
     public Applicant getCurrentApplicant() {return (Applicant) currentUser;}
     public HDBOfficer getCurrentHDBOfficer() {return (HDBOfficer) currentUser;}
     public HDBManager getCurrentHDBManager() {return (HDBManager) currentUser;}
+
+    /** Method to check if there is a user currently logged in
+     * @return true if a user was found, false if otherwise.
+     */
     public boolean curLoggedIn(){
         return currentUser!=null;
     }
+
+
+    /** Method to log out of current session
+     * Sets current User to null.
+     */
     public void logout(){
         this.currentUser = null;
+        this.role = Role.NONE;
         System.out.println("Logged out of current session");
     }
 

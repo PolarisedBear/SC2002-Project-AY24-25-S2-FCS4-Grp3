@@ -13,12 +13,20 @@ import java.util.List;
 
 import enums.ApplicationStatus;
 
+/** Withdrawal controller class used for operations related to withdrawal requests.
+ * <p>Includes methods for submitting new requests, approval and retrieval of existing requests.</p>
+ *
+ */
 public class WithdrawalController implements IWithdrawalService {
 
     public WithdrawalController() {
 
     }
 
+    /** Method used by applicants to indicate a desire to withdraw from their previously applied application.
+     * This method then creates a new withdrawal request.
+     * @param applicant The applicant submitting the request.
+     */
     public void submitWithdrawalRequest(Applicant applicant){
         try {
             if(applicant.getApplication().getStatus()==ApplicationStatus.Withdrawn
@@ -46,6 +54,10 @@ public class WithdrawalController implements IWithdrawalService {
     }
 
 
+    /** Implemented from IWithdrawalService, this method is used by managers to retrieve a list of pending withdrawal requests
+     * @param manager The manager making the retrieval
+     * @return A list of withdrawal requests that are currently pending
+     */
     @Override
     public List<WithdrawalRequest> getPendingRequests(HDBManager manager) {
         return WithdrawalRequest.getAllWithdrawalRequests().stream()
@@ -54,6 +66,9 @@ public class WithdrawalController implements IWithdrawalService {
                 .toList();
     }
 
+    /** Implemented from IWithdrawalService, this method is used by managers to approve an applicant's withdrawal request.
+     * @param request The withdrawal request to be approved
+     */
     @Override
     public void approveRequest(WithdrawalRequest request) {
         request.approve();
@@ -67,6 +82,9 @@ public class WithdrawalController implements IWithdrawalService {
         System.out.println("Application Withdrawal Approved");
     }
 
+    /** Implemented from IWithdrawalService, this method is used by managers to reject an applicant's withdrawal request.
+     * @param request The withdrawal request to be rejected.
+     */
     @Override
     public void rejectRequest(WithdrawalRequest request) {
         request.reject();
@@ -76,6 +94,9 @@ public class WithdrawalController implements IWithdrawalService {
     }
 
 
+    /** The method for managers to view and indicate their choice to approve or reject a withdrawal request
+     * @param manager The manager making the review
+     */
     public void reviewWithdrawalRequests(HDBManager manager) {
         List<WithdrawalRequest> pendingRequests = getPendingRequests(manager);
 

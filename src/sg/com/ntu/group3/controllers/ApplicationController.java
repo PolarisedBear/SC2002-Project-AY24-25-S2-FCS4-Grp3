@@ -128,13 +128,10 @@ public class ApplicationController extends ApplicationView implements IApplicati
     }
 
 
-
-
-    @Override
-    public void withdrawApplication(Application application) {
-
-    }
-
+    /** Method for retrieving the status of an application from the controller
+     * @param application Application whose status is to be retrieved
+     * @return The status of the application
+     */
     @Override
     public ApplicationStatus getApplicationStatus(Application application) {
         ApplicationStatus appStatus = application.getStatus();
@@ -156,15 +153,6 @@ public class ApplicationController extends ApplicationView implements IApplicati
             View.showOperationOutcome("Request for Booking", false);
         }
         return false;
-    }
-
-
-    public boolean hasExistingBooking(Applicant applicant) {
-        if (applicant.getApplication().getStatus() == ApplicationStatus.Booking) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 

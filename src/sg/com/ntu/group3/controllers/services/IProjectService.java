@@ -13,5 +13,5 @@ import java.util.List;
 public interface IProjectService {
     List<Project> findProjectsByManager(HDBManager manager);
     boolean hasActiveProject(HDBManager manager, Date date);
-    List<Project> getProjectList();
+
 }

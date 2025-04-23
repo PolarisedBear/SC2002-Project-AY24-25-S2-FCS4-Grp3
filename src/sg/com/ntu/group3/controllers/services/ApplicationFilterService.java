@@ -72,8 +72,4 @@ public class ApplicationFilterService implements IApplicationFilterService{
                 .findFirst().orElse(null);
     }
 
-    @Override
-    public List<Application> filterByCompositeCriteria(Map criteria) {
-        return List.of();
-    }
 }

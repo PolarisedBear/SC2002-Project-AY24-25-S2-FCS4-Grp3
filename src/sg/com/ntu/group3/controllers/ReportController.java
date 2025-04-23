@@ -14,6 +14,9 @@ import sg.com.ntu.group3.roles.HDBOfficer;
 import sg.com.ntu.group3.views.ReportView;
 import sg.com.ntu.group3.views.View;
 
+/** Report Controller Class responsible for generating reports and receipts
+ *
+ */
 public class ReportController implements View, IReportService {
     private ApplicationFilterService applicationFilterService;
     private Scanner input;
@@ -24,11 +27,9 @@ public class ReportController implements View, IReportService {
     }
 
 
-    public void generateReport() {
-
-    }
-
-
+    /** Method for generating the receipt for an applicant's application
+     * @param officer The Officer making the request
+     */
     public void generateReceiptForm(HDBOfficer officer) {
         String nric = ReportView.displayReceiptOptions(officer);
         //check if the name input matches that of the applicants
@@ -44,11 +45,10 @@ public class ReportController implements View, IReportService {
     }
 
 
-    @Override
-    public List<Application> generateReport(Map criteria) {
-        return List.of();
-    }
-
+    /** Method for collecting the details to be printed on the receipt for a given application. Used in tandem with generateReceiptForm
+     * @param application The application whose details will be printed
+     * @return A Map of each attribute to its value
+     */
     @Override
     public Map<String, String> generateReceipt(Application application) {
         Applicant applicant = application.getApplicant();
@@ -73,7 +73,10 @@ public class ReportController implements View, IReportService {
                 "bookingStatus", bookingStatus, "bookedFlat", bookedFlat);
     }
 
-
+    /** Method for managers to generate a report, including application filters
+     * @param manager The Manager making the request
+     */
+    @Override
     public void generateReport(HDBManager manager) {
         Scanner input = new Scanner(System.in);
 

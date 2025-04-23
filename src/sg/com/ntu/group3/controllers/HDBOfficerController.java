@@ -23,17 +23,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class HDBOfficerController implements IOfficerService, IManagerService {
-    private Session session;
+/** HDB Officer Controller class responsible for operations related to HDB Officers.
+ * <p>This includes some overlapping methods with applicant users, but with additional checks and conditions.
+ * Thus, this class inherits from ApplicationController, borrowing the methods for filtering projects.</p>
+ *
+ */
+public class HDBOfficerController extends ApplicationController implements IOfficerService, IManagerService {
     private AuthenticationService authenticationService;
     private ApplicationFilterService applicationFilterService;
 
     public HDBOfficerController(Session session, AuthenticationService authenticationService, ApplicationFilterService applicationFilterService) {
-        this.session = session;
+        super(session);
         this.authenticationService = authenticationService;
         this.applicationFilterService = applicationFilterService;
     }
 
+    /** Method for Officer registration to a desired project.
+     * This method consolidates other methods that handle the smaller operations of creating a new registration and gathering user input.
+     * @param officer The Officer making the registration
+     */
     public void registerForProject(HDBOfficer officer) {
         List<Project> projectList = new ArrayList<>();
         for (Project project : Project.getProjectList()) {
@@ -58,6 +66,11 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
     }
 
 
+    /** Implemented from IManagerService, this method is used to approve an officer's registration
+     * Includes updating the registration status and assignment of the project to the officer
+     * @param officer Officer whose registration is to be approved
+     * @param registration The registration to be approved
+     */
     public void approveOfficer(HDBOfficer officer, Registration registration) {
         Project project = registration.getProject();
         if (project.assignOfficer(officer)){
@@ -71,6 +84,12 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
 
 
     }
+
+
+    /** Method to initiate the approval or rejection of officer registration. Used by managers.
+     * Includes method calls to approveOfficer and rejectOfficer, which handle the updating of statuses and values.
+     * @param manager The HDB Manager making the approval or rejection request.
+     */
     public void approveOfficerRegistration(HDBManager manager){
         if (!manager.hasActiveProject()) {
             View.showOperationOutcome("Operation", false);
@@ -95,7 +114,7 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
                     approveOfficer(regToApprove.getOfficer(), regToApprove);
                     break;
                 case 2:
-                    rejectOfficerRegistration(regToApprove);
+                    rejectOfficer(regToApprove);
                 default:
                     System.out.println("invalid selection");
                     break;
@@ -104,12 +123,21 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
                 System.out.println("invalid project");
         }
     }
-    public void rejectOfficerRegistration(Registration registration) {
+
+    /** Method to reject an officer's registration.
+     * Updates the status of the registration.
+     * @param registration The registration to be rejected.
+     */
+    public void rejectOfficer(Registration registration) {
         registration.reject();
         System.out.println("Registration rejected " + registration.getProject().getName());
     }
 
 
+    /** Method for HDB Officers to view the details of their already assigned project, after it is approved by the manager in charge.
+     * Does not display anything if no project is found.
+     * @param officer The HDB Officer making the request.
+     */
     public void viewProjectDetails(HDBOfficer officer) {
         Project officerAssignedProject = officer.getAssignedProject();
         if (officerAssignedProject != null) {
@@ -118,6 +146,10 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
             System.out.println("No project assigned to the officer.");
         }
     }
+
+    /** Implemented from IOfficerService, this method is responsible for viewing the status of outgoing registration
+     * @param officer The HDB Officer making the request.
+     */
     public void viewRegistrationStatus(HDBOfficer officer) {
         for (Registration registration : officer.getRegistrations()) {
             System.out.println("Project: " + registration.getProject().getName() 
@@ -125,6 +157,11 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         }
     }
 
+    /** Method for officers to update an applicant's flat booking selection.
+     * <p>Used when an applicant has already requested a booking.
+     * Includes calls to ApplicationView methods that display the relevant forms and gather user input to make the booking. </p>
+     * @param officer The HDB Officer who is assigned the project with an application booking.
+     */
     public void bookFlat(HDBOfficer officer) {
         if (officer.getAssignedProject()==null) {
             View.showOperationOutcome("Booking", false);
@@ -155,36 +192,11 @@ public class HDBOfficerController implements IOfficerService, IManagerService {
         }
     }
 
-    public List<Project> findEligibleProjects(Applicant applicant) {
-        List<Project> eligibleProjects = new ArrayList<>();
-        for (Project project : Project.getProjectList()) {
-            if (project.isEligibleForApplication(applicant)) {
-                eligibleProjects.add(project);
-            }
-        }
-        return eligibleProjects;
-    }
 
-    public List<Project> findVisibleProjects(List<Project> eligibleProjects) {
-        List<Project> visibleProjects = new ArrayList<>();
-        for (Project project : eligibleProjects) {
-            if (project.isVisible()) {
-                visibleProjects.add(project);
-            }
-        }
-        return visibleProjects;
-    }
-
-    public List<Project> findAvailableProjects(List<Project> visibleProjects, Applicant applicant) {
-        List<Project> availableProjects = new ArrayList<>();
-        for (Project project : visibleProjects) {
-            if (project.hasAvailableUnitsForApplicant(applicant)) {
-                availableProjects.add(project);
-            }
-        }
-        return availableProjects;
-    }
-
+    /** Method for HDB Officers to apply to a project as an applicant.
+     * Similar to the method that normal applicants use to apply for projects, with added checks for officers.
+     * @param officer The Officer making the application.
+     */
     public void officerApplyForProject(HDBOfficer officer) {
         List<Project> projectList = findAvailableProjects(
                 findVisibleProjects(findEligibleProjects(officer))

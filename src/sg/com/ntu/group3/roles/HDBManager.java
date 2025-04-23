@@ -36,7 +36,7 @@ public class HDBManager extends User{
     public boolean hasActiveProject() {return currentProject!=null;}
 
 
-    public void createProject(Project project) throws ParseException {
+    public void createProject(Project project) {
         project.setCreatedBy(this.getName());
         this.createdProjects.add(project);
     }

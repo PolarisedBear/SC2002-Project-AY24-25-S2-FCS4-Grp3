@@ -12,6 +12,9 @@ import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.views.ProjectView;
 import sg.com.ntu.group3.views.View;
 
+/** Project Controller Class handling operations on projects
+ * <p>Operations include: Filtering, Creating, Editing, Deleting</p>
+ */
 public class ProjectController extends ProjectView implements IProjectService{
 
     private AuthenticationService authenticationService;
@@ -20,7 +23,11 @@ public class ProjectController extends ProjectView implements IProjectService{
         this.authenticationService = authenticationService;
     }
 
-    public void createEditOrDeleteProject(HDBManager manager) throws ParseException {
+    /** Main method for HDB Managers to create, edit or delete projects.
+     * Redirects to different methods responsible for the tasks as indicated by the manager user.
+     * @param manager The HDB Manager making the request.
+     */
+    public void createEditOrDeleteProject(HDBManager manager) {
         String choice = ProjectView.showCreateEditOrDeleteForm();
         switch (choice) {
             case "1":
@@ -42,7 +49,11 @@ public class ProjectController extends ProjectView implements IProjectService{
         }
     }
 
-    public void createProject(HDBManager manager) throws ParseException {
+    /** Method for creating a new project.
+     * Includes querying the user for necessary input fields and automatic IC assignment of the newly created project.
+     * @param manager HDB Manager responsible for creating the project. Also used for assignment as the project's in charge.
+     */
+    public void createProject(HDBManager manager) {
         List<Object> proj;
         try {proj = ProjectView.showCreateProjectForm();}
         catch (ParseException e) {
@@ -72,6 +83,11 @@ public class ProjectController extends ProjectView implements IProjectService{
         }
     }
 
+    /** Method used to update the manager in charge of a given project and the project's manager in charge field.
+     * @param manager The new Manager to be assigned as the manager in charge
+     * @param project The project to be updated.
+     * @return
+     */
     public boolean setInChargeOf(HDBManager manager, Project project) {
         if(manager.getCurrentProject()!=null) {
             if (manager.getCurrentProject().isWithinApplicationPeriod(new Date())) {
@@ -100,6 +116,9 @@ public class ProjectController extends ProjectView implements IProjectService{
         }
     }
 
+    /** Method for editing a project's attributes. Includes querying the user for the field to be updated and the new value.
+     * @param project Project to be edited.
+     */
     public void editProject(Project project) {
         String attributeToEdit = ProjectView.showEditProjectForm().toLowerCase(Locale.ROOT);
         try {
@@ -171,6 +190,9 @@ public class ProjectController extends ProjectView implements IProjectService{
         View.lineSeparator();
     }
 
+    /** Method to delete a project. Includes querying the user for the project they wish to delete.
+     *
+     */
     public void deleteProject() {
         Project deletedProject = (Project) ProjectView.showRemoveProjectForm();
         if (deletedProject != null) {
@@ -185,15 +207,10 @@ public class ProjectController extends ProjectView implements IProjectService{
 
     }
 
-    public void toggleVisibility(Project project, boolean isVisible) {
-        project.setVisible(!project.isVisible());
-    }
-
-    public List<Project> getProjectList() {
-        ProjectView.displayProjectList();
-        return null;
-    }
-
+    /** Method to check if the user enters a valid attribute of the project. Used in tandem with editProject.
+     * @param input The String input to be checked
+     * @return true if the input is a valid attribute, false if otherwise.
+     */
     private boolean isValidAttribute(String input) {
         List<String> projectAttributes = Arrays
                 .asList("name","flatTypes","neighbourhood","openDate",
@@ -203,11 +220,20 @@ public class ProjectController extends ProjectView implements IProjectService{
     }
 
 
+    /** Implemented from IProjectService, this method searches a HDB Manager user and returns all the projects created by them.
+     * @param manager Manager to filter by
+     * @return A list of all projects created by the specified manager.
+     */
     @Override
     public List<Project> findProjectsByManager(HDBManager manager) {
         return manager.getCreatedProjects();
     }
 
+    /** Implemented from IProjectService, this method checks if a given HDB Manager has an active project within a given date.
+     * @param manager Manager whose projects are to be checked
+     * @param date The date to be checked
+     * @return True if the date falls within the opening and closing date of at least one of the manager's created projects. False if no such projects were found.
+     */
     @Override
     public boolean hasActiveProject(HDBManager manager, Date date) {
         boolean hasActive = false;
@@ -221,18 +247,17 @@ public class ProjectController extends ProjectView implements IProjectService{
     }
 
 
-    public void displayEligibleProjects(Applicant applicant, ApplicationController controller) {
-        List<Project> eligibleProjects = controller.findEligibleProjects(applicant);
-        System.out.println("Eligible projects:\n");
-        for (Project project : eligibleProjects) {
-            System.out.println(project.getName());
-        }
-    }
+    /** Method for retrieving all projects.
+     * @return A list of all projects that are not deleted.
+     */
     public List<Project> getAllProjects() {
         return Project.getProjectList();
     }
 
 
+    /** Method for HDB Managers to choose to view all projects, or to view only those created by themselves.
+     * @param manager Manager user to query
+     */
     public void viewProjects(HDBManager manager) {
         int choice = ProjectView.chooseProjectViewScope();
         if (choice == 1) {

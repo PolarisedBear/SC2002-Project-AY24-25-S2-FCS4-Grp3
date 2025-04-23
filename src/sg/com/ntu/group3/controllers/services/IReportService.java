@@ -1,6 +1,7 @@
 package sg.com.ntu.group3.controllers.services;
 
 import sg.com.ntu.group3.models.Application;
+import sg.com.ntu.group3.roles.HDBManager;
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,6 @@ import java.util.Map;
  *
  */
 public interface IReportService {
-    List<Application> generateReport(Map criteria);
+    void generateReport(HDBManager manager);
     Map<String, String> generateReceipt(Application application);
 }
