@@ -19,11 +19,9 @@ import sg.com.ntu.group3.views.View;
  */
 public class ReportController implements View, IReportService {
     private ApplicationFilterService applicationFilterService;
-    private Scanner input;
 
     public ReportController(ApplicationFilterService applicationFilterService) {
         this.applicationFilterService = applicationFilterService;
-        this.input = new Scanner(System.in);
     }
 
 

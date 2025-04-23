@@ -16,11 +16,11 @@ import sg.com.ntu.group3.views.View;
  */
 public class EnquiryController implements IEnquiryService{
 
-    private final Session session;
     private final Scanner input = new Scanner(System.in);
 
 
-    public EnquiryController(Session session) {this.session = session;}
+    public EnquiryController() {
+    }
 
 
     /** Method for submitting new enquiries as an applicant. Calls methods from the EnquiryView class to display forms to prompt user input.

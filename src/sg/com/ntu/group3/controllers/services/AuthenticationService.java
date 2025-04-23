@@ -1,6 +1,5 @@
 package sg.com.ntu.group3.controllers.services;
 
-import sg.com.ntu.group3.controllers.Session;
 import sg.com.ntu.group3.models.UserRepository;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
@@ -20,10 +19,7 @@ import java.util.stream.Stream;
  */
 public class AuthenticationService implements IAuthenticationService {
 
-    private Session currentSession;
-
-    public AuthenticationService(Session session) {
-        this.currentSession = session;
+    public AuthenticationService() {
     }
 
     /** Method to check if the given NRIC and password match any current users'

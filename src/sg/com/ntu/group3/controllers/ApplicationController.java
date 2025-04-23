@@ -2,7 +2,6 @@ package sg.com.ntu.group3.controllers;
 import enums.ApplicationStatus;
 import sg.com.ntu.group3.controllers.services.IApplicationService;
 import sg.com.ntu.group3.models.Application;
-import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.roles.HDBOfficer;
@@ -16,16 +15,11 @@ import java.util.*;
  * <p>Applicant: applying for a new project, and requesting a flat </p>
  * <p>Manager: approving and rejecting applications </p>
  */
-public class ApplicationController extends ApplicationView implements IApplicationService {
-    private Session session;
+public class ApplicationController implements IApplicationService {
 
-    public ApplicationController(Session session) {
-        this.session = session;
+    public ApplicationController() {
     }
 
-    private boolean validateOfficerEligibility(HDBOfficer officer, Project project) {
-        return false;
-    }
 
     /** Method for applicants to apply for a project. If successful, a new Application is created
      * @param applicant The Applicant whose new application will be linked to.

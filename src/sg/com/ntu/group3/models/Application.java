@@ -75,6 +75,8 @@ public class Application {
     public void approveBooking(FlatType flat) {
         setStatus(ApplicationStatus.Booked);
         setBookedFlat(flat);
+        applicant.setFlatTypeBooked(flat);
+        applicant.setProjectBooked(project);
         this.project.updateAvailableUnits(bookedFlat, 1, '-');
     }
 

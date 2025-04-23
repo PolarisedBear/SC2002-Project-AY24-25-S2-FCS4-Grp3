@@ -1,19 +1,15 @@
 package sg.com.ntu.group3.controllers.services;
 
-import sg.com.ntu.group3.controllers.Session;
 import sg.com.ntu.group3.models.Application;
 
 import java.util.List;
-import java.util.Map;
 
 /** Class for handling filtering of a list of applications
  *
  */
 public class ApplicationFilterService implements IApplicationFilterService{
-    private Session session;
 
-    public ApplicationFilterService(Session session) {
-        this.session = session;
+    public ApplicationFilterService() {
     }
 
     /** Method to filter a list of applications by the applicant's marital status.

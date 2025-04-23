@@ -20,13 +20,13 @@ public class Main {
     public static void main(String[] args) throws IOException, ParseException {
         // initialise app and services
         Session session = new Session();
-        AuthenticationService authenticationService = new AuthenticationService(session);
+        AuthenticationService authenticationService = new AuthenticationService();
         UserController userController = new UserController(session, authenticationService);
-        ApplicationController applicationController = new ApplicationController(session);
-        ApplicationFilterService applicationFilterService = new ApplicationFilterService(session);
+        ApplicationController applicationController = new ApplicationController();
+        ApplicationFilterService applicationFilterService = new ApplicationFilterService();
         ProjectController projectController = new ProjectController(authenticationService);
-        EnquiryController enquiryController = new EnquiryController(session);
-        HDBOfficerController hdbOfficerController = new HDBOfficerController(session, authenticationService, applicationFilterService);
+        EnquiryController enquiryController = new EnquiryController();
+        HDBOfficerController hdbOfficerController = new HDBOfficerController();
         ReportController reportController = new ReportController(applicationFilterService);
         WithdrawalController withdrawalController = new WithdrawalController();
 

@@ -10,7 +10,6 @@ import java.util.List;
 
 public class HDBManager extends User{
     private List<Project> createdProjects = new ArrayList<>();
-    private List<HDBOfficer> Officers = new ArrayList<>();
     private Project currentProject;
 
     //constructors
@@ -22,14 +21,10 @@ public class HDBManager extends User{
 
     public List<Project> getCreatedProjects() {return createdProjects;}
 
-    public void setCreatedProjects(List<Project> createdProjects) {this.createdProjects = createdProjects;}
-
-    public List<HDBOfficer> getOfficers() {return Officers;}
-
-    public void setOfficers(List<HDBOfficer> officers) {Officers = officers;}
-
     public Project getCurrentProject() {return currentProject;}
+
     public void setCurrentProject(Project project) {this.currentProject = project;}
+
     public boolean hasActiveProject() {return currentProject!=null;}
 
 

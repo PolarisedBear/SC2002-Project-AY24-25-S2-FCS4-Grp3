@@ -19,9 +19,6 @@ public class HDBOfficer extends Applicant{
     private List<Application> applications = new ArrayList<>();
 
 
-    public HDBOfficer() {
-        super();
-    }
 
     public HDBOfficer(String name, String nric, int age, String maritalStatus, String password) {
         super(name, nric, age, maritalStatus, password);

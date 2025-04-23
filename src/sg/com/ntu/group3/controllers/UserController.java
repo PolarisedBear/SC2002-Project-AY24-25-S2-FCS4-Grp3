@@ -21,7 +21,6 @@ import java.util.Scanner;
 public class UserController extends UserView implements IUserService {
 
     private AuthenticationService authenticationService;
-    private Scanner scanner;
     private Session loginSession;
 
     /** Initialise a new userController by specifying the session and authentication service necessary for some of the methods used.
@@ -30,7 +29,6 @@ public class UserController extends UserView implements IUserService {
      */
     public UserController(Session session, AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
-        this.scanner = new Scanner(System.in);
         this.loginSession = session;
 
     }
