@@ -13,4 +13,5 @@ public interface IApplicationFilterService {
     List<Application> filterByAge(int minAge, int maxAge, List<Application> applicationList);
     List<Application> filterByFlatType(String flatType, List<Application> applicationList);
     Application filterByNRIC(String nric, List<Application> applications);
+
 }
