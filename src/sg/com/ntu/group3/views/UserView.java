@@ -11,9 +11,6 @@ import java.util.Scanner;
 
 public class UserView {
     private static Scanner input = new Scanner(System.in);
-    public static void displayUserInfo(User user) {
-        System.out.println(user.getInfo());
-    };
 
     public static Map.Entry<String, String> updateUserInfoForm() {
         int choice = toUpdateInfoForm();

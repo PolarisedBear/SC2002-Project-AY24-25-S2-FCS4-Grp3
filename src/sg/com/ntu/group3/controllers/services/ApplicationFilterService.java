@@ -61,6 +61,7 @@ public class ApplicationFilterService implements IApplicationFilterService{
      * @param applications the list of applications to search from
      * @return the application belonging to the respective applicant, null if no matching application was found
      */
+    @Override
     public Application filterByNRIC(String nric, List<Application> applications) {
         return applications.stream()
                 .filter(appl -> appl.getApplicant()

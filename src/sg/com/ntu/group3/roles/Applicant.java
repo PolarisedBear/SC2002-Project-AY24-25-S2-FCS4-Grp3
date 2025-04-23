@@ -8,8 +8,6 @@ import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.Enquiry;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
-import sg.com.ntu.group3.views.ApplicationView;
-import sg.com.ntu.group3.views.EnquiryView;
 
 /** Applicant is a subclass of User, but with added attributes specific to it to help facilitate the applicant role capabilities.
  * <p>The applicant class represents the data stored for each applicant type user.

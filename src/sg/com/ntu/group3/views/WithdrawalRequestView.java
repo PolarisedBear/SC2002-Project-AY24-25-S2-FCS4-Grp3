@@ -15,9 +15,6 @@ public class WithdrawalRequestView implements View{
 
     }
 
-    public static void displayWithdrawalRequest(Application application) {};
-    public static void displayPendingRequests(List<WithdrawalRequest> requestList) {};
-    public static void showRequestStatus(WithdrawalRequest request) {};
     public static String showWithdrawalConfirmation(Applicant applicant) {
         ApplicationView.displayApplication(applicant.getApplication());
         System.out.println("Are you sure you want to withdraw? Y/N");

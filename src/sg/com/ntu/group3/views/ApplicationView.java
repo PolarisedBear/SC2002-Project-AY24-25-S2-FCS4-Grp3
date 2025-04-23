@@ -43,11 +43,7 @@ public class ApplicationView implements View {
         System.out.println(application.getProject());
     };
 
-    public static void showBookingForm(Application application, Applicant applicant) {
-        System.out.println("Application Successful. Proceed to Flat Booking");
-        System.out.println("Available Flats:");
 
-    };
     public static String showBookingForm(List<Application> applications) {
         System.out.println("Select an application from your assigned project to update booking");
         for (int i=0; i<applications.size(); i++) {

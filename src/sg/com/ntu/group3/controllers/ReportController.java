@@ -3,6 +3,7 @@ import java.util.*;
 
 
 import sg.com.ntu.group3.controllers.services.ApplicationFilterService;
+import sg.com.ntu.group3.controllers.services.IApplicationFilterService;
 import sg.com.ntu.group3.controllers.services.IReportService;
 import sg.com.ntu.group3.models.Application;
 import sg.com.ntu.group3.models.FlatType;
@@ -18,9 +19,9 @@ import sg.com.ntu.group3.views.View;
  *
  */
 public class ReportController implements View, IReportService {
-    private ApplicationFilterService applicationFilterService;
+    private IApplicationFilterService applicationFilterService;
 
-    public ReportController(ApplicationFilterService applicationFilterService) {
+    public ReportController(IApplicationFilterService applicationFilterService) {
         this.applicationFilterService = applicationFilterService;
     }
 
