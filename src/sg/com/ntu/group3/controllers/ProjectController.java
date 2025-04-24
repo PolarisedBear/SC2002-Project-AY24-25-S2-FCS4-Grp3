@@ -39,7 +39,7 @@ public class ProjectController implements IProjectService{
                 editProject(project);
                 break;
             case "3":
-                deleteProject();
+                deleteProject(manager);
                 break;
             default:
                 System.out.println("Cancelled");
@@ -192,12 +192,16 @@ public class ProjectController implements IProjectService{
     /** Method to delete a project. Includes querying the user for the project they wish to delete.
      *
      */
-    public void deleteProject() {
+    public void deleteProject(HDBManager manager) {
         Project deletedProject = ProjectView.showRemoveProjectForm();
         if (deletedProject != null) {
+            if (manager.getCurrentProject()==deletedProject) {
+                manager.setCurrentProject(null);
+            }
             deletedProject.setName(null);
             deletedProject.setVisible(false);
             Project.removeProject(deletedProject);
+            manager.getCreatedProjects().remove(deletedProject);
             View.showOperationOutcome("Deletion", true);
         } else {
             View.showOperationOutcome("Deletion", false);
