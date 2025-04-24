@@ -7,7 +7,6 @@ import sg.com.ntu.group3.controllers.services.AuthenticationService;
 import sg.com.ntu.group3.controllers.services.IProjectService;
 import sg.com.ntu.group3.models.FlatType;
 import sg.com.ntu.group3.models.Project;
-import sg.com.ntu.group3.roles.Applicant;
 import sg.com.ntu.group3.roles.HDBManager;
 import sg.com.ntu.group3.views.ProjectView;
 import sg.com.ntu.group3.views.View;
@@ -15,7 +14,7 @@ import sg.com.ntu.group3.views.View;
 /** Project Controller Class handling operations on projects
  * <p>Operations include: Filtering, Creating, Editing, Deleting</p>
  */
-public class ProjectController extends ProjectView implements IProjectService{
+public class ProjectController implements IProjectService{
 
     private AuthenticationService authenticationService;
 
@@ -134,12 +133,12 @@ public class ProjectController extends ProjectView implements IProjectService{
                         boolean successful;
                         switch (addOrRemove) {
                             case 0:
-                                name = ProjectView.showRemoveProjectFlatTypes(project);
+                                name = ProjectView.showRemoveProjectFlatTypes();
                                 successful = project.removeFlatType(name);
                                 ProjectView.showOperationOutcome(successful);
                                 break;
                             case 1:
-                                name = ProjectView.showAddProjectFlatTypes(project);
+                                name = ProjectView.showAddProjectFlatTypes();
                                 Integer number = ProjectView.AddFlatNumberForm();
                                 successful = project.addFlatType(name, number);
                                 ProjectView.showOperationOutcome(successful);
@@ -152,7 +151,7 @@ public class ProjectController extends ProjectView implements IProjectService{
                         project.setNeighbourhood(newAttribute);
                         break;
                     case "closedate":
-                        Date newCloseDate = ProjectView.showEditProjectCloseDate(project);
+                        Date newCloseDate = ProjectView.showEditProjectCloseDate();
                         project.setCloseDate(newCloseDate);
                         break;
                     case "visibility":
@@ -194,7 +193,7 @@ public class ProjectController extends ProjectView implements IProjectService{
      *
      */
     public void deleteProject() {
-        Project deletedProject = (Project) ProjectView.showRemoveProjectForm();
+        Project deletedProject = ProjectView.showRemoveProjectForm();
         if (deletedProject != null) {
             deletedProject.setName(null);
             deletedProject.setVisible(false);

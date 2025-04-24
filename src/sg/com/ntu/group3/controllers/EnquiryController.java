@@ -49,7 +49,7 @@ public class EnquiryController implements IEnquiryService{
             System.out.println("No enquiries found!");
             return;
         }
-        String choice = EnquiryView.showEditReplyAndDeleteMainApplicant();
+        String choice = EnquiryView.showEditViewAndDeleteMainApplicant();
         switch (choice) {
             case "1" -> EnquiryView.displayEnquiryList(applicant);
             case "2" -> {

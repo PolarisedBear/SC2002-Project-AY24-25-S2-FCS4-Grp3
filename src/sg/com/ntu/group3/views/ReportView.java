@@ -10,9 +10,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/** Report View class is responsible for printing manager and officer generated reports and receipts.
+ * <p>Includes methods for gathering user input to assist with report and receipt generation, such as filtering and application selection.</p>
+ *
+ */
 public class ReportView implements View{
     private static Scanner input = new Scanner(System.in);
 
+    /** Form to show the list of application to an officer's assigned project, and prompt for an applicant's NRIC from those applications
+     * @param officer The officer making the request
+     * @return The nric of the selected applicant
+     */
     public static String displayReceiptOptions(HDBOfficer officer) {
         System.out.println("List of applications to assigned project:\n");
         Project assignedProject = officer.getAssignedProject();
@@ -23,6 +31,11 @@ public class ReportView implements View{
         System.out.println("Enter the nric of the applicant to generate the receipt:");
         return input.nextLine();
     };
+
+    /** Form to gather user input for a selected project from the list of projects created by a manager.
+     * @param managerProjects The list of projects created by a given manager
+     * @return the project of choice, indicated by its index from the list.
+     */
     public static int generateReportForm(List<Project> managerProjects) {
         System.out.println("\n--- Your Projects ---");
         for (int i = 0; i < managerProjects.size(); i++) {
@@ -41,6 +54,10 @@ public class ReportView implements View{
 
         return projectChoice;
     };
+
+    /** Form to query the user for the number of applicants to be included in the report.
+     * @return the number indicated by the user's input.
+     */
     public static int reportFormApplicantQuery() {
         System.out.print("Enter number of applicants to include in the report: ");
         int count = 0;
@@ -53,6 +70,10 @@ public class ReportView implements View{
         }
         return count;
     }
+
+    /** Form to query the user for a choice of filter to apply to the applications used to generate the report
+     * @return user choice
+     */
     public static int reportFormFilterQuery() {
         System.out.println("Enter the filter to use:");
         System.out.println("0 (default). No Filter");
@@ -71,6 +92,9 @@ public class ReportView implements View{
         return choice;
     }
 
+    /** Form to query the user for the marital status of applicants to filter by. Used after reportFormFilterQuery.
+     * @return true to filter only married applicants. False for single applicants.
+     */
     public static boolean maritalStatusFilterQuery() {
         String choice = "";
         while (!choice.equalsIgnoreCase("m") && !choice.equalsIgnoreCase("s")) {
@@ -83,6 +107,9 @@ public class ReportView implements View{
         return choice.equalsIgnoreCase("m");
     }
 
+    /** Form to query the user for the age range of applicants to filter by. Used after reportFormFilterQuery.
+     * @return a map entry storing the minimum age and maximum age to filter by.
+     */
     public static Map.Entry<Integer, Integer> ageFilterQuery() {
         int lowerBound = 0;
         int upperBound = 0;
@@ -103,6 +130,9 @@ public class ReportView implements View{
         return Map.entry(lowerBound, upperBound);
     }
 
+    /** Form to query the user for the flat type to filter by. Used after reportFormFilterQuery.
+     * @return a string input from the user representing the name of the flat type to filter by.
+     */
     public static String flatTypeFilterQuery() {
         String choice = "";
         while (!FlatType.doesFlatTypeExist(choice)) {
@@ -113,6 +143,9 @@ public class ReportView implements View{
         return choice;
     }
 
+    /** Method to print the full details of an application receipt.
+     * @param details A map of all the details of an application to print.
+     */
     public static void displayReceipt(Map<String, String> details) {
         System.out.println("Application Receipt");
         View.lineSeparator();

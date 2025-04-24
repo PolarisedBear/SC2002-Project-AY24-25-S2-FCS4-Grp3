@@ -18,7 +18,7 @@ import java.util.Map;
  * <p>Such processes include logging in, and modifying user details.
  * This class does not handle any role-specific operations like application and registration.</p>
  */
-public class UserController extends UserView implements IUserService {
+public class UserController implements IUserService {
 
     private AuthenticationService authenticationService;
     private Session loginSession;
