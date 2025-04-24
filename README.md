@@ -16,20 +16,16 @@ The system simulates and manages the end-to-end process of Singapore’s Build-T
 ---
 
 ## Directory Structure
+- .idea: folder to store project libraries and gitignore
+- out: output folder
+- enums: package for enumerations
+- sg.com.ntu.group3: source files
+- controllers: package for high-level controller classes
+- services: package for interface services
+- models: package for persistence model classes
+- roles: package for user classes
+- views: package for view classes that interact with the user
 
-```
-SC2002-Project-main/
-├── controllers/         # Control logic for user roles and business flows
-├── views/               # CLI views handling user interaction
-├── models/              # Core business entities (Project, Application, Enquiry, etc.)
-├── roles/               # Applicant, HDBOfficer, HDBManager classes
-├── services/            # Service and interface abstractions
-├── data/                # CSV data files (persistent storage)
-├── Main.java            # Entry point to the system
-├── utils/               # Utilities for data parsing and formatting
-```
-
----
 
 ## User Roles and Functional Overview
 
