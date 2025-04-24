@@ -51,6 +51,8 @@ public class HDBOfficerController extends ApplicationController implements IOffi
                 Registration registeredProject = new Registration(project, officer);
                 officer.register(registeredProject);
                 View.showOperationOutcome("Registration", true);
+            } else {
+                View.showOperationOutcome("Registration", false);
             }
         } else {
             View.showOperationOutcome("Registration", false);
@@ -144,6 +146,9 @@ public class HDBOfficerController extends ApplicationController implements IOffi
      * @param officer The HDB Officer making the request.
      */
     public void viewRegistrationStatus(HDBOfficer officer) {
+        if (officer.getRegistrations().isEmpty()) {
+            System.out.println("No Registrations");
+        }
         for (Registration registration : officer.getRegistrations()) {
             System.out.println("Project: " + registration.getProject().getName() 
             + ", Status: " + registration.getStatus());
