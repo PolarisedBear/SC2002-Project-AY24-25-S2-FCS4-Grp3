@@ -80,7 +80,7 @@ SC2002-Project-main/
 ## UML Diagram
 
 - A comprehensive UML class diagram is included in `uml_colored_classdiagram.mmd`
-- Uses **Mermaid syntax**, Grouped by namespace (Views, Models, Controllers, Roles)
+- Uses **Mermaid syntax**, Grouped by namespace (Views, Models, Controllers, Roles, Enumeration)
 
 ---
 
