@@ -1,4 +1,4 @@
-# HDB BTO Application Management System
+# HDB BTO Application Management System (FCS4 GRP 3)
 
 This repository contains the full implementation of a CLI-based Java system designed for the **SC2002 Object-Oriented Design & Programming** module at **Nanyang Technological University (NTU)**.
 
