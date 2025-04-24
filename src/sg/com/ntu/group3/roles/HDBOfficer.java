@@ -76,7 +76,7 @@ public class HDBOfficer extends Applicant{
         .anyMatch(reg -> reg.getProject().equals(project));
 
         /*check if officer has a registration for the project */
-        if (assignedProject == project && !hasRegisteredForProject) {
+        if (assignedProject == project || hasRegisteredForProject) {
             System.out.println("officer cannot apply to his assigned project.");
             return false;
         }
