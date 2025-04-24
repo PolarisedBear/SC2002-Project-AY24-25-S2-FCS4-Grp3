@@ -79,9 +79,8 @@ SC2002-Project-main/
 
 ## UML Diagram
 
-- A comprehensive UML class diagram is included in `uml_colored_classdiagram.mmd`
-- Uses **Mermaid syntax**, Grouped by namespace (Views, Models, Controllers, Roles, Enumeration)
-- [UML class Diagram](https://www.mermaidchart.com/app/projects/c26eeb08-da84-4a8c-92fb-def5791c37e4/diagrams/252a44d1-8a9d-4fac-ab40-cbab9f2fc403/version/v0.1/edit)
+- A comprehensive UML class diagram is included in `SC2002 Group 3 UML Class Diagram.svg`
+- [View UML Class Diagram on Mermaid Chart for clarity](https://www.mermaidchart.com/app/projects/c26eeb08-da84-4a8c-92fb-def5791c37e4/diagrams/252a44d1-8a9d-4fac-ab40-cbab9f2fc403/version/v0.1/edit)
 
 ---
 
