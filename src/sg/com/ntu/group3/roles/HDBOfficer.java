@@ -52,10 +52,16 @@ public class HDBOfficer extends Applicant{
      * @return true if the officer can register for the project, false if they cannot.
      */
     public boolean canRegisterForProject(Project project) {
-        boolean hasRegisteredForProject = registrations.stream()
-        .anyMatch(reg -> reg.getProject().equals(project));
-        if (super.getApplication()==null && !hasRegisteredForProject) {return true;} else {
-            return !project.toString().equalsIgnoreCase(super.getApplication().getProject().toString());
+        try {
+            boolean hasRegisteredForProject = registrations.stream()
+                    .anyMatch(reg -> reg.getProject().equals(project));
+            if (super.getApplication() == null && !hasRegisteredForProject) {
+                return true;
+            } else {
+                return !project.toString().equalsIgnoreCase(super.getApplication().getProject().toString());
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
     }
 
