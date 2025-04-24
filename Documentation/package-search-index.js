@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"enums"},{"l":"sg.com.ntu.group3.controllers"},{"l":"sg.com.ntu.group3.controllers.services"},{"l":"sg.com.ntu.group3.models"},{"l":"sg.com.ntu.group3.roles"},{"l":"sg.com.ntu.group3.views"}];updateSearchResults();
